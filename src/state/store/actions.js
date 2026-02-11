@@ -5,6 +5,7 @@ import * as projectBarActions from "../project-bar/projectbarActions.js"
 import * as editorNavActions from "../editor/editorActions.js"
 import * as sequenceActions from "../sequences/sequenceActions.js"
 import * as chordActions from "../chords/chordActions.js"
+import * as historyActions from "../history/historyActions.js"
 
 export const actions = {
   ...appActions,
@@ -13,5 +14,6 @@ export const actions = {
   ...projectBarActions,
   ...editorNavActions,
   ...sequenceActions,
-  ...chordActions
+  ...chordActions,
+  ...historyActions
 }

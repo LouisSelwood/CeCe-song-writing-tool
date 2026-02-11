@@ -3,9 +3,10 @@ import {chordInitialState} from "../chords/chordState.js";
 import {editorInitialState} from "../editor/editorState.js";
 import {projectbarInitialState} from "../project-bar/projectbarState.js";
 import {sectionInitialState} from "../sections/sectionState.js";
-import {sequenceIntialState} from "../sequences/sequenceState.js"
-import {sidebarInitialState} from "../sidebar/sidebarState.js"
-import { windowInitialState } from "../windows/windowState.js"; 
+import {sequenceIntialState} from "../sequences/sequenceState.js";
+import {sidebarInitialState} from "../sidebar/sidebarState.js";
+import {windowInitialState} from "../windows/windowState.js"; 
+import {historyInitialState} from "../history/historyState.js";
 
 export const initialState = {
     app: appInitialState,
@@ -16,4 +17,5 @@ export const initialState = {
     sequences: sequenceIntialState,
     sideBar: sidebarInitialState,
     windows: windowInitialState,
+    history: historyInitialState,
 }
