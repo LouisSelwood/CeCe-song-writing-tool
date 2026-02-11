@@ -1,5 +1,5 @@
 export const sidebarInitialState = {
-    activeTab: null,
+    activeTab: "theory",
 
     //archive specific state information
     archive: {},
