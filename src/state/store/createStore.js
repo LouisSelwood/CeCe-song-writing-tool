@@ -6,7 +6,7 @@ export function createStore(initialState, actions, domain) {
   for (const [name, action] of Object.entries(actions)) {
     boundActions[name] = (...args) => {
       const fn = action(...args)
-      fn(state, domain, boundActions)
+      return fn(state, domain, boundActions)
     }
   }
 
