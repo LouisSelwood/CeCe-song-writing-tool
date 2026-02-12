@@ -30,24 +30,72 @@ store.actions.openWindow("Settings");
     // console.log(store.state.windows.byID);
 
 //===WINDOW DRAG TEST===//
+    // const focusedWindowID = store.state.windows.allIDs[0];
+    // console.log("===INITIAL WINDOW POSITION===");
+    // console.log(store.state.windows.byID[focusedWindowID]);
 
+    // console.log("===DRAG OBJECT CREATED===");
+    // store.actions.startDragMove(focusedWindowID, 100, 100);
+    // console.log(store.state.windows.drag);
 
-const focusedWindowID = store.state.windows.allIDs[0];
-console.log("===INITIAL WINDOW POSITION===");
-console.log(store.state.windows.byID[focusedWindowID]);
+    // console.log("===DRAG WINDOW TEST 1===");
+    // store.actions.dragWindowMove(400, 500);
+    // console.log(store.state.windows.byID[focusedWindowID]);
 
-console.log("===DRAG OBJECT CREATED===");
-store.actions.initialiseDrag(focusedWindowID, 100, 100);
-console.log(store.state.windows.drag);
+    // console.log("===DRAG WINDOW TEST 2===");
+    // store.actions.dragWindowMove(345, 50);
+    // console.log(store.state.windows.byID[focusedWindowID]);
 
-console.log("===DRAG WINDOW TEST 1===");
-store.actions.dragWindow(400, 500);
-console.log(store.state.windows.byID[focusedWindowID]);
+    // console.log("===END DRAG===")
+    // store.actions.endDragMove();
+    // console.log(store.state.windows.drag);
 
-console.log("===DRAG WINDOW TEST 2===");
-store.actions.dragWindow(345, 50);
-console.log(store.state.windows.byID[focusedWindowID]);
+    // console.log("===FOCUS ON ANOTHER WINDOW===")
+    // console.log(store.state.windows.order);
+    // store.actions.focusWindow(store.state.windows.allIDs[1]);
+    // console.log(store.state.windows.order);
+    // store.actions.focusWindow(store.state.windows.allIDs[0]);
+    // console.log(store.state.windows.order);
 
-console.log("===END DRAG===")
-store.actions.stopDrag();
-console.log(store.state.windows.drag);
+//===RESIZE WINDOW TESTS===//
+    // const focusedWindowID = store.state.windows.allIDs[0];
+    // //test X
+    // console.log(store.state.windows.byID[focusedWindowID]);
+    // console.log("===CREATE RESIZE DRAG X===");
+    // store.actions.startDragResize(focusedWindowID, "x", 100, 100);
+    // console.log(store.state.windows.resizeDrag);
+
+    // console.log("===RESIZE WIDTH===");
+    // store.actions.dragWindowResize(300, 400);
+    // console.log(store.state.windows.byID[focusedWindowID]);
+
+    // console.log("===END RESIZE DRAG X===");
+    // store.actions.endDragResize();
+    // console.log(store.state.windows.resizeDrag);
+
+    // //test Y
+    // console.log("===CREATE RESIZE DRAG Y===");
+    // store.actions.startDragResize(focusedWindowID, "y", 100, 100);
+    // console.log(store.state.windows.resizeDrag);
+
+    // console.log("===RESIZE HEIGHT===");
+    // store.actions.dragWindowResize(300, 400);
+    // console.log(store.state.windows.byID[focusedWindowID]);
+
+    // console.log("===END RESIZE DRAG Y===");
+    // store.actions.endDragResize();
+    // console.log(store.state.windows.resizeDrag);
+
+    // //test X+Y
+    // console.log("===CREATE RESIZE DRAG X+Y===");
+    // store.actions.startDragResize(focusedWindowID, "xy", 100, 100);
+    // console.log(store.state.windows.resizeDrag);
+
+    // console.log("===RESIZE X+Y===");
+    // store.actions.dragWindowResize(300, 400);
+    // console.log(store.state.windows.byID[focusedWindowID]);
+
+    // console.log("===END RESIZE X+Y===");
+    // store.actions.endDragResize();
+    // console.log(store.state.windows.resizeDrag);
+

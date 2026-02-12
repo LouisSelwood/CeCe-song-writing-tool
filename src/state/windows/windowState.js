@@ -5,4 +5,5 @@ export const windowInitialState = {
     allIDs: [],
     focusedWindowID: null,
     drag: {},
+    resizeDrag: null
 }

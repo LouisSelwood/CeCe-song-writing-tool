@@ -5,6 +5,11 @@ export function generateID() {
 export function moveWindow(state, id, delta) {
     const win = state.windows.byID[id];
     win.x = state.windows.drag.startWinX + delta.x;
-    win.y = state.windows.drag.startWinY + delta.y;
-    
+    win.y = state.windows.drag.startWinY + delta.y; 
+}
+
+export function resizeWindow(state, id, delta) {
+    const win = state.windows.byID[id];
+    win.width = state.windows.resizeDrag.startWidth + delta.x;
+    win.height = state.windows.resizeDrag.startHeight + delta.y;
 }

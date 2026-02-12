@@ -1,8 +1,15 @@
+//calls the domain logic for move window
 export const moveWindow = (id, delta) => (state, domain) => {
     domain.windows.moveWindow(state, id, delta);
 }
 
-export const initialiseDrag = (id, mouseX, mouseY) => (state) => {
+//calls the domain logic for resize window
+export const resizeWindow = (id, delta) => (state, domain) => {
+    domain.windows.resizeWindow(state, id, delta);
+}
+
+//triggered when a drag is started
+export const startDragMove = (id, mouseX, mouseY) => (state) => {
     state.windows.drag = {
         id,
         startMouseX: mouseX,
@@ -11,8 +18,20 @@ export const initialiseDrag = (id, mouseX, mouseY) => (state) => {
         startWinY: state.windows.byID[id].y,
     }
 }
+export const startDragResize = (id, axis, mouseX, mouseY) => (state, domain) => {
+    state.windows.resizeDrag = {
+        id,
+        axis,
+        startMouseX: mouseX,
+        startMouseY: mouseY,
+        startWidth: state.windows.byID[id].width,
+        startHeight: state.windows.byID[id].height,
 
-export const dragWindow = (mouseX, mouseY) => (state, domain, actions) => {
+    }
+}
+
+//updates window position with mouse position
+export const dragWindowMove = (mouseX, mouseY) => (state, domain, actions) => {
     const drag = state.windows.drag;
     if(drag === null) return;
 
@@ -21,13 +40,31 @@ export const dragWindow = (mouseX, mouseY) => (state, domain, actions) => {
     actions.moveWindow(drag.id, { x: dx, y: dy })
 
 }
+export const dragWindowResize = (mouseX, mouseY) => (state, domain, actions) =>{
+    const drag = state.windows.resizeDrag
+    if(drag === null) return;
 
-export const stopDrag = () => (state) => {
-    state.windows.drag = {};
+    var dx = 0;
+    var dy = 0;
+    if(drag.axis === "x") {
+        dx = mouseX - drag.startMouseX;
+    } else if(drag.axis === "y") {
+    dy = mouseY - drag.startMouseY;
+    } else{
+        dx = mouseX - drag.startMouseX;
+        dy = mouseY - drag.startMouseY;
+    }
+    actions.resizeWindow(drag.id, {x: dx, y: dy})
 }
-export const resizeWindow = (id, delta) => (state, domain) => {
-    //domain logic goes in here
+
+//ends and resets drag for move
+export const endDragMove = () => (state) => {
+    state.windows.drag = null;
 }
+export const endDragResize = () => (state) => {
+    state.windows.resizeDrag = null;
+}
+
 export const maximiseWindow = (id) => (state, domain) => {
     //domain logic goes in here
 }
