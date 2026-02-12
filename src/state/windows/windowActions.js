@@ -2,6 +2,15 @@ export const moveWindow = (id, delta) => (state, domain) => {
     domain.windows.moveWindow(state, id, delta);
 }
 
+export const initialiseDrag = (id, mouseX, mouseY) => (state) => {
+    state.windows.drag = {
+        id,
+        startMouseX: mouseX,
+        startMouseY: mouseY,
+        startWinX: state.windows.byID[id].x,
+        startWinY: state.windows.byID[id].y,
+    }
+}
 
 export const dragWindow = (mouseX, mouseY) => (state, domain, actions) => {
     const drag = state.windows.drag;
@@ -9,24 +18,12 @@ export const dragWindow = (mouseX, mouseY) => (state, domain, actions) => {
 
     const dx = mouseX - drag.startMouseX;
     const dy = mouseY - drag.startMouseY;
-    console.log(`drag: ${dx} : ${dy}`)
     actions.moveWindow(drag.id, { x: dx, y: dy })
 
 }
 
-export const commenceDrag = (id, mouseX, mouseY) => (state) => {
-    state.windows.drag = {
-        id,
-        startMouseX: mouseX,
-        startMouseY: mouseY,
-        x: state.windows.byID[id].x,
-        y: state.windows.byID[id].y,
-    }
-}
-
-
-export const endDrag = () => (state) => {
-    state.windows.drag = null;
+export const stopDrag = () => (state) => {
+    state.windows.drag = {};
 }
 export const resizeWindow = (id, delta) => (state, domain) => {
     //domain logic goes in here

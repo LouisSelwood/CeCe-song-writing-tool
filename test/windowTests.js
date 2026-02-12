@@ -35,15 +35,9 @@ store.actions.openWindow("Settings");
 const focusedWindowID = store.state.windows.allIDs[0];
 console.log("===INITIAL WINDOW POSITION===");
 console.log(store.state.windows.byID[focusedWindowID]);
-// store.state.windows.drag = {
-//     id: focusedWindowID,
-//     startMouseX: 100,
-//     startMouseY: 100,
-//     startWinX: store.state.windows.byID[focusedWindowID].x,
-//     startWinY: store.state.windows.byID[focusedWindowID].y,
-// }
+
 console.log("===DRAG OBJECT CREATED===");
-store.actions.commenceDrag(focusedWindowID, 100, 100);
+store.actions.initialiseDrag(focusedWindowID, 100, 100);
 console.log(store.state.windows.drag);
 
 console.log("===DRAG WINDOW TEST 1===");
@@ -55,5 +49,5 @@ store.actions.dragWindow(345, 50);
 console.log(store.state.windows.byID[focusedWindowID]);
 
 console.log("===END DRAG===")
-store.actions.endDrag();
+store.actions.stopDrag();
 console.log(store.state.windows.drag);
