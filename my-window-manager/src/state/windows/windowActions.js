@@ -26,6 +26,8 @@ export const startDragResize = (id, axis, mouseX, mouseY) => (state, domain) => 
         startMouseY: mouseY,
         startWidth: state.windows.byID[id].width,
         startHeight: state.windows.byID[id].height,
+        startWinX: state.windows.byID[id].x,
+        startWinY: state.windows.byID[id].y,
 
     }
 }
@@ -44,16 +46,13 @@ export const dragWindowResize = (mouseX, mouseY) => (state, domain, actions) =>{
     const drag = state.windows.resizeDrag
     if(drag === null) return;
 
-    var dx = 0;
-    var dy = 0;
-    if(drag.axis === "x") {
-        dx = mouseX - drag.startMouseX;
-    } else if(drag.axis === "y") {
-    dy = mouseY - drag.startMouseY;
-    } else{
-        dx = mouseX - drag.startMouseX;
-        dy = mouseY - drag.startMouseY;
-    }
+
+    const xAxis = ["ne","e","se","sw","w", "nw"]
+    const yAxis = ["n","ne","se","s","sw","nw"]
+
+    const dx = (xAxis.includes(drag.axis)) ?mouseX - drag.startMouseX :0
+    const dy = (yAxis.includes(drag.axis)) ?mouseY - drag.startMouseY :0
+
     actions.resizeWindow(drag.id, {x: dx, y: dy})
 }
 
@@ -94,8 +93,8 @@ export const openWindow = (type) => (state, domain) => {
     state.windows.byID[id] = {
         id,
         type,
-        x: 100,
-        y: 100,
+        x: Math.floor(Math.random() * 1200),
+        y: Math.floor(Math.random() * 400),
         width: 400,
         height: 300,
         focused: true,

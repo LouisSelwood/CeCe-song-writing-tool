@@ -12,6 +12,7 @@ export function createStore(initialState, actions, domain) {
 
   return {
     state,
-    actions: boundActions
+    actions: boundActions,
+    getState: () => state
   }
 }
