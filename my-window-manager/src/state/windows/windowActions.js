@@ -80,9 +80,9 @@ export const unmaximiseWindow = (id, mouseX, mouseY, innerWidth) => (state, doma
         
     }
 }
-export const minimiseWindow = (id) => (state, domain) => {
-    let win = {...state.windows.byID[id]}
-    win.minimised = true;
+export const popoutWindow = (id) => (state) =>{
+    let win = {...state.windows.byID[id]};
+    win.poppedOut = true;
     state.windows.byID[id] = win;
 }
 
@@ -117,13 +117,13 @@ export const openWindow = (type) => (state, domain) => {
     state.windows.byID[id] = {
         id,
         type,
-        x: Math.floor(Math.random() * 1200),
-        y: Math.floor(Math.random() * 400),
+        x: Math.floor(Math.random() * 10),
+        y: Math.floor(Math.random() * 10),
         width: 600,
         height: 400,
         focused: true,
-        minimised: false,
-        maximised: false
+        maximised: false,
+        poppedOut: false,
     }
 
     //adds window to order and allIDs

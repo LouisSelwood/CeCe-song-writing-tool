@@ -1,0 +1,6 @@
+.desktop-surface {
+  width: 100%;
+  height: 100%;      /* ← THIS IS CRITICAL */
+  position: relative;
+  overflow: hidden;
+}

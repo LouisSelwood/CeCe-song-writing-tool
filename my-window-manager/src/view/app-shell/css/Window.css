@@ -1,0 +1,11 @@
+.window {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+html, body {
+  font-family: "Segoe UI", system-ui, sans-serif;
+  margin: 0;
+  padding: 0;
+}

@@ -1,3 +1,4 @@
+import "./css/WindowLayer.css";
 import { Window } from "./Window.jsx";
 import { useState, useEffect } from "react";
 
@@ -20,7 +21,7 @@ export function WindowLayer({ store }) {
 
 
   return (
-    <>
+    <div className="window-layer">
       {windows.order.map((id, index) => (
         <Window
           key={`${id}-${index}`}
@@ -28,6 +29,6 @@ export function WindowLayer({ store }) {
           id={id}
         />
       ))}
-    </>
+    </div>
   );
 }

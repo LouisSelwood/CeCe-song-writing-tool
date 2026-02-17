@@ -1,3 +1,6 @@
+import "./css/Window.css";
+import "./css/WindowContent.css";
+import { WindowContent } from "./WindowContent.jsx";
 import { useState, useEffect } from "react";
 
 
@@ -25,6 +28,7 @@ export function Window({ store, id }) {
 
   const windowStyle = {
     position: "absolute",
+    borderBottom: "1px solid #3e3e3e",
     left: win.maximised ? 0 : win.x,
     top: win.maximised ? 0 : win.y,
     width: win.maximised ? window.innerWidth : win.width,
@@ -33,6 +37,7 @@ export function Window({ store, id }) {
     borderRadius: 6,
     overflow: "hidden",
     cursor: cursor,
+    boxShadow: "0 16px 40px rgba(0, 0, 0, 0.45)"
   };
 
   const windowTabStyle = {
@@ -41,8 +46,7 @@ export function Window({ store, id }) {
     left: 0,
     width: "100%",
     height: store.state.windows.titleBarHeight,
-    backgroundColor: "#101010",
-    borderBottom: "1px solid #333",
+    backgroundColor: "#202020",
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
@@ -51,13 +55,14 @@ export function Window({ store, id }) {
     borderTopLeftRadius: 6,
     borderTopRightRadius: 6,
     boxSizing: "border-box",
-    overflow: "hidden"
+    overflow: "hidden",
+
+
   };
 
   function handleMouseMove(e){
     const edges = detectEdge(e);
     const axis = getEdge(edges);
-    console.log(cursor)
     if(axis !== "none"){
       setCursor(cursorMap[axis])
       
@@ -78,8 +83,9 @@ export function Window({ store, id }) {
     if(action === "maximise"){
       store.actions.maximiseWindow(id)
     }
-    if(action === "minimise"){
-      store.actions.minimiseWindow(id)
+    if(action === "popout"){
+      store.actions.popoutWindow(id)
+      window.api.popoutWindow(win)
     }
   }
   function handleMouseDown(e) {
@@ -98,6 +104,7 @@ export function Window({ store, id }) {
     }
 
     if(detectBar(e)){
+      console.log(`${win.id} Popped: ${win.poppedOut}`);
       store.actions.unmaximiseWindow(id, e.clientX, e.clientY, window.innerWidth)
       startMove(e);
     }
@@ -179,7 +186,7 @@ export function Window({ store, id }) {
   }
 
   return (
-    !win.minimised && (
+    !win.poppedOut && (
 
 
       <div
@@ -192,12 +199,20 @@ export function Window({ store, id }) {
           className="title-bar"
           style = {windowTabStyle}
         >
-          <div style={{ color: "white", fontSize: 20 }}>
+          <div style={{ 
+            display: "flex",
+            alignItems: "center",
+            gap: 8,
+            color: "white",
+            fontSize: 12,
+          }}>
+            <img src="/assets/Music.png" style={{ width: 14, height: 14 }} />
             {win.type}
           </div>
+
           <div style={{display: "flex", alignSelf: "flex-end", height: "100%", gap: 2, marginLeft: "auto"}}>
             <div 
-              data-action="minimise"
+              data-action="popout"
               style={{backgroundColor: "#6a6a6a59", width: 32, height: "100%"}}
             />
             <div 
@@ -212,8 +227,8 @@ export function Window({ store, id }) {
 
         </div>
 
-        <div className="content">
-          {/* render window content here */}
+        <div className="window-content">
+          <WindowContent store={store} id={id}/>
         </div>
       </div>
     )

@@ -1,0 +1,7 @@
+.window-content {
+  width: 100%;
+  height: 100%;
+  background: #52334a;
+  overflow: auto;      /* content can scroll internally if needed */
+  box-sizing: border-box;
+}

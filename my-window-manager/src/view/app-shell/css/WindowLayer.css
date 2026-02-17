@@ -1,0 +1,6 @@
+.window-layer {
+  width: 100%;
+  height: 100%;      /* ← ALSO CRITICAL */
+  position: relative;
+  overflow: hidden;
+}

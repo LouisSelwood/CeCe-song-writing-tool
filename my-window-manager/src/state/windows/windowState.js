@@ -6,5 +6,5 @@ export const windowInitialState = {
     focusedWindowID: null,
     drag: null,
     resizeDrag: null,
-    titleBarHeight: 32
+    titleBarHeight: 30
 }
