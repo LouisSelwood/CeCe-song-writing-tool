@@ -12,12 +12,10 @@
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },
+  "main": "./public/electron.js",
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "electron": "npm run start & electron ."
+    "electron": "concurrently \"npm start\" \"wait-on http://localhost:3000 && npx electron .\""
   },
   "eslintConfig": {
     "extends": [
@@ -38,6 +36,7 @@
     ]
   },
   "devDependencies": {
+    "concurrently": "^9.2.1",
     "wait-on": "^9.0.4"
   }
 }

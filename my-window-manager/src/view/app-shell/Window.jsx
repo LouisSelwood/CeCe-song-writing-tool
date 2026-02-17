@@ -30,7 +30,7 @@ export function Window({ store, id }) {
     width: win.maximised ? window.innerWidth : win.width,
     height: win.maximised ? window.innerHeight: win.height,
     backgroundColor: "#383838",
-    borderRadius: 12,
+    borderRadius: 6,
     overflow: "hidden",
     cursor: cursor,
   };
@@ -48,8 +48,8 @@ export function Window({ store, id }) {
     justifyContent: "space-between",
     color: "white",
     userSelect: "none",
-    borderTopLeftRadius: 12,
-    borderTopRightRadius: 12,
+    borderTopLeftRadius: 6,
+    borderTopRightRadius: 6,
     boxSizing: "border-box",
     overflow: "hidden"
   };
