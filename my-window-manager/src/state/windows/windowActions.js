@@ -10,6 +10,14 @@ export const resizeWindow = (id, delta) => (state, domain) => {
 
 //triggered when a drag is started
 export const startDragMove = (id, mouseX, mouseY) => (state) => {
+    if(state.windows.byID[id].maximised){
+        let win = {...state.windows.byID[id]}
+        win.maximised = false;
+        win.x = mouseX - (win.width/2)
+        win.y = mouseY - (state.windows.titleBarHeight/2)
+        state.windows.byID[id] = win;
+        
+    }
     state.windows.drag = {
         id,
         startMouseX: mouseX,
@@ -64,25 +72,38 @@ export const endDragResize = () => (state) => {
     state.windows.resizeDrag = null;
 }
 
-export const maximiseWindow = (id) => (state, domain) => {
-    //domain logic goes in here
+export const maximiseWindow = (id, innerWidth, innerHeight) => (state, domain) => {
+    let win = {...state.windows.byID[id]}
+    win.maximised = true;
+    state.windows.byID[id] = win;
 }
 export const minimiseWindow = (id) => (state, domain) => {
-    state.windows.byID[id].minimised = true;
+    let win = {...state.windows.byID[id]}
+    win.minimised = true;
+    state.windows.byID[id] = win;
 }
 
 export const focusWindow = (id) => (state, domain) => {
+    console.log(`${id} Clicked!`)
+
     //reset all windows to unfocused
     for (const key in state.windows.byID) {
-        state.windows.byID[key].focused = false;
+        const currwin = {...state.windows.byID[key]}
+        currwin.focused = false;
+        state.windows.byID[key] = currwin;
     }
 
-    state.windows.byID[id].focused = true;   //set current window to focused
+    //set current window to focused
+    const currwin = {...state.windows.byID[id]}
+    currwin.focused = true;
+    state.windows.byID[id] = currwin;
 
     //push window to front of order
-    const ordIndex = state.windows.order.indexOf(id);
-    if(ordIndex !== -1) state.windows.order.splice(ordIndex, 1);
-    state.windows.order.push(id);
+    const orderCopy = [...state.windows.order]
+    const ordIndex = orderCopy.indexOf(id);
+    if(ordIndex !== -1) orderCopy.splice(ordIndex, 1);
+    orderCopy.push(id);
+    state.windows.order = orderCopy;
 }
 
 export const openWindow = (type) => (state, domain) => {
@@ -95,10 +116,11 @@ export const openWindow = (type) => (state, domain) => {
         type,
         x: Math.floor(Math.random() * 1200),
         y: Math.floor(Math.random() * 400),
-        width: 400,
-        height: 300,
+        width: 600,
+        height: 400,
         focused: true,
         minimised: false,
+        maximised: false
     }
 
     //adds window to order and allIDs

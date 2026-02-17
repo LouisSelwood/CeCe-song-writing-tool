@@ -4,6 +4,7 @@ export const windowInitialState = {
     byID: {},
     allIDs: [],
     focusedWindowID: null,
-    drag: {},
-    resizeDrag: null
+    drag: null,
+    resizeDrag: null,
+    titleBarHeight: 32
 }

@@ -11,4 +11,6 @@ const store = createStore(initialState, actions, domain);
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(<AppShell store={store}/>);
 
-
+store.actions.openWindow("Chord Workshop");
+store.actions.openWindow("Song Editor");
+store.actions.openWindow("Settings");
