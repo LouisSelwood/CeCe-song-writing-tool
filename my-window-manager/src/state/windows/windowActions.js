@@ -10,14 +10,6 @@ export const resizeWindow = (id, delta) => (state, domain) => {
 
 //triggered when a drag is started
 export const startDragMove = (id, mouseX, mouseY) => (state) => {
-    if(state.windows.byID[id].maximised){
-        let win = {...state.windows.byID[id]}
-        win.maximised = false;
-        win.x = mouseX - (win.width/2)
-        win.y = mouseY - (state.windows.titleBarHeight/2)
-        state.windows.byID[id] = win;
-        
-    }
     state.windows.drag = {
         id,
         startMouseX: mouseX,
@@ -72,10 +64,21 @@ export const endDragResize = () => (state) => {
     state.windows.resizeDrag = null;
 }
 
-export const maximiseWindow = (id, innerWidth, innerHeight) => (state, domain) => {
+export const maximiseWindow = (id) => (state, domain) => {
     let win = {...state.windows.byID[id]}
     win.maximised = true;
     state.windows.byID[id] = win;
+}
+export const unmaximiseWindow = (id, mouseX, mouseY, innerWidth) => (state, domain) =>{
+    if(state.windows.byID[id].maximised){
+        let win = {...state.windows.byID[id]}
+        win.maximised = false;
+        const mousePos = mouseX/innerWidth;
+        win.x = mouseX - (win.width * mousePos)
+        win.y = mouseY - (state.windows.titleBarHeight/2)
+        state.windows.byID[id] = win;
+        
+    }
 }
 export const minimiseWindow = (id) => (state, domain) => {
     let win = {...state.windows.byID[id]}

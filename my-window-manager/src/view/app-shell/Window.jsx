@@ -76,7 +76,7 @@ export function Window({ store, id }) {
       store.actions.closeWindow(id);
     }
     if(action === "maximise"){
-      store.actions.maximiseWindow(id, window.innerWidth, window.innerHeight)
+      store.actions.maximiseWindow(id)
     }
     if(action === "minimise"){
       store.actions.minimiseWindow(id)
@@ -98,6 +98,7 @@ export function Window({ store, id }) {
     }
 
     if(detectBar(e)){
+      store.actions.unmaximiseWindow(id, e.clientX, e.clientY, window.innerWidth)
       startMove(e);
     }
 
