@@ -1,5 +1,9 @@
 import "./css/WindowContent.css";
 export function WindowContent({ store, id }) {
+  if (!store.state) {
+    return null; // or a loading spinner
+  }
+
   function unPopout() {
     if(store.state.windows.byID[id].poppedOut){
       console.log("UnPopped")
@@ -7,15 +11,13 @@ export function WindowContent({ store, id }) {
       window.electronAPI.closePopout(id);
     }
   }
-  function testState(){
 
-    dispatch({type: "Emily is Sweet"})
-  }
 
   function dispatch(patch){
     if(!!store.actions){
       Object.assign(store.state.windows.byID[id], patch);
     }else{
+      console.log("Popout State: ", store.state.windows.byID[id])
       store.dispatch("updateWindow", {id, patch});
     }
   }
@@ -25,13 +27,8 @@ export function WindowContent({ store, id }) {
       <div 
         style={{width: 60, height: 60, alignSelf: "center",justifySelf: "space-between", color: "white",fontSize: 12, display: "flex", backgroundColor: "indigo"}}
         onMouseDown={unPopout}>
-        
       </div>
-      <div 
-        style={{width: 60, height: 60, alignSelf: "center",justifySelf: "space-between", color: "white",fontSize: 12, display: "flex", backgroundColor: "blue"}}
-        onMouseDown={testState}>
-        
-      </div>
+      {store.state.windows.byID[id].type}
     </div>
   );
 }
