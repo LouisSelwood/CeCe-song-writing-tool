@@ -3,7 +3,7 @@ export function createStore(initialState, actions, domain) {
   let listeners = [];
 
   function notify() {
-    for (const fn of listeners) fn();
+    for (const fn of listeners) fn(state);
   }
 
   function subscribe(fn) {

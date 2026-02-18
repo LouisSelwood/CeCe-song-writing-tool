@@ -18,10 +18,12 @@ export function Window({ store, id }) {
     se: "nwse-resize",
     none: "default"
   };
+  const [buttonHover, setButtonHover] = useState({"close": false, "popout": false, "maximise": false})
 
   useEffect(() => {
     const unsub = store.subscribe(() => {
       setWin(store.getState().windows.byID[id]);
+      console.log(win.type, ": ", win.poppedOut);
     });
     return unsub;
   }, [store, id]);
@@ -61,8 +63,27 @@ export function Window({ store, id }) {
   };
 
   function handleMouseMove(e){
+
+    const action = e.target.dataset.action;
+    if (action) {
+      setCursor("default");
+      setButtonHover({
+        close: action === "close",
+        popout: action === "popout",
+        maximise: action === "maximise"
+      });
+      return;
+    }else{
+      setButtonHover({
+        close: false,
+        popout: false,
+        maximise: false
+      });
+    }
+
     const edges = detectEdge(e);
     const axis = getEdge(edges);
+
     if(axis !== "none"){
       setCursor(cursorMap[axis])
       
@@ -88,6 +109,7 @@ export function Window({ store, id }) {
       window.api.popoutWindow(win)
     }
   }
+
   function handleMouseDown(e) {
     const action = e.target.dataset.action;
     if (action) {
@@ -104,7 +126,6 @@ export function Window({ store, id }) {
     }
 
     if(detectBar(e)){
-      console.log(`${win.id} Popped: ${win.poppedOut}`);
       store.actions.unmaximiseWindow(id, e.clientX, e.clientY, window.innerWidth)
       startMove(e);
     }
@@ -210,18 +231,18 @@ export function Window({ store, id }) {
             {win.type}
           </div>
 
-          <div style={{display: "flex", alignSelf: "flex-end", height: "100%", gap: 2, marginLeft: "auto"}}>
+          <div style={{display: "flex", alignSelf: "flex-end", height: "100%", marginLeft: "auto"}}>
             <div 
               data-action="popout"
-              style={{backgroundColor: "#6a6a6a59", width: 32, height: "100%"}}
+              style={{backgroundColor: buttonHover["popout"] ? "#85858559": "#6a6a6a59", width: 49, height: "100%", justifyContent: 'center', alignItems: 'center'}}
             />
             <div 
               data-action="maximise"
-              style={{backgroundColor: "#6a6a6a59", width: 32, height: "100%"}}
+              style={{backgroundColor: buttonHover["maximise"] ? "#85858559": "#6a6a6a59", width: 48, height: "100%", justifyContent: 'center', alignItems: 'center'}}
             />
             <div 
               data-action="close"
-            style={{backgroundColor: "#6a6a6a59", width: 32, height: "100%"}}
+            style={{backgroundColor: buttonHover["close"] ? "#f8121259": "#6a6a6a59", width: 48, height: "100%", justifyContent: 'center', alignItems: 'center'}}
             />
           </div>
 

@@ -74,8 +74,8 @@ export const unmaximiseWindow = (id, mouseX, mouseY, innerWidth) => (state, doma
         let win = {...state.windows.byID[id]}
         win.maximised = false;
         const mousePos = mouseX/innerWidth;
-        win.x = mouseX - (win.width * mousePos)
-        win.y = mouseY - (state.windows.titleBarHeight/2)
+        win.x = Math.max(0,mouseX - (win.width * mousePos))
+        win.y = Math.max(0,mouseY - state.windows.projectBarHeight - (state.windows.titleBarHeight/2))
         state.windows.byID[id] = win;
         
     }
@@ -117,8 +117,8 @@ export const openWindow = (type) => (state, domain) => {
     state.windows.byID[id] = {
         id,
         type,
-        x: Math.floor(Math.random() * 10),
-        y: Math.floor(Math.random() * 10),
+        x: 0,
+        y: 0,
         width: 600,
         height: 400,
         focused: true,
@@ -142,3 +142,8 @@ export const closeWindow = (id) => (state, domain) => {
     const ordIndex = state.windows.order.indexOf(id);
     if (ordIndex !== -1) state.windows.order.splice(ordIndex, 1);
 }
+
+
+export const updateWindow = ({ id, patch }) => (state) => {
+  Object.assign(state.windows.byID[id], patch);
+};

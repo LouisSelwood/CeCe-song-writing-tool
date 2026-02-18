@@ -4,17 +4,22 @@ export function useSharedStore() {
   const [state, setState] = useState(null);
 
   useEffect(() => {
-    console.log("Shared Store Updated")
-    // 1. Get initial state from main window
-    window.api.getState().then(setState);
+    console.log("Shared Store Updated");
 
-    // 2. Listen for updates from main window
+    window.api.getState().then((initial) => {
+      setState(initial);
+    });
+
     window.api.onStateUpdate((newState) => {
       setState(newState);
     });
-    console.log(`State After Update ${typeof state}`);
-  }, [state]);
 
+  }, []);
+
+  // Log AFTER state updates
+  useEffect(() => {
+    console.log("State changed:", state);
+  }, [state]);
   // 3. Dispatch actions back to main window
   function dispatch(action, payload) {
     window.api.dispatch(action, payload);

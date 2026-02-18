@@ -7,3 +7,11 @@
   background: rgb(31, 31, 31) !important;
 
 }
+.project-bar {
+  background: #1e1e1e;
+  border-bottom: 1px solid #333;
+  flex-shrink: 0; /* prevents it from collapsing */
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+}
+
+

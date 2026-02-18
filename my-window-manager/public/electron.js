@@ -1,9 +1,10 @@
-console.log("YO")
+const popoutWindows = {};
+let mainWindow = null;
 const { app, BrowserWindow } = require('electron');
 const path = require('path');
 
 function createWindow() {
-  const win = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     title: "Ce-Ce",
     width: 1200,
     height: 800,
@@ -14,7 +15,8 @@ function createWindow() {
     }
   });
 
-  win.loadURL('http://localhost:5173');
+
+  mainWindow.loadURL('http://localhost:5173');
 }
 app.whenReady().then(createWindow);
 
@@ -34,11 +36,19 @@ function createPopoutWindow(win){
       contextIsolation: true,
     }
   });
-  popout.setMenu(null);
+  //popout.setMenu(null);
 
   // Load the popout renderer entry point
   popout.loadURL(`http://localhost:5173/popout.html?id=${win.id}`);
+
+  popoutWindows[win.id] = popout;
+
+  // ⭐ Clean up when closed
+  popout.on("closed", () => {
+    delete popoutWindows[win.id];
+  });
   return popout;
+
 }
 
 const { ipcMain } = require('electron');
@@ -49,21 +59,32 @@ let sharedState = null;
 
 ipcMain.on("store:init", (event, state) => {
   sharedState = state;
+  console.log(`Init Received State: ${sharedState}`)
+
 });
 
 ipcMain.on("store:update", (event, state) => {
   sharedState = state;
 
   // Broadcast to all popouts
-  BrowserWindow.getAllWindows().forEach(win => {
+  Object.values(popoutWindows).forEach((win, index) => {
     win.webContents.send("store:update", state);
   });
 });
 
-ipcMain.on("store:dispatch", (event, { action, payload }) => {
-  // Forward to main window
-  const mainWindow = BrowserWindow.getAllWindows()[0];
-  mainWindow.webContents.send("store:dispatch", { action, payload });
+ipcMain.on("store:dispatch", (event, data) => {
+  if (mainWindow && !mainWindow.isDestroyed()) {
+    mainWindow.webContents.send("store:dispatch", data);
+  }
 });
 
+
 ipcMain.handle("store:get", () => sharedState);
+
+
+ipcMain.handle("close-popout", (event, id) => {
+  const win = popoutWindows[id];
+  if (win && !win.isDestroyed()) {
+    win.close();
+  }
+});
