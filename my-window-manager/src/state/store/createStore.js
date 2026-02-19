@@ -2,10 +2,12 @@ export function createStore(initialState, actions, domain) {
   const state = structuredClone(initialState)
   let listeners = [];
 
+  //Publisher: notifies and/or updates each subscribed function/component when the state mutates.
   function notify() {
     for (const fn of listeners) fn(state);
   }
 
+  //Subscriber: subscribes a function to recieve updates of state changes from the publisher
   function subscribe(fn) {
     listeners.push(fn);
     return () => {
@@ -13,16 +15,17 @@ export function createStore(initialState, actions, domain) {
     };
   }
 
+  //binds the actions into a single dictionary
   const boundActions = {}
 
   for (const [name, action] of Object.entries(actions)) {
     boundActions[name] = (...args) => {
       const fn = action(...args);
 
-      // IMPORTANT: your actions mutate state directly
+      //actions mutate the state directly
       fn(state, domain, boundActions);
 
-      // notify React components
+      //triggers publisher
       notify();
     };
   }

@@ -51,37 +51,40 @@ function createPopoutWindow(win){
 
 }
 
+//IPC Handling
 const { ipcMain } = require('electron');
+
+//Receives IPC even for "popout-window" and creates a new electron window
 ipcMain.handle('popout-window', (event, win) => {
   createPopoutWindow(win);
 });
 let sharedState = null;
 
+//Broker: Receives initial state from index.jsx and stores it
 ipcMain.on("store:init", (event, state) => {
   sharedState = state;
-  console.log(`Init Received State: ${sharedState}`)
-
 });
 
+//invoked by useSharedState, returns state recieved from index.jsx above
+ipcMain.handle("store:get", () => sharedState);
+
+//Broker: listens for IPC event "store:update" from index.jsx and forwards message to all popout windows
 ipcMain.on("store:update", (event, state) => {
   sharedState = state;
-
   // Broadcast to all popouts
   Object.values(popoutWindows).forEach((win, index) => {
     win.webContents.send("store:update", state);
   });
 });
 
+//Broker: listens for IPC event "store:dispatch" from useSharedStore.js and forwards message to the main window
 ipcMain.on("store:dispatch", (event, data) => {
   if (mainWindow && !mainWindow.isDestroyed()) {
     mainWindow.webContents.send("store:dispatch", data);
   }
 });
 
-
-ipcMain.handle("store:get", () => sharedState);
-
-
+//invoked by pop out window, closes the window
 ipcMain.handle("close-popout", (event, id) => {
   const win = popoutWindows[id];
   if (win && !win.isDestroyed()) {

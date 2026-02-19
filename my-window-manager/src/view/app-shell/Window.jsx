@@ -5,7 +5,17 @@ import { useState, useEffect } from "react";
 
 
 export function Window({ store, id }) {
+  //Updates the state of the current window each time the store detects a change
   const [win, setWin] = useState(store.getState().windows.byID[id]);
+  useEffect(() => {
+    const unsub = store.subscribe(() => {
+      setWin(store.getState().windows.byID[id]);
+      console.log(win.type, ": ", win.poppedOut);
+    });
+    return unsub;
+  }, [store, id]);
+
+  //Cursor Logic
   const [cursor, setCursor] = useState("default");
   const cursorMap = {
     n: "ns-resize",
@@ -18,23 +28,18 @@ export function Window({ store, id }) {
     se: "nwse-resize",
     none: "default"
   };
+
+  //Holds the hover state of all buttons on the tab
   const [buttonHover, setButtonHover] = useState({"close": false, "popout": false, "maximise": false})
 
-  useEffect(() => {
-    const unsub = store.subscribe(() => {
-      setWin(store.getState().windows.byID[id]);
-      console.log(win.type, ": ", win.poppedOut);
-    });
-    return unsub;
-  }, [store, id]);
 
   const windowStyle = {
     position: "absolute",
     borderBottom: "1px solid #3e3e3e",
     left: win.maximised ? 0 : win.x,
     top: win.maximised ? 0 : win.y,
-    width: win.maximised ? window.innerWidth : win.width,
-    height: win.maximised ? window.innerHeight: win.height,
+    width: win.maximised ? window.innerWidth : win.width, //sets the width for window (factoring in whether the window is maximised)
+    height: win.maximised ? window.innerHeight: win.height, //sets the height for window (factoring in whether the window is maximised)
     backgroundColor: "#383838",
     borderRadius: 6,
     overflow: "hidden",
@@ -62,8 +67,9 @@ export function Window({ store, id }) {
 
   };
 
+  //triggers when mouse moves over the window
   function handleMouseMove(e){
-
+    //sets hover state for tab buttons
     const action = e.target.dataset.action;
     if (action) {
       setCursor("default");
@@ -81,9 +87,11 @@ export function Window({ store, id }) {
       });
     }
 
+    //calculates which window edge (if any) the mouse is over
     const edges = detectEdge(e);
     const axis = getEdge(edges);
 
+    //handles cursor state
     if(axis !== "none"){
       setCursor(cursorMap[axis])
       
@@ -97,6 +105,7 @@ export function Window({ store, id }) {
 
   }
 
+  //executes button presses
   function handleButtonClick(action, id){
     if(action === "close"){
       store.actions.closeWindow(id);
@@ -110,14 +119,18 @@ export function Window({ store, id }) {
     }
   }
 
+  //When the mouse is clicked, decides which
   function handleMouseDown(e) {
+    store.actions.focusWindow(id)
+
+    //handles tab button presses
     const action = e.target.dataset.action;
     if (action) {
       handleButtonClick(action, id);
       return;
     }
 
-    store.actions.focusWindow(id)
+    //initiates resize
     const edges = detectEdge(e)
     const axis = getEdge(edges)
     if(axis !== "none") {
@@ -125,6 +138,7 @@ export function Window({ store, id }) {
       return;
     }
 
+    //initiates move
     if(detectBar(e)){
       store.actions.unmaximiseWindow(id, e.clientX, e.clientY, window.innerWidth)
       startMove(e);
@@ -132,41 +146,49 @@ export function Window({ store, id }) {
 
   }
   function startResize(axis, e){
+    //starts drag
     const startX = e.clientX;
     const startY = e.clientY;
     store.actions.startDragResize(id, axis, startX, startY)
 
+    //updates drag
     function handleMove(e){
       store.actions.dragWindowResize(e.clientX, e.clientY);
     }
+    //ends drag
     function handleUp(){
       store.actions.endDragResize();
       window.removeEventListener("mousemove", handleMove);
       window.removeEventListener("mouseup", handleUp);
     }
+    //adds listeners for the mouse
     window.addEventListener("mousemove", handleMove);
     window.addEventListener("mouseup", handleUp);
   }
 
   function startMove(e){
+    //starts drag
     const startX = e.clientX;
     const startY = e.clientY;
     store.actions.startDragMove(win.id, startX, startY);
 
+    //updates drag
     function handleMove(e) {
       store.actions.dragWindowMove(e.clientX, e.clientY);
     }
 
+    //ends drag
     function handleUp() {
       window.removeEventListener("mousemove", handleMove);
       window.removeEventListener("mouseup", handleUp);
       store.actions.endDragMove();
     }
+    //adds listeners for the mouse
     window.addEventListener("mousemove", handleMove);
     window.addEventListener("mouseup", handleUp);
   }
   
-
+  //returns which window edges the mouse is touching 
   function detectEdge(e){
     const rect = e.currentTarget.getBoundingClientRect();
     const x = e.clientX - rect.left;
@@ -183,6 +205,7 @@ export function Window({ store, id }) {
     }
   }
 
+  //converts detectEdge into compass axis
   function getEdge(edges){
     let dir = "";
     if (edges.onTop)    dir += "n";
@@ -195,6 +218,8 @@ export function Window({ store, id }) {
     return dir;
 
   }
+
+  //checks whether mouse is over the tab
   function detectBar(e){
     const rect = e.currentTarget.getBoundingClientRect();
     const y = e.clientY - rect.top;
@@ -207,7 +232,8 @@ export function Window({ store, id }) {
   }
 
   return (
-    !win.poppedOut && (
+    
+    !win.poppedOut && (  //hides the window if popped out
 
 
       <div
@@ -247,7 +273,7 @@ export function Window({ store, id }) {
           </div>
 
         </div>
-
+        {/*Renders The content of the window*/}
         <div className="window-content">
           <WindowContent store={store} id={id}/>
         </div>

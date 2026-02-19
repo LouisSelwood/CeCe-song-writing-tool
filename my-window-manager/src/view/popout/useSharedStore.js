@@ -4,26 +4,23 @@ export function useSharedStore() {
   const [state, setState] = useState(null);
 
   useEffect(() => {
-    console.log("Shared Store Updated");
 
+    //gets the initial state from the global store
     window.api.getState().then((initial) => {
       setState(initial);
     });
 
+    //Subscriber: recieves IPC event "store:update" from electron.js through API and updates sharedState
     window.api.onStateUpdate((newState) => {
       setState(newState);
     });
 
   }, []);
 
-  // Log AFTER state updates
-  useEffect(() => {
-    console.log("State changed:", state);
-  }, [state]);
-  // 3. Dispatch actions back to main window
+  //Publisher: calls API function that publishes action with topic "store:dispatch"
   function dispatch(action, payload) {
     window.api.dispatch(action, payload);
   }
 
-  return { state, dispatch };
+  return { state, dispatch }; //returns shared store
 }
