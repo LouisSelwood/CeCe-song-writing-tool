@@ -10,7 +10,6 @@ export function Window({ store, id }) {
   useEffect(() => {
     const unsub = store.subscribe(() => {
       setWin(store.getState().windows.byID[id]);
-      console.log(win.type, ": ", win.poppedOut);
     });
     return unsub;
   }, [store, id]);
@@ -233,7 +232,7 @@ export function Window({ store, id }) {
 
   return (
     
-    !win.poppedOut && (  //hides the window if popped out
+    !win.poppedOut && win.dockedPos === "none" && (  //hides the window if popped out
 
 
       <div

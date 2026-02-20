@@ -17,6 +17,12 @@ function createWindow() {
 
 
   mainWindow.loadURL('http://localhost:5173');
+
+  mainWindow.on("closed", () => {
+    Object.values(popoutWindows).forEach((win) => {
+      win.close()
+    })
+  })
 }
 app.whenReady().then(createWindow);
 
@@ -43,7 +49,7 @@ function createPopoutWindow(win){
 
   popoutWindows[win.id] = popout;
 
-  // ⭐ Clean up when closed
+  // Clean up when closed
   popout.on("closed", () => {
     delete popoutWindows[win.id];
   });

@@ -28,3 +28,16 @@ export function resizeWindow(state, id, delta) {
         win.height = state.windows.resizeDrag.startHeight + delta.y;
     }
 }
+
+export function resizeDock(state, dock, delta) {
+    const newDock = {...state.windows.docks[dock]};
+    if(dock === "left"){
+        newDock.size = Math.max(40,state.windows.dockDrag.startSize + delta);
+    }
+    else if(dock === "right" || dock === "bottom"){
+        newDock.size = Math.max(40,state.windows.dockDrag.startSize - delta);
+    }
+    state.windows.docks[dock] = newDock;
+    console.log(`size: ${state.windows.docks[dock].size}     delta: ${delta}`)
+}
+

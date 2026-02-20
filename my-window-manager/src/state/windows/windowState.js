@@ -6,6 +6,13 @@ export const windowInitialState = {
     focusedWindowID: null,
     drag: null,
     resizeDrag: null,
+    dockDrag: null,
     titleBarHeight: 30,
-    projectBarHeight: 60
+    projectBarHeight: 60,
+    docks: {
+        left: {size: 200, contentIDs: ["3"]},
+        right: {size: 200, contentIDs: ["3"]},
+        bottom: {size: 200, contentIDs: ["3"]}
+        
+    }
 }

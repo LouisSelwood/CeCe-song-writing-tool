@@ -6,7 +6,6 @@ export function WindowContent({ store, id }) {
 
   function unPopout() {
     if(store.state.windows.byID[id].poppedOut){
-      console.log("UnPopped")
       dispatch({poppedOut: false})
       window.electronAPI.closePopout(id);
     }
@@ -17,7 +16,6 @@ export function WindowContent({ store, id }) {
     if(!!store.actions){
       Object.assign(store.state.windows.byID[id], patch);
     }else{
-      console.log("Popout State: ", store.state.windows.byID[id])
       store.dispatch("updateWindow", {id, patch});
     }
   }

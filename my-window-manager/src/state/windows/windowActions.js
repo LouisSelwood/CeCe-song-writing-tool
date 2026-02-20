@@ -8,6 +8,10 @@ export const resizeWindow = (id, delta) => (state, domain) => {
     domain.windows.resizeWindow(state, id, delta);
 }
 
+export const resizeDock = (dock, delta) => (state, domain) => {
+    domain.windows.resizeDock(state, dock, delta)
+}
+
 //triggered when a drag is started
 export const startDragMove = (id, mouseX, mouseY) => (state) => {
     state.windows.drag = {
@@ -32,6 +36,20 @@ export const startDragResize = (id, axis, mouseX, mouseY) => (state, domain) => 
     }
 }
 
+export const startDockDrag = (dock, mousePos) => (state) => {
+    state.windows.dockDrag = {
+        dock,
+        startMousePos: mousePos,
+        startSize: state.windows.docks[dock].size,
+    }
+}
+
+export const dragDockResize = (mousePos) => (state, domain, actions) => {
+    const drag = state.windows.dockDrag;
+    if(drag === null) return;
+    const delta = mousePos - drag.startMousePos;
+    actions.resizeDock(drag.dock, delta);
+}
 //updates window position with mouse position
 export const dragWindowMove = (mouseX, mouseY) => (state, domain, actions) => {
     const drag = state.windows.drag;
@@ -62,6 +80,9 @@ export const endDragMove = () => (state) => {
 }
 export const endDragResize = () => (state) => {
     state.windows.resizeDrag = null;
+}
+export const endDockResize = () => (state) => {
+    state.windows.dockDrag = null
 }
 
 export const maximiseWindow = (id) => (state, domain) => {
@@ -124,6 +145,7 @@ export const openWindow = (type) => (state, domain) => {
         focused: true,
         maximised: false,
         poppedOut: false,
+        dockedPos: "none"
     }
 
     //adds window to order and allIDs

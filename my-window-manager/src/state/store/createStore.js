@@ -25,7 +25,7 @@ export function createStore(initialState, actions, domain) {
       //actions mutate the state directly
       fn(state, domain, boundActions);
 
-      //triggers publisher
+      //calls publisher
       notify();
     };
   }

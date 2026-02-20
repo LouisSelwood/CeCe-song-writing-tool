@@ -3,4 +3,5 @@
   height: 100%;      /* ← ALSO CRITICAL */
   position: relative;
   overflow: hidden;
+  pointer-events: none;
 }
