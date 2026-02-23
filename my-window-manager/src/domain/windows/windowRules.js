@@ -45,3 +45,43 @@ export function resizeDock(state, dock, delta) {
     console.log(`size: ${state.windows.docks[dock].size}     delta: ${delta}`)
 }
 
+export function transition(state, id, event) {
+    const win = {...state.windows.byID[id]};
+    switch (win.state) {
+        case "normal":
+            if (event === "START_MOVE") win.state = "moving";
+            if (event === "START_RESIZE") win.state = "resizing";
+            if (event === "MAXIMISE") win.state = "maximised";
+            if (event === "DOCK") win.state = "docked";
+            if (event === "POP_OUT") win.state = "popped"
+            break;
+
+        case "moving":
+            if (event === "STOP") win.state = "normal";
+            if (event === "DOCK") win.state = "docked";
+            break;
+
+        case "resizing":
+            if (event === "STOP") win.state = "normal";
+            break;
+
+        case "docked":
+            if (event === "START_UNDOCK_DRAG") win.state = "undocking";
+            break;
+
+        case "undocking":
+            if(event === "STOP") win.state = "docked";
+            if (event === "UNDOCKED") win.state = "moving";
+            break;
+
+        case "maximised":
+            if (event === "RESTORE") win.state = "normal";
+            break;
+
+        case "popped":
+            if (event === "POP_IN") win.state = "normal";
+    }
+    state.windows.byID[id] = win;
+
+}
+

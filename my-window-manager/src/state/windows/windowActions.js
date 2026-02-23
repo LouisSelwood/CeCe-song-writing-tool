@@ -14,7 +14,8 @@ export const resizeDock = (dock, delta) => (state, domain) => {
 
 //START DRAG
 
-export const startDragMove = (id, mouseX, mouseY) => (state) => {
+export const startDragMove = (id, mouseX, mouseY) => (state, domain) => {
+    domain.windows.transition(state, id, "START_MOVE");
     state.windows.drag = {
         id,
         startMouseX: mouseX,
@@ -24,6 +25,7 @@ export const startDragMove = (id, mouseX, mouseY) => (state) => {
     }
 }
 export const startDragResize = (id, axis, mouseX, mouseY) => (state, domain) => {
+    domain.windows.transition(state, id, "START_RESIZE");
     state.windows.drag = {
         id,
         axis,
@@ -45,7 +47,8 @@ export const startDockDrag = (dock, mousePos) => (state) => {
     }
 }
 
-export const startUndockDrag = (id, dock, mouseX, mouseY) => (state) => {
+export const startUndockDrag = (id, dock, mouseX, mouseY) => (state,domain) => {
+    domain.windows.transition(state, id, "START_UNDOCK_DRAG")
     state.windows.drag = {
         id,
         dock,
@@ -61,6 +64,7 @@ export const undockDrag = (mouseX, mouseY) => (state, domain, actions) => {
     const distance = Math.sqrt(dx * dx + dy * dy);
     if(distance > 60){
         //initiates window undrag
+        domain.windows.transition(state, drag.id, "UNDOCKED")
         actions.undockWindow(drag.id);
         actions.windowToMouse(drag.id);
         const { x, y } = state.windows.mousePos;
@@ -101,21 +105,21 @@ export const dragWindowResize = (mouseX, mouseY) => (state, domain, actions) =>{
 }
 
 //END DRAG
-export const endDrag = () => (state) => {
-    console.log("end drag")
+export const endDrag = (type) => (state, domain) => {
+    if(type === "move" || type === "resize" || type === "undock"){
+        domain.windows.transition(state, state.windows.drag.id, "STOP")
+    }
     state.windows.drag = null;
 }
 
 //In React Window Actions
 export const maximiseWindow = (id) => (state, domain) => {
-    let win = {...state.windows.byID[id]}
-    win.maximised = true;
-    state.windows.byID[id] = win;
+    domain.windows.transition(state, id, "MAXIMISE")
 }
 export const unmaximiseWindow = (id, mouseX, mouseY, innerWidth) => (state, domain) =>{
-    if(state.windows.byID[id].maximised){
+    if(state.windows.byID[id].state === "maximised"){
+        domain.windows.transition(state, id, "RESTORE")
         let win = {...state.windows.byID[id]}
-        win.maximised = false;
         const mousePos = mouseX/innerWidth;
         win.x = Math.max(0,mouseX - (win.width * mousePos))
         win.y = Math.max(0,mouseY - state.windows.projectBarHeight - (state.windows.titleBarHeight/2))
@@ -123,10 +127,13 @@ export const unmaximiseWindow = (id, mouseX, mouseY, innerWidth) => (state, doma
         
     }
 }
-export const popoutWindow = (id) => (state) =>{
-    let win = {...state.windows.byID[id]};
-    win.poppedOut = true;
-    state.windows.byID[id] = win;
+export const popoutWindow = (id) => (state, domain) =>{
+    domain.windows.transition(state, id, "POP_OUT");
+}
+
+export const popinWindow = ({id}) => (state,domain) => {
+    domain.windows.transition(state, id, "POP_IN");
+    window.electronAPI.closePopout(id);
 }
 
 export const focusWindow = (id) => (state, domain) => {
@@ -165,9 +172,8 @@ export const openWindow = (type) => (state, domain) => {
         width: 600,
         height: 400,
         focused: true,
-        maximised: false,
-        poppedOut: false,
-        dockedPos: "none"
+        dockedPos: "none",
+        state: "normal"
     }
 
     //adds window to order and allIDs
@@ -235,13 +241,13 @@ export const updateWindow = ({ id, patch }) => (state) => {
   Object.assign(state.windows.byID[id], patch);
 };
 
-export const dockWindow = ({id, dock}) => (state) => {
+export const dockWindow = ({id, dock}) => (state, domain) => {
+    domain.windows.transition(state, id, "DOCK")
     const newDock = {...state.windows.docks[dock]}
     newDock.contentIDs.push(id);
     state.windows.docks[dock] = newDock;
     
     const newWin = {...state.windows.byID[id]}
     newWin.dockedPos = dock
-    newWin.poppedOut = false;
     state.windows.byID[id] = newWin;
 };

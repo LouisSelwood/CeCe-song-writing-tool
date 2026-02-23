@@ -35,14 +35,14 @@ export const scrollEditor = (x, y) => (state, domain) => {
   state.editor.scrollY = y
 }
 
-export const startDrag = (payload) => (state, domain) => {
+export const startEditorDrag = (payload) => (state, domain) => {
   state.editor.mode = "dragging"
   state.editor.dragState = payload
 }
 export const updateDrag = (payload) => (state, domain) => {
   state.editor.dragState = payload
 }
-export const endDrag = () => (state, domain) => {
+export const endEditorDrag = () => (state, domain) => {
   state.editor.mode = "idle"
   state.editor.dragState = null
 }

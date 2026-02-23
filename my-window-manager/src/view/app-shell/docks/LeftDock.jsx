@@ -9,7 +9,6 @@ export function LeftDock({ store }) {
     const [buttonHover, setButtonHover] = useState({close: false, undock: false});
     useEffect(() => {
         const unsub = store.subscribe(() => {
-            console.log("update")
             const newDock = store.getState().windows.docks.left;
         setDock(newDock);
 
@@ -76,7 +75,11 @@ export function LeftDock({ store }) {
             }
         }
         function handleUp(e) {
-            store.actions.endDrag();
+            if(store.state.windows.byID[action].dockedPos === "none"){
+                store.actions.endDrag("move");
+            }else{ 
+                store.actions.endDrag("undock");
+            }
             window.removeEventListener("mousemove", handleMove);
             window.removeEventListener("mouseup", handleUp);
         }
@@ -109,7 +112,7 @@ export function LeftDock({ store }) {
         }
         //ends drag
         function handleUp(){
-            store.actions.endDrag();
+            store.actions.endDrag("dockResize");
             window.removeEventListener("mousemove", handleMove);
             window.removeEventListener("mouseup", handleUp);
         }

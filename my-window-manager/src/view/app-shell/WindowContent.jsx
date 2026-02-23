@@ -1,13 +1,13 @@
 import "./css/WindowContent.css";
 export function WindowContent({ store, id }) {
+
   if (!store.state) {
     return null; // or a loading spinner
   }
 
   function unPopout() {
-    if(store.state.windows.byID[id].poppedOut){
-      dispatchWindow({poppedOut: false})
-      window.electronAPI.closePopout(id);
+    if(store.state.windows.byID[id].state === "popped"){
+      dispatchAction("popinWindow", {id});
     }
   }
 
@@ -39,7 +39,7 @@ export function WindowContent({ store, id }) {
         style={{width: 60, height: 60, alignSelf: "center",justifySelf: "space-between", color: "white",fontSize: 12, display: "flex", backgroundColor: "#2b5f3b", borderColor: "black", borderWidth: 4, borderRadius: 6}}
         onMouseDown={dockWindow}>
       </div>
-      {store.state.windows.byID[id].type}
+      {store.state.windows.byID[id].state}
     </div>
   );
 } 

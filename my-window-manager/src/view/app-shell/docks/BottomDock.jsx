@@ -9,7 +9,6 @@ export function BottomDock({ store }) {
     const [buttonHover, setButtonHover] = useState({close: false, undock: false});
     useEffect(() => {
         const unsub = store.subscribe(() => {
-            console.log("update")
             const newDock = store.getState().windows.docks.bottom;
             setDock(newDock);
 
@@ -19,7 +18,6 @@ export function BottomDock({ store }) {
 
     //handles mouse movement inside dock window
     function handleMouseMove(e){
-        console.log(iconHover)
         const action = e.target.dataset.action; 
         setIconHover(Object.fromEntries(dock.contentIDs.map(id => [id, false])))
         setButtonHover(
@@ -76,7 +74,11 @@ export function BottomDock({ store }) {
             }
         }
         function handleUp(e) {
-            store.actions.endDrag();
+            if(store.state.windows.byID[action].dockedPos === "none"){
+                store.actions.endDrag("move");
+            }else{ 
+                store.actions.endDrag("undock");
+            }
             window.removeEventListener("mousemove", handleMove);
             window.removeEventListener("mouseup", handleUp);
         }
@@ -109,9 +111,9 @@ export function BottomDock({ store }) {
         }
         //ends drag
         function handleUp(){
-            store.actions.endDrag();
+            store.actions.endDrag("dockResize");
             window.removeEventListener("mousemove", handleMove);
-            window.removeEventListener("mouseup", handleUp);
+            window.removeEventListener("mouseup", handleMove);
         }
         //adds listeners for the mouse
         window.addEventListener("mousemove", handleMove);

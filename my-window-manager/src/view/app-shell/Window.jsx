@@ -33,10 +33,10 @@ export function Window({ store, id }) {
 
 
   const windowStyleVariables = {
-    left: win.maximised ? 0 : win.x,
-    top: win.maximised ? 0 : win.y,
-    width: win.maximised ? window.innerWidth : win.width, //sets the width for window (factoring in whether the window is maximised)
-    height: win.maximised ? window.innerHeight: win.height, //sets the height for window (factoring in whether the window is maximised)
+    left: win.state === "maximised" ? 0 : win.x,
+    top: win.state === "maximised" ? 0 : win.y,
+    width: win.state === "maximised" ? window.innerWidth : win.width, //sets the width for window (factoring in whether the window is maximised)
+    height: win.state === "maximised" ? window.innerHeight: win.height, //sets the height for window (factoring in whether the window is maximised)
     cursor: cursor,
   };
 
@@ -44,7 +44,6 @@ export function Window({ store, id }) {
 
   //triggers when mouse moves over the window
   function handleMouseMove(e){
-
     //sets hover state for tab buttons
     const action = e.target.dataset.action;
     if (action) {
@@ -133,7 +132,7 @@ export function Window({ store, id }) {
     }
     //ends drag
     function handleUp(){
-      store.actions.endDrag();
+      store.actions.endDrag("resize");
       window.removeEventListener("mousemove", handleMove);
       window.removeEventListener("mouseup", handleUp);
     }
@@ -155,8 +154,10 @@ export function Window({ store, id }) {
 
     //ends drag
     function handleUp() {
+      console.log("Mouse up on window");
+      console.log("store.actions.stopDrag:", typeof store.actions.endDrag);
       const currDock = checkDocks();
-      store.actions.endDrag();
+      store.actions.endDrag("move");
       if(currDock !== "none"){
         console.log({id, currDock})
         store.actions.dockWindow({id, dock: currDock})
@@ -226,7 +227,7 @@ export function Window({ store, id }) {
   }
   return (
     
-    !win.poppedOut && win.dockedPos === "none" && (  //hides the window if popped out
+    (win.state !== "popped") && (win.dockedPos === "none") && (  //hides the window if popped out
 
 
       <div
