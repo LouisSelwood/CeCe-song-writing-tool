@@ -32,42 +32,19 @@ export function Window({ store, id }) {
   const [buttonHover, setButtonHover] = useState({"close": false, "popout": false, "maximise": false})
 
 
-  const windowStyle = {
-    position: "absolute",
-    borderBottom: "1px solid #3e3e3e",
+  const windowStyleVariables = {
     left: win.maximised ? 0 : win.x,
     top: win.maximised ? 0 : win.y,
     width: win.maximised ? window.innerWidth : win.width, //sets the width for window (factoring in whether the window is maximised)
     height: win.maximised ? window.innerHeight: win.height, //sets the height for window (factoring in whether the window is maximised)
-    backgroundColor: "#383838",
-    borderRadius: 6,
-    overflow: "hidden",
     cursor: cursor,
-    boxShadow: "0 16px 40px rgba(0, 0, 0, 0.45)"
   };
 
-  const windowTabStyle = {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    width: "100%",
-    height: store.state.windows.titleBarHeight,
-    backgroundColor: "#202020",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-    color: "white",
-    userSelect: "none",
-    borderTopLeftRadius: 6,
-    borderTopRightRadius: 6,
-    boxSizing: "border-box",
-    overflow: "hidden",
-
-
-  };
+  
 
   //triggers when mouse moves over the window
   function handleMouseMove(e){
+
     //sets hover state for tab buttons
     const action = e.target.dataset.action;
     if (action) {
@@ -156,7 +133,7 @@ export function Window({ store, id }) {
     }
     //ends drag
     function handleUp(){
-      store.actions.endDragResize();
+      store.actions.endDrag();
       window.removeEventListener("mousemove", handleMove);
       window.removeEventListener("mouseup", handleUp);
     }
@@ -178,9 +155,15 @@ export function Window({ store, id }) {
 
     //ends drag
     function handleUp() {
+      const currDock = checkDocks();
+      if(currDock !== "none"){
+        console.log({id, currDock})
+        store.actions.dockWindow({id, dock: currDock})
+
+      }
       window.removeEventListener("mousemove", handleMove);
       window.removeEventListener("mouseup", handleUp);
-      store.actions.endDragMove();
+      store.actions.endDrag();
     }
     //adds listeners for the mouse
     window.addEventListener("mousemove", handleMove);
@@ -230,6 +213,17 @@ export function Window({ store, id }) {
     }
   }
 
+  function checkDocks() {
+    const desktop = store.state.windows.mousePos;
+
+
+    // Now check edges
+    if (desktop.x < 60) return "left";
+    if (desktop.x > desktop.width - 60) return "right";
+    if (desktop.y > desktop.height - 60) return "bottom";
+
+    return "none";
+  }
   return (
     
     !win.poppedOut && win.dockedPos === "none" && (  //hides the window if popped out
@@ -237,13 +231,13 @@ export function Window({ store, id }) {
 
       <div
         className="window"
-        style={windowStyle}
+        style={windowStyleVariables}
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
       >
         <div 
-          className="title-bar"
-          style = {windowTabStyle}
+          className= "window-tab"
+          style = {{height: store.state.windows.titleBarHeight}}
         >
           <div style={{ 
             display: "flex",

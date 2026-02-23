@@ -1,4 +1,5 @@
 import "./css/Desktop.css";
+import {useEffect} from "react";
 import { WindowLayer } from "./WindowLayer.jsx";
 import {LeftDock} from "./docks/LeftDock.jsx";
 import {RightDock} from "./docks/RightDock.jsx";
@@ -9,6 +10,20 @@ import {SongEditor} from "../windows/song-editor/SongEditor.jsx"
  * Responsible for structure of Desktop Surface (different windows, etc)
  */
 export function Desktop({ store }) {
+
+  useEffect(() => {
+    function handleMove(e) {
+      let mousePos = {width: window.innerWidth, height: window.innerHeight, x: e.clientX, y: e.clientY};
+      store.state.windows.mousePos = mousePos;
+    
+    }
+
+    window.addEventListener("mousemove", handleMove);
+
+    return () => {
+      window.removeEventListener("mousemove", handleMove);
+    };
+  }, []);
 
   return (
     <div className="desktop-surface">

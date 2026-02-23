@@ -12,7 +12,8 @@ export const resizeDock = (dock, delta) => (state, domain) => {
     domain.windows.resizeDock(state, dock, delta)
 }
 
-//triggered when a drag is started
+//START DRAG
+
 export const startDragMove = (id, mouseX, mouseY) => (state) => {
     state.windows.drag = {
         id,
@@ -23,7 +24,7 @@ export const startDragMove = (id, mouseX, mouseY) => (state) => {
     }
 }
 export const startDragResize = (id, axis, mouseX, mouseY) => (state, domain) => {
-    state.windows.resizeDrag = {
+    state.windows.drag = {
         id,
         axis,
         startMouseX: mouseX,
@@ -37,20 +38,45 @@ export const startDragResize = (id, axis, mouseX, mouseY) => (state, domain) => 
 }
 
 export const startDockDrag = (dock, mousePos) => (state) => {
-    state.windows.dockDrag = {
+    state.windows.drag = {
         dock,
         startMousePos: mousePos,
         startSize: state.windows.docks[dock].size,
     }
 }
 
+export const startUndockDrag = (id, dock, mouseX, mouseY) => (state) => {
+    state.windows.drag = {
+        id,
+        dock,
+        startMouseX: mouseX,
+        startMouseY: mouseY,
+    }
+}
+
+export const undockDrag = (mouseX, mouseY) => (state, domain, actions) => {
+    const drag = state.windows.drag;
+    const dx = mouseX - drag.startMouseX;
+    const dy = mouseY - drag.startMouseY;
+    const distance = Math.sqrt(dx * dx + dy * dy);
+    if(distance > 60){
+        //initiates window undrag
+        actions.undockWindow(drag.id);
+        actions.windowToMouse(drag.id);
+        const { x, y } = state.windows.mousePos;
+        actions.startDragMove(drag.id, x, y);
+
+
+    }
+}
 export const dragDockResize = (mousePos) => (state, domain, actions) => {
-    const drag = state.windows.dockDrag;
+    const drag = state.windows.drag;
     if(drag === null) return;
     const delta = mousePos - drag.startMousePos;
     actions.resizeDock(drag.dock, delta);
 }
-//updates window position with mouse position
+
+//UPDATE DRAG
 export const dragWindowMove = (mouseX, mouseY) => (state, domain, actions) => {
     const drag = state.windows.drag;
     if(drag === null) return;
@@ -61,7 +87,7 @@ export const dragWindowMove = (mouseX, mouseY) => (state, domain, actions) => {
 
 }
 export const dragWindowResize = (mouseX, mouseY) => (state, domain, actions) =>{
-    const drag = state.windows.resizeDrag
+    const drag = state.windows.drag
     if(drag === null) return;
 
 
@@ -74,17 +100,12 @@ export const dragWindowResize = (mouseX, mouseY) => (state, domain, actions) =>{
     actions.resizeWindow(drag.id, {x: dx, y: dy})
 }
 
-//ends and resets drag for move
-export const endDragMove = () => (state) => {
+//END DRAG
+export const endDrag = () => (state) => {
     state.windows.drag = null;
 }
-export const endDragResize = () => (state) => {
-    state.windows.resizeDrag = null;
-}
-export const endDockResize = () => (state) => {
-    state.windows.dockDrag = null
-}
 
+//In React Window Actions
 export const maximiseWindow = (id) => (state, domain) => {
     let win = {...state.windows.byID[id]}
     win.maximised = true;
@@ -153,7 +174,13 @@ export const openWindow = (type) => (state, domain) => {
     state.windows.order.push(id);
 }
 export const closeWindow = (id) => (state, domain) => {
-    
+    const docked = state.windows.byID[id].dockedPos
+    if(docked !== "none"){
+        const newDock = {...state.windows.docks[docked]}
+        newDock.contentIDs = state.windows.docks[docked].contentIDs.filter(item => item !== id);
+        newDock.focusedID = null
+        state.windows.docks[docked] = newDock;
+    }
     delete state.windows.byID[id]; //deletes window from dictionary
 
     //deletes window from allIDs
@@ -163,9 +190,57 @@ export const closeWindow = (id) => (state, domain) => {
     //deletes window from order
     const ordIndex = state.windows.order.indexOf(id);
     if (ordIndex !== -1) state.windows.order.splice(ordIndex, 1);
+
 }
 
 
+export const updateMousePos = ({width, height, x, y}) => (state) => {
+    state.windows.mousePos = {
+        width,
+        height,
+        x,
+        y,
+    }
+}
+export const windowToMouse = (id) => (state) => {
+    let win = {...state.windows.byID[id]}
+    win.x = state.windows.mousePos.x - 60;
+    win.y = state.windows.mousePos.y - (state.windows.titleBarHeight*2.5);
+    state.windows.byID[id] = win;
+}
+
+//Dock Specific Actions
+export const switchDockWindow = (id, dock) => (state) => {
+    let newDock = {...state.windows.docks[dock]}
+    newDock.focusedID = id;
+    state.windows.docks[dock] = newDock;
+}
+export const undockWindow = (id) => (state) => {
+    let dock = {...state.windows.docks[state.windows.byID[id].dockedPos]};
+    let win = {...state.windows.byID[id]};
+    win.dockedPos = "none";
+    dock.contentIDs = dock.contentIDs.filter(item => item !== id);
+    dock.focusedID = null;
+    state.windows.docks[state.windows.byID[id].dockedPos] = dock;
+    state.windows.byID[id] = win;
+}
+
+
+
+
+//Below are actions called by the window content
+//The params for these yneed to be dicts in order for internal and external windows to call them
 export const updateWindow = ({ id, patch }) => (state) => {
   Object.assign(state.windows.byID[id], patch);
+};
+
+export const dockWindow = ({id, dock}) => (state) => {
+    const newDock = {...state.windows.docks[dock]}
+    newDock.contentIDs.push(id);
+    state.windows.docks[dock] = newDock;
+    
+    const newWin = {...state.windows.byID[id]}
+    newWin.dockedPos = dock
+    newWin.poppedOut = false;
+    state.windows.byID[id] = newWin;
 };

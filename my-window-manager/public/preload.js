@@ -3,7 +3,7 @@ const { contextBridge, ipcRenderer } = require('electron');
 
 contextBridge.exposeInMainWorld('api', {
   popoutWindow: (win) => ipcRenderer.invoke('popout-window', win),
-  
+
   send: (channel, data) => ipcRenderer.send(channel, data),
 
   getState: () => ipcRenderer.invoke("store:get"),
@@ -30,6 +30,8 @@ contextBridge.exposeInMainWorld('api', {
 
 })
 contextBridge.exposeInMainWorld("electronAPI", {
-  closePopout: (id) => ipcRenderer.invoke("close-popout", id)
+  closePopout: (id) => ipcRenderer.invoke("close-popout", id),
+  getAppBounds: () => ipcRenderer.invoke("get-app-bounds")
+
 });
 

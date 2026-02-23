@@ -1,13 +1,35 @@
 .window {
   position: absolute;
-  top: 0;
-  left: 0;
   pointer-events: auto;
+  user-select: none;
+
+  border-bottom: 1px solid #3e3e3e;
+  background-color: #383838;
+  border-radius: 6;
+  overflow: hidden;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
 }
 
+.window-tab {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #202020;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: white;
+  user-select: none;
+  border-top-left-radius: 6;
+  border-top-right-radius: 6;
+  box-sizing: border-box;
+  overflow: hidden;
+}
 html, body {
   font-family: "Segoe UI", system-ui, sans-serif;
   margin: 0;
   padding: 0;
 
 }
+

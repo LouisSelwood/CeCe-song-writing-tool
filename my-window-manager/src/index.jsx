@@ -25,6 +25,7 @@ store.subscribe((newState) => {
   window.api.send("store:update", newState);
 });
 
+
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <AppShell store={store} />
@@ -34,3 +35,5 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 store.actions.openWindow("Chord Workshop");
 store.actions.openWindow("Song Editor");
 store.actions.openWindow("Settings");
+
+//store.actions.dockWindow({id: store.state.windows.allIDs[0], dock: "left"})

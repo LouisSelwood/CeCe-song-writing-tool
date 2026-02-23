@@ -1,0 +1,53 @@
+.dock-container {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    background: red;
+    border: 3px solid black;
+}
+
+.bottom-dock-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    background: red;
+    border: 3px solid black;
+    flex-shrink: 0;
+}
+.icon-bar {
+    height: 100%;
+    width: 40px;
+    background-color: #2a2a2a ;
+    flex-shrink: 0;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.icon-box {
+    display: flex;
+    height: 40px;
+    width: 100%;
+    border: 2px solid red;
+    box-sizing: border-box;
+    color: white;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+}
+.content-container {
+    height: 100%; 
+    width: 100%;
+    background: #6f6f6f;
+}
+.dock-title-bar {
+    width: 100%;
+    height: 40px;
+    background: #393939;
+    margin-top: auto; 
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.wrapper {
+    display: contents;
+}

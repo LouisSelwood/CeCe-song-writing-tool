@@ -6,17 +6,30 @@ export function WindowContent({ store, id }) {
 
   function unPopout() {
     if(store.state.windows.byID[id].poppedOut){
-      dispatch({poppedOut: false})
+      dispatchWindow({poppedOut: false})
       window.electronAPI.closePopout(id);
     }
   }
 
+  function dockWindow(){
+    if(!store.actions){
+      window.electronAPI.closePopout(id);
+    }
+    dispatchAction("dockWindow", {id, dock: "left"})
+  }
 
-  function dispatch(patch){
+  function dispatchWindow(patch){
     if(!!store.actions){
       Object.assign(store.state.windows.byID[id], patch);
     }else{
       store.dispatch("updateWindow", {id, patch});
+    }
+  }
+  function dispatchAction(action, payload) {
+    if(!!store.actions){
+      store.actions[action](payload);
+    }else{
+      store.dispatch(action, payload)
     }
   }
 
@@ -26,7 +39,11 @@ export function WindowContent({ store, id }) {
         style={{width: 60, height: 60, alignSelf: "center",justifySelf: "space-between", color: "white",fontSize: 12, display: "flex", backgroundColor: "#2b5f3b", borderColor: "black", borderWidth: 4, borderRadius: 6}}
         onMouseDown={unPopout}>
       </div>
+      <div 
+        style={{width: 60, height: 60, alignSelf: "center",justifySelf: "space-between", color: "white",fontSize: 12, display: "flex", backgroundColor: "#2b5f3b", borderColor: "black", borderWidth: 4, borderRadius: 6}}
+        onMouseDown={dockWindow}>
+      </div>
       {store.state.windows.byID[id].type}
     </div>
   );
-}
+} 

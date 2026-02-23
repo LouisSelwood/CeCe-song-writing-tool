@@ -3,16 +3,15 @@ export const windowInitialState = {
     order: [],
     byID: {},
     allIDs: [],
+    mousePos: null,
     focusedWindowID: null,
     drag: null,
-    resizeDrag: null,
-    dockDrag: null,
     titleBarHeight: 30,
     projectBarHeight: 60,
     docks: {
-        left: {size: 200, contentIDs: ["3"]},
-        right: {size: 200, contentIDs: ["3"]},
-        bottom: {size: 200, contentIDs: ["3"]}
+        left: {size: 200, contentIDs: [], focusedID: null},
+        right: {size: 200, contentIDs: [], focusedID: null},
+        bottom: {size: 200, contentIDs: [], focusedID: null}
         
     }
 }
