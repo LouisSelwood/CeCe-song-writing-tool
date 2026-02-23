@@ -156,6 +156,7 @@ export function Window({ store, id }) {
     //ends drag
     function handleUp() {
       const currDock = checkDocks();
+      store.actions.endDrag();
       if(currDock !== "none"){
         console.log({id, currDock})
         store.actions.dockWindow({id, dock: currDock})
@@ -163,7 +164,6 @@ export function Window({ store, id }) {
       }
       window.removeEventListener("mousemove", handleMove);
       window.removeEventListener("mouseup", handleUp);
-      store.actions.endDrag();
     }
     //adds listeners for the mouse
     window.addEventListener("mousemove", handleMove);

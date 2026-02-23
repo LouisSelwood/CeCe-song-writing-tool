@@ -19,11 +19,7 @@ export function WindowContent({ store, id }) {
   }
 
   function dispatchWindow(patch){
-    if(!!store.actions){
-      Object.assign(store.state.windows.byID[id], patch);
-    }else{
-      store.dispatch("updateWindow", {id, patch});
-    }
+    dispatchAction("updateWindow", {id, patch});
   }
   function dispatchAction(action, payload) {
     if(!!store.actions){

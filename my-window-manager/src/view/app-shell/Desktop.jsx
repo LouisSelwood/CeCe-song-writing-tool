@@ -14,7 +14,7 @@ export function Desktop({ store }) {
   useEffect(() => {
     function handleMove(e) {
       let mousePos = {width: window.innerWidth, height: window.innerHeight, x: e.clientX, y: e.clientY};
-      store.state.windows.mousePos = mousePos;
+      store.actions.updateMousePos(mousePos);
     
     }
 

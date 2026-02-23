@@ -102,6 +102,7 @@ export const dragWindowResize = (mouseX, mouseY) => (state, domain, actions) =>{
 
 //END DRAG
 export const endDrag = () => (state) => {
+    console.log("end drag")
     state.windows.drag = null;
 }
 

@@ -11,7 +11,7 @@ export function moveWindow(state, id, delta) {
 }
 
 export function resizeWindow(state, id, delta) {
-    const win = state.windows.byID[id];
+    const win = {...state.windows.byID[id]}
     const minusX = ['nw','w','sw']
     const minusY= ['nw','n','ne']
     if(minusX.includes(state.windows.drag.axis)){
@@ -27,6 +27,7 @@ export function resizeWindow(state, id, delta) {
     }else{
         win.height = state.windows.drag.startHeight + delta.y;
     }
+    state.windows.byID[id] = win;
 }
 
 export function resizeDock(state, dock, delta) {
