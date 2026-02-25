@@ -26,7 +26,7 @@ export const editChord = (id, changes) => (state, domain) => {
 }
 export const deleteChord = (id) => (state, domain) => {
     //domain logic goes in here
-}
+} 
 export const moveChord = (id, delta) => (state, domain) => {
     //domain logic goes in here
 }

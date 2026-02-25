@@ -46,3 +46,9 @@ export const endEditorDrag = () => (state, domain) => {
   state.editor.mode = "idle"
   state.editor.dragState = null
 }
+
+export const setActiveEditor = (newEditor) => (state) => {
+  const editor = {...state.editor};
+  editor.activeEditor = newEditor;
+  state.editor = editor;
+}

@@ -1,0 +1,39 @@
+.outer-container {
+    width: 100%;
+    height: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    position: relative;
+
+}
+
+.inner-container {
+    display: inline-block;
+    min-width: 100%;
+}
+
+.scroll-wrapper {
+  width: 100%;
+  height: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.wrapper {
+    display: contents;
+}
+.view-buttons {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  z-index: 10; /* ensures they sit above the scroll area */
+}
+.view-button-container {
+    height: 60px;
+    background-color: goldenrod;
+    border: 1px solid black;
+}
