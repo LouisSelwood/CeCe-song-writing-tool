@@ -23,10 +23,13 @@ export function createStore(initialState, actions, domain) {
       const fn = action(...args);
 
       //actions mutate the state directly
-      fn(state, domain, boundActions);
+      const result = fn(state, domain, boundActions);
 
       //calls publisher
       notify();
+      
+      //return result if action returns a value
+      return result;
     };
   }
 

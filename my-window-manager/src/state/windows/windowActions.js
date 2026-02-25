@@ -24,6 +24,7 @@ export const startDragMove = (id, mouseX, mouseY) => (state, domain) => {
         startWinY: state.windows.byID[id].y,
     }
 }
+
 export const startDragResize = (id, axis, mouseX, mouseY) => (state, domain) => {
     domain.windows.transition(state, id, "START_RESIZE");
     state.windows.drag = {
@@ -58,19 +59,18 @@ export const startUndockDrag = (id, dock, mouseX, mouseY) => (state,domain) => {
 }
 
 export const undockDrag = (mouseX, mouseY) => (state, domain, actions) => {
+
     const drag = state.windows.drag;
     const dx = mouseX - drag.startMouseX;
     const dy = mouseY - drag.startMouseY;
     const distance = Math.sqrt(dx * dx + dy * dy);
-    if(distance > 60){
+    if(domain.windows.shouldUndock(distance)){
         //initiates window undrag
         domain.windows.transition(state, drag.id, "UNDOCKED")
         actions.undockWindow(drag.id);
         actions.windowToMouse(drag.id);
         const { x, y } = state.windows.mousePos;
         actions.startDragMove(drag.id, x, y);
-
-
     }
 }
 export const dragDockResize = (mousePos) => (state, domain, actions) => {
@@ -137,26 +137,7 @@ export const popinWindow = ({id}) => (state,domain) => {
 }
 
 export const focusWindow = (id) => (state, domain) => {
-    console.log(`${id} Clicked!`)
-
-    //reset all windows to unfocused
-    for (const key in state.windows.byID) {
-        const currwin = {...state.windows.byID[key]}
-        currwin.focused = false;
-        state.windows.byID[key] = currwin;
-    }
-
-    //set current window to focused
-    const currwin = {...state.windows.byID[id]}
-    currwin.focused = true;
-    state.windows.byID[id] = currwin;
-
-    //push window to front of order
-    const orderCopy = [...state.windows.order]
-    const ordIndex = orderCopy.indexOf(id);
-    if(ordIndex !== -1) orderCopy.splice(ordIndex, 1);
-    orderCopy.push(id);
-    state.windows.order = orderCopy;
+    domain.windows.focusWindow(state, id);
 }
 
 export const openWindow = (type) => (state, domain) => {
@@ -237,7 +218,8 @@ export const undockWindow = (id) => (state) => {
 
 //Below are actions called by the window content
 //The params for these yneed to be dicts in order for internal and external windows to call them
-export const updateWindow = ({ id, patch }) => (state) => {
+export const updateWindow = ({ id, patch }) => (state, domain) => {
+  domain.windows.validateWindowPatch(state.windows.byID[id], patch);
   Object.assign(state.windows.byID[id], patch);
 };
 
