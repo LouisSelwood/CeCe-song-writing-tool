@@ -6,10 +6,12 @@ import ReactDOM from "react-dom/client";
 import { AppShell } from "./view/app-shell/AppShell.jsx";
 import { createStore } from "./state/store/createStore.js";
 import { initialState } from "./state/store/initialState.js";
+import { selectors } from "./state/store/selectors.js";
 import { actions } from "./state/store/actions.js";
 import { domain } from "./domain/index.js";
 
-const store = createStore(initialState, actions, domain); //creates the global store
+
+const store = createStore(initialState, actions, selectors, domain); //creates the global store
 
 //sends initial state to the shared store (for popout windows)
 window.api.send("store:init", store.getState());

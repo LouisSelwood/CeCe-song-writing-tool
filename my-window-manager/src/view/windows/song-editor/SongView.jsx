@@ -55,7 +55,7 @@ export function SongView({ store }) {
 
             }
         }
-
+        //applies zoom balancing
         function lineUpScroll(e, zoomStrength){
             const container = containerRef.current;
             const rect = container.getBoundingClientRect();
@@ -92,9 +92,11 @@ export function SongView({ store }) {
         );
     }
 
+
     //references for components
     const contentRef = useRef(null);
     const containerRef = useRef(null);
+    
     return (
         <div className="songspace-container" ref={containerRef}> {/*Scrollable Area */}
             <div

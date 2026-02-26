@@ -40,8 +40,7 @@ export function WindowContent({ store, id }) {
   }
 
   function testerButton3(){
-    dispatchAction("duplicateSection", {sectionID: store.state.sections.allIDs[0]})
-    dispatchAction("gatherChords", {})
+    console.log(store.selectors.editor.selectActiveEditor(store.state));
   }
 
   function dispatchWindow(patch){

@@ -1,4 +1,4 @@
-export function createStore(initialState, actions, domain) {
+export function createStore(initialState, actions, selectors, domain) {
   const state = structuredClone(initialState)
   let listeners = [];
 
@@ -37,6 +37,7 @@ export function createStore(initialState, actions, domain) {
   return {
     state,
     actions: boundActions,
+    selectors: selectors,
     getState: () => state,
     subscribe
   }
