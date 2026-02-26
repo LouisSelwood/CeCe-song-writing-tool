@@ -1,21 +1,22 @@
 .outer-container {
     width: 100%;
     height: 100%;
-    overflow-x: auto;
     overflow-y: hidden;
     position: relative;
 
 }
 
 .inner-container {
-    display: inline-block;
-    min-width: 100%;
+    height: 100%;
+    width: 100%;     /* instead of min-width */
+    display: block;  /* instead of inline-block */
+    overflow: hidden; /* prevent accidental scroll */
+
 }
 
 .scroll-wrapper {
   width: 100%;
   height: 100%;
-  overflow-x: auto;
   overflow-y: hidden;
 }
 
@@ -36,4 +37,35 @@
     height: 60px;
     background-color: goldenrod;
     border: 1px solid black;
+}
+
+/* SongSpace.css */
+.songspace-container {
+  width: 100%;
+  height: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  position: relative;
+  background: #222;
+}
+
+.songspace-content {
+  position: relative;
+  height: 100%;
+}
+
+.songspace-bar-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.songspace-cursor {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: red;
 }

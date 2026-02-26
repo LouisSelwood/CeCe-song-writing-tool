@@ -19,9 +19,15 @@ export const editorInitialState = {
 
     //Song timeline navigation state
     playheadPosition: 0,       // in beats
+    zoomStrength: 0.05,
     zoomLevel: 1,              // 1 = 100%
     scrollX: 0,
     scrollY: 0,
+
+    numBars: 64,
+    beatsPerBar: 4,
+    beatWidth: 20,
+
 
     // Panels / UI layout
     leftPanelOpen: true,

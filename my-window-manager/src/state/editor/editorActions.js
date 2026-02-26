@@ -27,8 +27,10 @@ export const hoverSection = (id) => (state, domain) => {
 export const setPlayheadPosition = (position) => (state, domain) => {
   state.editor.playheadPosition = position
 }
-export const setZoomLevel = (zoom) => (state, domain) => {
-  state.editor.zoomLevel = zoom
+export const setZoom = (newZoom) => (state) => {
+  const editor = {...state.editor}
+  editor.zoomLevel = newZoom;
+  state.editor = editor;
 }
 export const scrollEditor = (x, y) => (state, domain) => {
   state.editor.scrollX = x
