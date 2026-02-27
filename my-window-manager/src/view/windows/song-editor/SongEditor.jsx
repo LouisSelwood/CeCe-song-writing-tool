@@ -21,7 +21,6 @@ export function SongEditor({ store }) {
             Object.keys(viewButtons).map(key => [key, key == action])
           )
         );
-        console.log(viewButtons)
       }else{ 
         //resets view buttons if none are hovered over
         setViewButtons(

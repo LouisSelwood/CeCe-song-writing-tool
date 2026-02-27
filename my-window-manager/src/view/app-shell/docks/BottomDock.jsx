@@ -67,6 +67,7 @@ export function BottomDock({ store }) {
         store.actions.startUndockDrag(action, "bottom", mouseX, mouseY);
 
         function handleMove(e){
+            console.log(store.state.windows.drag)
             if(store.state.windows.byID[action].dockedPos === "none"){
                 store.actions.dragWindowMove(e.clientX, e.clientY)
             }else{ 
@@ -111,9 +112,11 @@ export function BottomDock({ store }) {
         }
         //ends drag
         function handleUp(){
+            console.log(`before: ${store.state.windows.drag}`)
             store.actions.endDrag("dockResize");
+            console.log(`after: ${store.state.windows.drag}`)
             window.removeEventListener("mousemove", handleMove);
-            window.removeEventListener("mouseup", handleMove);
+            window.removeEventListener("mouseup", handleUp);
         }
         //adds listeners for the mouse
         window.addEventListener("mousemove", handleMove);

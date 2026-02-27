@@ -18,8 +18,9 @@ export const createEmptyLooseSequence = ({}) => (state, domain) => {
     state.sequences.allIDs.push(id);
 }
 
-export const createFullLooseSequence = ({chordIDs}) => (state, domain) => {
-    const {id, sequence} = domain.sequences.createFullSequence(chordIDs);
+export const createFullLooseSequence = ({chordIDs, tempo, timeSignature, rhythm}) => (state, domain) => {
+    console.log({chordIDs, tempo, timeSignature, rhythm })
+    const {id, sequence} = domain.sequences.createFullSequence(chordIDs, tempo, timeSignature, rhythm);
     state.sequences.byID[id] = sequence;
     state.sequences.allIDs.push(id);
 }

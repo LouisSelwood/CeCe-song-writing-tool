@@ -55,7 +55,7 @@ export function RightDock({ store }) {
         
         const onEdge = detectEdge(e);
 
-        if(onEdge){
+        if(onEdge && !action){
             startResize(e);
             return;
         }
@@ -146,6 +146,7 @@ export function RightDock({ store }) {
                             className="icon-box"
                             data-action={id}
                             style={{background: iconHover[id] ? "black" : "gray"}}
+                            draggable="false"
                         >
                             {store.state.windows.byID[id].type[0]}
                         </div>

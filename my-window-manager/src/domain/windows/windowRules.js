@@ -81,7 +81,6 @@ export function resizeDock(state, dock, delta) {
         newDock.size = Math.max(40,state.windows.drag.startSize - delta);
     }
     state.windows.docks[dock] = newDock;
-    console.log(`size: ${state.windows.docks[dock].size}     delta: ${delta}`)
 }
 
 export function shouldUndock(distance) {

@@ -1,11 +1,17 @@
 export class SequenceSegment {
   constructor({
     id,
+    tempo,
+    timeSignature,
+    rhythm,
     name = "Sequence",
     chordIDs = [],     // children (by ID)
     metadata = {},    
   }) {
     this.id = id;
+    this.tempo = tempo;
+    this.timeSignature = timeSignature;
+    this.rhythm = rhythm;
     this.name = name;
     this.chordIDs = chordIDs;
     this.metadata = metadata;
@@ -45,6 +51,9 @@ export class SequenceSegment {
     return {
       type: "ChordSequenceSegment",
       id: this.id,
+      tempo: this.tempo,
+      timeSignature: this.timeSignature,
+      rhythm: this.rhythm,
       name: this.name,
       chordIDs: [...this.chordIDs],
       metadata: { ...this.metadata },
@@ -65,8 +74,8 @@ export function createEmptySequence(){
   return {id: newSequence.id, sequence: newSequence.serialize()};
 }
 
-export function createFullSequence(chordIDs) {
-  const newSequence = new SequenceSegment({id: generateID()});
+export function createFullSequence(chordIDs, tempo, timeSignature, rhythm) {
+  const newSequence = new SequenceSegment({id: generateID(), tempo: tempo, timeSignature: timeSignature, rhythm: rhythm});
   newSequence.initiateChords(chordIDs);
   return {id: newSequence.id, sequence: newSequence.serialize()};
 }

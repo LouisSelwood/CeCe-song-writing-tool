@@ -6,6 +6,8 @@ export const createChord = ({parentID, params}) => (state, domain) => {
 }
 
 export const createLooseChord = ({params}) => (state, domain) =>{
+    console.log("===Chord Created===")
+    console.log(params);
     const {id, chord} = domain.chords.createChord(params);
     state.chords.byID[id] = chord;
     state.chords.allIDs.push(id);

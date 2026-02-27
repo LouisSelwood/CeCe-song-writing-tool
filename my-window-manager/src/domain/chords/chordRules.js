@@ -4,7 +4,7 @@ class ChordSegment {
         root,          // "C", "D#", "Gb"
         quality,       // "maj7", "min", "dim", "sus4", etc.
         extensions = [], // ["9", "#11"] etc.
-        duration = 1,  // in beats
+        duration = 1,  // in bars
         inversion = 0, // 0 = root position, 1 = first inversion, etc.
         metadata = {}, // optional: user notes, tags, model confidence, etc.
         }) {

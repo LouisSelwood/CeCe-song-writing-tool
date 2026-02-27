@@ -1,22 +1,42 @@
 export const selectSelectedChordID = (state) => state.editor.chordSelected;
-export const selectSelectedSequenceID = (state) => state.editor.sequenceSelected;
-export const selectSelectedSectionID = (state) => state.editor.sectionSelected;
 
-export const selectActiveEditor = (state) => state.editor.activeEditor;
-export const selectActiveTool = (state) => state.editor.activeTool;
+export const selectSongSpace = (state) => {
+    const song = state.sections.song;
+    const songSpace = []
+    let currentBeat = 0;
+    song.forEach((sectionID) => { 
+        const sequenceIDs = state.sections.byID[sectionID].sequenceIDs;
+        sequenceIDs.forEach((sequenceID) => {
+            const sequence = state.sequences.byID[sequenceID];
+            let sequenceLength = 0;
+            sequence.chordIDs.forEach((chordID) => {
+                sequenceLength += state.chords.byID[chordID].duration * sequence.timeSignature.numerator;
+            })
+            const songSpaceObj = {
+                id: sequenceID,
+                startBeat: currentBeat, 
+                endBeat: currentBeat+sequenceLength, 
+                tempo: sequence.tempo, 
+                timeSignature: sequence.timeSignature,
+                rhythm: sequence.rhythm
+            }
+            currentBeat = songSpaceObj.endBeat;
+            songSpace.push(songSpaceObj);
+        })
+    })
+    return songSpace;
+};
 
-export const selectHoveredChordID = (state) => state.editor.hoveredChordID;
-export const selectHoveredSequenceID = (state) => state.editor.hoveredSequenceID;
-export const selectHoveredSectionID = (state) => state.editor.hoveredSectionID;
+export const selectBaseWidth = (state) => {
+  const songSpace = selectSongSpace(state);
+  const globalBeatWidth = state.editor.beatWidth; // if beatWidth is global
 
-export const selectPlayheadPosition = (state) => state.editor.playheadPosition;
-export const selectZoomLevel = (state) => state.editor.zoomLevel;
-export const selectScroll = (state) => ({'x': state.editor.scrollX, 'y': state.editor.scrollY});
-
-export const selectEditorMode = (state) => state.editor.mode;
-export const selectDragState = (state) => state.editor.dragState;
-
-
+  return songSpace.reduce((acc, seq) => {
+    const beats = seq.endBeat - seq.startBeat;
+    const beatWidth = seq.rhythm?.beatWidth ?? globalBeatWidth;
+    return acc + beats * beatWidth;
+  }, 0);
+};
 
 
 
