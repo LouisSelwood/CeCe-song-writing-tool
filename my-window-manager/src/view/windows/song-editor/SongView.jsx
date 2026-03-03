@@ -12,7 +12,7 @@ export function SongView({ store }) {
     }, [store]);
 
     const baseWidth = store.selectors.editor.selectBaseWidth(store.state);    //base width of the song space
-
+    console.log(baseWidth)
     const totalWidth = baseWidth * editorState.zoomLevel;                     //width of the song factoring in zoom level
 
     //references needed as these values need to be accessable in a useEffect which only updates on load

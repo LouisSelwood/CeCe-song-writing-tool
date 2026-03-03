@@ -1,3 +1,5 @@
+
+
 export const selectChord = (id) => (state, domain) => {
     state.editor.chordSelected = id;
     state.editor.sequenceSelected = null;

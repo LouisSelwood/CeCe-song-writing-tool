@@ -13,30 +13,29 @@ export class SectionSegment {
 
   // --- Domain behaviour ---
 
-  getSequenceIDs(){
-    return this.sequenceIDs;
+  moveSequence(sequenceID, pos) {
+    const currentIndex = this.sequenceIDs.indexOf(sequenceID);
+    if (currentIndex === -1) return;
+
+    this.sequenceIDs.splice(currentIndex, 1);
+    const newPos = Math.max(0, Math.min(pos, this.sequenceIDs.length));
+    this.sequenceIDs.splice(newPos, 0, sequenceID);
   }
-  setSequences(newSequenceIDs){
-    this.sequenceIDs = newSequenceIDs;
-  }
-  addSequence(sequenceID) {
+
+  addSequenceAtEnd(sequenceID) {
     this.sequenceIDs.push(sequenceID);
   }
 
-  insertSequenceAt(index, sequenceID) {
-    this.sequenceIDs.splice(index, 0, sequenceID);
+  addSequenceAtPos(sequenceID, pos) {
+    const newPos = Math.max(0, Math.min(pos, this.sequenceIDs.length));
+    this.sequenceIDs.splice(newPos, 0, sequenceID);
   }
 
   removeSequence(sequenceID) {
-    this.sequenceIDs = this.sequenceIDs.filter(id => id !== sequenceID);
-  }
-
-  moveSequence(sequenceID, newIndex) {
-    const oldIndex = this.sequenceIDs.indexOf(sequenceID);
-    if (oldIndex === -1) return;
-
-    this.sequenceIDs.splice(oldIndex, 1);
-    this.sequenceIDs.splice(newIndex, 0, sequenceID);
+    const index = this.sequenceIDs.indexOf(sequenceID);
+    if (index !== -1) {
+      this.sequenceIDs.splice(index, 1);
+    }
   }
 
   rename(newName) {
@@ -69,27 +68,15 @@ export function createEmptySection(type){
   return{id: newSection.id, section: newSection.serialize()};
 }
 
-export function createFullSection(type, sequenceIDs){
-  const newSection = new SectionSegment({id: generateID(), name: type})
-  newSection.setSequences(sequenceIDs);
-  return {id: newSection.id, section: newSection.serialize()};
-}
-
-export function duplicateSection(state, sectionID){
-  const newSection = SectionSegment.deserialize({...state.sections.byID[sectionID], id: generateID()})
-  console.log(`domain sequence: ${newSection.getSequenceIDs()}`)
-  return {id: newSection.id, section: newSection.serialize(), sequenceIDs: newSection.getSequenceIDs()}
-}
-
-export function addSequence(state, sectionID, sequenceID){
+export function addSequenceAtEnd(sectionID, sequenceID, state){
   const section = SectionSegment.deserialize(state.sections.byID[sectionID]);
-  section.addSequence(sequenceID)
-  return section.serialize();
+  section.addSequenceAtEnd(sequenceID);
+  return section
 }
 
-export function initiateSequences(state, sectionID, sequenceIDs){
-  const section = SectionSegment.deserialize(state.sections.byID[sectionID])
-  section.setSequences(sequenceIDs);
-  return section.serialize();
+export function addSequenceAtPos(sectionID, sequenceID, pos, state){
+  const section = SectionSegment.deserialize(state.sections.byID[sectionID]);
+  section.addSequenceAtPos(sequenceID, pos);
+  return section;
 }
- 
+

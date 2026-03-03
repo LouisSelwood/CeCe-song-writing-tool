@@ -3,6 +3,7 @@ export const appInitialState = {
     isReady: null,          // app finished booting
     isLoading: null,        // global loading indicator
     loadingMessage: null,    // optional text for loading screens
+    version: 0,
 
     // Theme + appearance
     theme: null,          // "light", "dark", "system"

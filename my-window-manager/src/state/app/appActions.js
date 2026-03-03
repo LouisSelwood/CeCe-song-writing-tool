@@ -68,3 +68,7 @@ export const closeCommandPalette = () => (state) => {
 export const setLastKeyPressed = (key) => (state) => {
   state.app.lastKeyPressed = key;
 }
+
+export const createNewProject = (name) => (state, domain) => {
+  state.project.currentProject = domain.project.createProject(name);
+}

@@ -6,6 +6,7 @@ import * as editorNavSelectors from "../editor/editorSelectors.js"
 import * as sequenceSelectors from "../sequences/sequenceSelectors.js"
 import * as chordSelectors from "../chords/chordSelectors.js"
 import * as sectionSelectors from "../sections/sectionSelectors.js"
+import * as projectSelectors from "../project/projectActions.js"
 
 export const selectors = {
   app: appSelectors,
@@ -15,5 +16,6 @@ export const selectors = {
   editor: editorNavSelectors,
   sequences: sequenceSelectors,
   chords: chordSelectors,
-  sections: sectionSelectors
+  sections: sectionSelectors,
+  project: projectSelectors,
 }

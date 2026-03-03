@@ -1,7 +1,7 @@
 export const selectSelectedChordID = (state) => state.editor.chordSelected;
 
 export const selectSongSpace = (state) => {
-    const song = state.sections.song;
+    const song = state.project.currentProject.songContents;
     const songSpace = []
     let currentBeat = 0;
     song.forEach((sectionID) => { 

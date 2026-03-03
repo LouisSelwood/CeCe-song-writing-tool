@@ -7,6 +7,7 @@ import * as sequenceActions from "../sequences/sequenceActions.js"
 import * as chordActions from "../chords/chordActions.js"
 import * as historyActions from "../history/historyActions.js"
 import * as sectionActions from "../sections/sectionActions.js"
+import * as projectActions from "../project/projectActions.js"
 
 export const actions = {
   ...appActions,
@@ -17,5 +18,6 @@ export const actions = {
   ...sequenceActions,
   ...sectionActions,
   ...chordActions,
-  ...historyActions
+  ...historyActions,
+  ...projectActions
 }

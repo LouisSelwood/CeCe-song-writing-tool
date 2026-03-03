@@ -1,7 +1,18 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 export function useSharedStore() {
   const [state, setState] = useState(null);
+  const subscribers = useRef(new Set());
+
+  function notifySubscribers(newState) {
+    subscribers.current.forEach((fn) => fn(newState));
+  }
+
+  function subscribe(fn) {
+    subscribers.current.add(fn);
+    return () => subscribers.current.delete(fn);
+  }
+
 
   useEffect(() => {
 
@@ -13,6 +24,8 @@ export function useSharedStore() {
     //Subscriber: recieves IPC event "store:update" from electron.js through API and updates sharedState
     window.api.onStateUpdate((newState) => {
       setState(newState);
+      notifySubscribers(newState);
+
     });
 
   }, []);
@@ -22,5 +35,5 @@ export function useSharedStore() {
     window.api.dispatch(action, payload);
   }
 
-  return { state, dispatch }; //returns shared store
+  return { state, dispatch, subscribe }; //returns shared store
 }

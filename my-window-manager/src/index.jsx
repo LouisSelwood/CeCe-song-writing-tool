@@ -13,6 +13,7 @@ import { domain } from "./domain/index.js";
 
 const store = createStore(initialState, actions, selectors, domain); //creates the global store
 
+store.actions.createNewProject("Don't Look Back In Anger");
 //sends initial state to the shared store (for popout windows)
 window.api.send("store:init", store.getState());
 

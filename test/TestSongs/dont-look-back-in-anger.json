@@ -1,0 +1,1269 @@
+{
+    "sections": [
+      {
+        "name": "Introduction",
+        "sequences": [
+          {
+            "tempo": 80,
+            "timeSignature": "4/4",
+            "rhythm": "normal",
+            "chords": [
+              {
+                "root": "C",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 1
+              },
+              {
+                "root": "F",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 1
+              }
+            ]
+          },
+          {
+            "tempo": 80,
+            "timeSignature": "4/4",
+            "rhythm": "normal",
+            "chords": [
+              {
+                "root": "C",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 1
+              },
+              {
+                "root": "F",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 1
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Verse",
+        "sequences": [
+          {
+            "tempo": 80,
+            "timeSignature": "4/4",
+            "rhythm": "normal",
+            "chords": [
+              {
+                "root": "C",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "G",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "A",
+                "quality": "Minor",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "E",
+                "quality": "Major",
+                "extensions": ["7"],
+                "duration": 0.5
+              },
+              {
+                "root": "F",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "G",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "C",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "A",
+                "quality": "Minor",
+                "extensions": [],
+                "duration": 0.25
+              },
+              {
+                "root": "G",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.25
+              }
+            ]
+          },
+          {
+            "tempo": 80,
+            "timeSignature": "4/4",
+            "rhythm": "normal",
+            "chords": [
+              {
+                "root": "C",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "G",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "A",
+                "quality": "Minor",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "E",
+                "quality": "Major",
+                "extensions": ["7"],
+                "duration": 0.5
+              },
+              {
+                "root": "F",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "G",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "C",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "A",
+                "quality": "Minor",
+                "extensions": [],
+                "duration": 0.25
+              },
+              {
+                "root": "G",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.25
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Prechorus",
+        "sequences": [
+          {
+            "tempo": 80,
+            "timeSignature": "4/4",
+            "rhythm": "normal",
+            "chords": [
+              {
+                "root": "F",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "F",
+                "quality": "Minor",
+                "extensions": ["6"],
+                "duration": 0.5
+              },
+              {
+                "root": "C",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 1
+              }
+            ]
+          },
+          {
+            "tempo": 80,
+            "timeSignature": "4/4",
+            "rhythm": "normal",
+            "chords": [
+              {
+                "root": "F",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "F",
+                "quality": "Minor",
+                "extensions": ["6"],
+                "duration": 0.5
+              },
+              {
+                "root": "C",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 1
+              }
+            ]
+          },
+          {
+            "tempo": 80,
+            "timeSignature": "4/4",
+            "rhythm": "normal",
+            "chords": [
+              {
+                "root": "F",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "F",
+                "quality": "Minor",
+                "extensions": ["6"],
+                "duration": 0.5
+              },
+              {
+                "root": "C",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 1
+              }
+            ]
+          },
+          {
+            "tempo": 80,
+            "timeSignature": "4/4",
+            "rhythm": "normal",
+            "chords": [
+              {
+                "root": "G",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 1
+              },
+              {
+                "root": "E/Ab",
+                "quality": "Major",
+                "extensions": ["7"],
+                "duration": 1
+              },
+              {
+                "root": "A",
+                "quality": "Minor",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "G",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "F",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 1
+              },
+              {
+                "root": "G",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 2
+              }
+              
+            ]
+          }
+
+        ]
+      },
+      {
+        "name": "Chorus",
+        "sequences": [
+          {
+            "tempo": 80,
+            "timeSignature": "4/4",
+            "rhythm": "normal",
+            "chords": [
+              {
+                "root": "C",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "G",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "A",
+                "quality": "Minor",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "E",
+                "quality": "Major",
+                "extensions": ["7"],
+                "duration": 0.5
+              },
+              {
+                "root": "F",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "G",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "C",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "A",
+                "quality": "Minor",
+                "extensions": [],
+                "duration": 0.25
+              },
+              {
+                "root": "G",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.25
+              }
+            ]
+          },
+          {
+            "tempo": 80,
+            "timeSignature": "4/4",
+            "rhythm": "normal",
+            "chords": [
+              {
+                "root": "C",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "G",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "A",
+                "quality": "Minor",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "E",
+                "quality": "Major",
+                "extensions": ["7"],
+                "duration": 0.5
+              },
+              {
+                "root": "F",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "G",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              }
+            ]
+          },
+          {
+            "tempo": 80,
+            "timeSignature": "4/4",
+            "rhythm": "normal",
+            "chords": [
+              {
+                "root": "C",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "G",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "A",
+                "quality": "Minor",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "E",
+                "quality": "Major",
+                "extensions": ["7"],
+                "duration": 0.5
+              },
+              {
+                "root": "F",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "G",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "C",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "A",
+                "quality": "Minor",
+                "extensions": [],
+                "duration": 0.25
+              },
+              {
+                "root": "G",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.25
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Verse",
+        "sequences": [
+          {
+            "tempo": 80,
+            "timeSignature": "4/4",
+            "rhythm": "normal",
+            "chords": [
+              {
+                "root": "C",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "G",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "A",
+                "quality": "Minor",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "E",
+                "quality": "Major",
+                "extensions": ["7"],
+                "duration": 0.5
+              },
+              {
+                "root": "F",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "G",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "C",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "A",
+                "quality": "Minor",
+                "extensions": [],
+                "duration": 0.25
+              },
+              {
+                "root": "G",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.25
+              }
+            ]
+          },
+          {
+            "tempo": 80,
+            "timeSignature": "4/4",
+            "rhythm": "normal",
+            "chords": [
+              {
+                "root": "C",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "G",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "A",
+                "quality": "Minor",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "E",
+                "quality": "Major",
+                "extensions": ["7"],
+                "duration": 0.5
+              },
+              {
+                "root": "F",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "G",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "C",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "A",
+                "quality": "Minor",
+                "extensions": [],
+                "duration": 0.25
+              },
+              {
+                "root": "G",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.25
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Prechorus",
+        "sequences": [
+          {
+            "tempo": 80,
+            "timeSignature": "4/4",
+            "rhythm": "normal",
+            "chords": [
+              {
+                "root": "F",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "F",
+                "quality": "Minor",
+                "extensions": ["6"],
+                "duration": 0.5
+              },
+              {
+                "root": "C",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 1
+              }
+            ]
+          },
+          {
+            "tempo": 80,
+            "timeSignature": "4/4",
+            "rhythm": "normal",
+            "chords": [
+              {
+                "root": "F",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "F",
+                "quality": "Minor",
+                "extensions": ["6"],
+                "duration": 0.5
+              },
+              {
+                "root": "C",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 1
+              }
+            ]
+          },
+          {
+            "tempo": 80,
+            "timeSignature": "4/4",
+            "rhythm": "normal",
+            "chords": [
+              {
+                "root": "F",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "F",
+                "quality": "Minor",
+                "extensions": ["6"],
+                "duration": 0.5
+              },
+              {
+                "root": "C",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 1
+              }
+            ]
+          },
+          {
+            "tempo": 80,
+            "timeSignature": "4/4",
+            "rhythm": "normal",
+            "chords": [
+              {
+                "root": "G",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 1
+              },
+              {
+                "root": "E/Ab",
+                "quality": "Major",
+                "extensions": ["7"],
+                "duration": 1
+              },
+              {
+                "root": "A",
+                "quality": "Minor",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "G",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "F",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 1
+              },
+              {
+                "root": "G",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 2
+              }
+              
+            ]
+          }
+
+        ]
+      },
+      {
+        "name": "Chorus Var1",
+        "sequences": [
+          {
+            "tempo": 80,
+            "timeSignature": "4/4",
+            "rhythm": "normal",
+            "chords": [
+              {
+                "root": "C",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "G",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "A",
+                "quality": "Minor",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "E",
+                "quality": "Major",
+                "extensions": ["7"],
+                "duration": 0.5
+              },
+              {
+                "root": "F",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "G",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "C",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "A",
+                "quality": "Minor",
+                "extensions": [],
+                "duration": 0.25
+              },
+              {
+                "root": "G",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.25
+              }
+            ]
+          },
+          {
+            "tempo": 80,
+            "timeSignature": "4/4",
+            "rhythm": "normal",
+            "chords": [
+              {
+                "root": "C",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "G",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "A",
+                "quality": "Minor",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "E",
+                "quality": "Major",
+                "extensions": ["7"],
+                "duration": 0.5
+              },
+              {
+                "root": "F",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "G",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "C",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "A",
+                "quality": "Minor",
+                "extensions": [],
+                "duration": 0.25
+              },
+              {
+                "root": "G",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.25
+              }
+            ]
+          }
+          
+        ]
+      },
+      {
+        "name": "Bridge",
+        "sequences": [
+          {
+            "tempo": 80,
+            "timeSignature": "4/4",
+            "rhythm": "normal",
+            "chords": [
+              {
+                "root": "F",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "F",
+                "quality": "Minor",
+                "extensions": ["6"],
+                "duration": 0.5
+              },
+              {
+                "root": "C",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 1
+              }
+            ]
+          },
+          {
+            "tempo": 80,
+            "timeSignature": "4/4",
+            "rhythm": "normal",
+            "chords": [
+              {
+                "root": "F",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "F",
+                "quality": "Minor",
+                "extensions": ["6"],
+                "duration": 0.5
+              },
+              {
+                "root": "C",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 1
+              }
+            ]
+          },
+          {
+            "tempo": 80,
+            "timeSignature": "4/4",
+            "rhythm": "normal",
+            "chords": [
+              {
+                "root": "F",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "F",
+                "quality": "Minor",
+                "extensions": ["6"],
+                "duration": 0.5
+              },
+              {
+                "root": "C",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 1
+              }
+            ]
+          },
+          {
+            "tempo": 80,
+            "timeSignature": "4/4",
+            "rhythm": "normal",
+            "chords": [
+              {
+                "root": "G",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 1
+              },
+              {
+                "root": "E/Ab",
+                "quality": "Major",
+                "extensions": ["7"],
+                "duration": 1
+              },
+              {
+                "root": "A",
+                "quality": "Minor",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "G",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "F",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 1
+              },
+              {
+                "root": "G",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 1
+              }
+              
+            ]
+          }
+
+        ]
+      },
+      {
+        "name": "Chorus Var1",
+        "sequences": [
+          {
+            "tempo": 80,
+            "timeSignature": "4/4",
+            "rhythm": "normal",
+            "chords": [
+              {
+                "root": "C",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "G",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "A",
+                "quality": "Minor",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "E",
+                "quality": "Major",
+                "extensions": ["7"],
+                "duration": 0.5
+              },
+              {
+                "root": "F",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "G",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "C",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "A",
+                "quality": "Minor",
+                "extensions": [],
+                "duration": 0.25
+              },
+              {
+                "root": "G",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.25
+              }
+            ]
+          },
+          {
+            "tempo": 80,
+            "timeSignature": "4/4",
+            "rhythm": "normal",
+            "chords": [
+              {
+                "root": "C",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "G",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "A",
+                "quality": "Minor",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "E",
+                "quality": "Major",
+                "extensions": ["7"],
+                "duration": 0.5
+              },
+              {
+                "root": "F",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "G",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "C",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "A",
+                "quality": "Minor",
+                "extensions": [],
+                "duration": 0.25
+              },
+              {
+                "root": "G",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.25
+              }
+            ]
+          }
+          
+        ]
+      },
+      {
+        "name": "Chorus Var1",
+        "sequences": [
+          {
+            "tempo": 80,
+            "timeSignature": "4/4",
+            "rhythm": "normal",
+            "chords": [
+              {
+                "root": "C",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "G",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "A",
+                "quality": "Minor",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "E",
+                "quality": "Major",
+                "extensions": ["7"],
+                "duration": 0.5
+              },
+              {
+                "root": "F",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "G",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "C",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "A",
+                "quality": "Minor",
+                "extensions": [],
+                "duration": 0.25
+              },
+              {
+                "root": "G",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.25
+              }
+            ]
+          },
+          {
+            "tempo": 80,
+            "timeSignature": "4/4",
+            "rhythm": "normal",
+            "chords": [
+              {
+                "root": "C",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "G",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "A",
+                "quality": "Minor",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "E",
+                "quality": "Major",
+                "extensions": ["7"],
+                "duration": 0.5
+              },
+              {
+                "root": "F",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 1
+              },
+              {
+                "root": "F",
+                "quality": "Minor",
+                "extensions": [],
+                "duration": 2
+              }
+            ]
+          }
+          
+        ]
+      },
+      {
+        "name": "Outro",
+        "sequences": [
+          {
+            "tempo": 80,
+            "timeSignature": "4/4",
+            "rhythm": "normal",
+            "chords": [
+              {
+                "root": "C",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "G",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "A",
+                "quality": "Minor",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "E",
+                "quality": "Major",
+                "extensions": ["7"],
+                "duration": 0.5
+              },
+              {
+                "root": "F",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "F",
+                "quality": "minor",
+                "extensions": [],
+                "duration": 0.5
+              },
+              {
+                "root": "C",
+                "quality": "Major",
+                "extensions": [],
+                "duration": 1
+              }
+            ]
+          }
+          
+          
+        ]
+      }
+
+    ]
+  }

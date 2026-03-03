@@ -18,31 +18,29 @@ export class SequenceSegment {
   }
 
   // --- Domain behaviour ---
+    moveChord(chordID, pos) {
+    const currentIndex = this.chordIDs.indexOf(chordID);
+    if (currentIndex === -1) return;
 
-  getChordIDs(){
-    return this.chordIDs;
+    this.chordIDs.splice(currentIndex, 1);
+    const newPos = Math.max(0, Math.min(pos, this.chordIDs.length));
+    this.chordIDs.splice(newPos, 0, chordID);
   }
-  initiateChords(initChords){
-    this.chordIDs = initChords;
-  }
-  addChord(chordID) {
+
+  addChordAtEnd(chordID) {
     this.chordIDs.push(chordID);
   }
 
-  insertChordAt(index, chordID) {
-    this.chordIDs.splice(index, 0, chordID);
+  addChordAtPos(chordID, pos) {
+    const newPos = Math.max(0, Math.min(pos, this.chordIDs.length));
+    this.chordIDs.splice(newPos, 0, chordID);
   }
 
   removeChord(chordID) {
-    this.chordIDs = this.chordIDs.filter(id => id !== chordID);
-  }
-
-  moveChord(chordID, newIndex) {
-    const oldIndex = this.chordIDs.indexOf(chordID);
-    if (oldIndex === -1) return;
-
-    this.chordIDs.splice(oldIndex, 1);
-    this.chordIDs.splice(newIndex, 0, chordID);
+    const index = this.chordIDs.indexOf(chordID);
+    if (index !== -1) {
+      this.chordIDs.splice(index, 1);
+    }
   }
 
   // --- Serialization ---
@@ -69,32 +67,19 @@ function generateID() {
   return "seq-" + Math.random().toString(36).slice(2);
 }
 
-export function createEmptySequence(){
-  const newSequence = new SequenceSegment({id: generateID()});
+export function createEmptySequence({tempo, timeSignature, rhythm}){
+  const newSequence = new SequenceSegment({id: generateID(), tempo, timeSignature, rhythm});
   return {id: newSequence.id, sequence: newSequence.serialize()};
 }
 
-export function createFullSequence(chordIDs, tempo, timeSignature, rhythm) {
-  const newSequence = new SequenceSegment({id: generateID(), tempo: tempo, timeSignature: timeSignature, rhythm: rhythm});
-  newSequence.initiateChords(chordIDs);
-  return {id: newSequence.id, sequence: newSequence.serialize()};
-}
-
-export function duplicateSequence(state, sequenceID){
-  const newSequence = SequenceSegment.deserialize({...state.sequences.byID[sequenceID], id: generateID()})
-  console.log(`domain chords: ${state.sequences.byID[sequenceID].chordIDs}`)
-  console.log(newSequence.serialize())
-  return {id: newSequence.id, sequence: newSequence.serialize(), chordIDs: newSequence.getChordIDs()}
-}
-
-export function addChord(state, sequenceID, chordID){
+export function addChordAtEnd(sequenceID, chordID, state){
   const sequence = SequenceSegment.deserialize(state.sequences.byID[sequenceID]);
-  sequence.addChord(chordID)
-  return sequence.serialize();
+  sequence.addChordAtEnd(chordID);
+  return sequence;
 }
 
-export function initiateChords(state, sequenceID, chordIDs){
-  const sequence = SequenceSegment.deserialize(state.sequences.byID[sequenceID])
-  sequence.initiateChords(chordIDs);
-  return sequence.serialize();
+export function addChordAtPos(sequenceID, chordID, pos, state){
+  const sequence = SequenceSegment.deserialize(state.sequences.byID[sequenceID]);
+  sequence.addChordAtPos(chordID, pos);
+  return sequence;
 }

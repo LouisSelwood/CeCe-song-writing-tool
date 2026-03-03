@@ -7,6 +7,7 @@ import {sequenceIntialState} from "../sequences/sequenceState.js";
 import {sidebarInitialState} from "../sidebar/sidebarState.js";
 import {windowInitialState} from "../windows/windowState.js"; 
 import {historyInitialState} from "../history/historyState.js";
+import { projectInitialState } from "../project/projectState.js";
 
 export const initialState = {
     app: appInitialState,
@@ -18,4 +19,5 @@ export const initialState = {
     sideBar: sidebarInitialState,
     windows: windowInitialState,
     history: historyInitialState,
+    project: projectInitialState,
 }

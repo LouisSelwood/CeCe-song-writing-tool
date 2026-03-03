@@ -27,7 +27,7 @@ export function createStore(initialState, actions, selectors, domain) {
 
       //calls publisher
       notify();
-      
+      state.app.version++;
       //return result if action returns a value
       return result;
     };
