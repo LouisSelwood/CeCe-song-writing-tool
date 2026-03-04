@@ -1,3 +1,12 @@
+/**
+ * 
+ * Pure builders for Song objects
+ * Return Song Objects to actions for them to be added to state
+ * Each can be called from ProjectActions.js
+ * Convert the domain specific song language into song objects
+ * 
+ */
+
 export function buildSectionFromDSL(sectionDSL, domain){
     let {id, section} = domain.sections.createEmptySection(sectionDSL.name);
     let sequences = [];
@@ -13,7 +22,6 @@ export function buildSectionFromDSL(sectionDSL, domain){
 }
 
 export function buildSequenceFromDSL(sequenceDSL, domain){
-
     let timeSignature = getTimeSig(sequenceDSL.timeSignature)
     let {id, sequence} = domain.sequences.createEmptySequence({
         tempo: sequenceDSL.tempo, 
@@ -36,6 +44,7 @@ export function buildChordFromDSL(chordDSL, domain){
     return {id, chord};
 }
 
+//converts time signature from text format to object
 function getTimeSig(timeSignature){
     const textTimeSignature = timeSignature.split("/")
     return {numerator: parseInt( textTimeSignature[0], 10), denominator: parseInt( textTimeSignature[1], 10)};

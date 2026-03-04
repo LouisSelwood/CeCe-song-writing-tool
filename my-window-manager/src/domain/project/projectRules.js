@@ -9,6 +9,9 @@ export class Project {
     this.metadata = metadata;
   }
 
+  getSectionIDs(){
+    return this.songContents;
+  }
   moveSection(sectionID, pos) {
     const currentIndex = this.songContents.indexOf(sectionID);
     if (currentIndex === -1) return;
@@ -52,16 +55,25 @@ export class Project {
 }
 
 export function createProject(projectName){
-    const project = new Project({name: projectName});
-    return project.serialize();
+  const project = new Project({name: projectName});
+  return project.serialize();
 }
 export function addSectionAtEnd(sectionID, state){
-    let project = Project.deserialize(state.project.currentProject)
-    project.addSectionAtEnd(sectionID);
-    return project.serialize();
+  let project = Project.deserialize(state.project.currentProject)
+  project.addSectionAtEnd(sectionID);
+  return project.serialize();
 }
 export function addSectionAtPos(sectionID, pos, state){
-    let project = Project.deserialize(state.project.currentProject)
-    project.addSectionAtPos(sectionID, pos);
-    return project.serialize();
+  let project = Project.deserialize(state.project.currentProject)
+  project.addSectionAtPos(sectionID, pos);
+  return project.serialize();
+}
+
+export function getSections(state){
+  const project = Project.deserialize(state.project.currentProject);
+  let sections = [];
+  project.getSectionIDs().forEach((sectionID) => {
+    sections.push(state.sections.byID[sectionID]);
+  })
+  return sections;
 }

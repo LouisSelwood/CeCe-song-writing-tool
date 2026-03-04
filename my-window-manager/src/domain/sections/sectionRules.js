@@ -13,6 +13,9 @@ export class SectionSegment {
 
   // --- Domain behaviour ---
 
+  getSequenceIDs(){
+    return this.sequenceIDs;
+  }
   moveSequence(sequenceID, pos) {
     const currentIndex = this.sequenceIDs.indexOf(sequenceID);
     if (currentIndex === -1) return;
@@ -71,12 +74,21 @@ export function createEmptySection(type){
 export function addSequenceAtEnd(sectionID, sequenceID, state){
   const section = SectionSegment.deserialize(state.sections.byID[sectionID]);
   section.addSequenceAtEnd(sequenceID);
-  return section
+  return section.serialize()
 }
 
 export function addSequenceAtPos(sectionID, sequenceID, pos, state){
   const section = SectionSegment.deserialize(state.sections.byID[sectionID]);
   section.addSequenceAtPos(sequenceID, pos);
-  return section;
+  return section.serialize();
+}
+
+export function getSequences(sectionID, state){
+  const section = SectionSegment.deserialize(state.sections.byID[sectionID]);
+  let sequences = [];
+  section.getSequenceIDs().forEach((sequenceID) => {
+    sequences.push(state.sequences.byID[sequenceID]);
+  })
+  return sequences;
 }
 

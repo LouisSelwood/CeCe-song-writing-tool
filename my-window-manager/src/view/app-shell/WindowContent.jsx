@@ -14,9 +14,16 @@ export function WindowContent({ store, id }) {
   }
 
   function testerButton(){
-    dispatchAction("initiateSong", {songDSL: song});
+    dispatchAction("initiateSection", {sectionDSL: song.sections[2]})
+    dispatchAction("initiateChord", {
+      chordDSL: {"root": "D",
+                "quality": "Minor",
+                "extensions": ['11'],
+                "duration": 0.5}, 
+      parentID: store.state.sequences.allIDs[0],
+      position: 1})
+    dispatchAction("getSongDescription", {});
   }
-
 
 
 

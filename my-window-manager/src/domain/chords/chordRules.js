@@ -17,7 +17,7 @@ class ChordSegment {
 
 
     toString() {
-        return `${this.root}${this.quality}${this.extensions.join("")}`;
+        return `${this.root} ${this.quality} ${this.extensions.join("")}`;
     }
 
     // --- Serialization ---
@@ -34,7 +34,7 @@ class ChordSegment {
     }
 
     static deserialize(data) {
-    return new ChordSegment(data);
+        return new ChordSegment(data);
   }
 }
 
@@ -45,4 +45,9 @@ function generateID() {
 export function createChord(params){ //params are root, quality, extensions, and duration
     const newChord = new ChordSegment({id: generateID(), ...params})
     return {id: newChord.id, chord: newChord.serialize()};
+}
+
+export function getChordAsString(chordID,state){
+    const chord = ChordSegment.deserialize(state.chords.byID[chordID]);
+    return chord.toString();
 }

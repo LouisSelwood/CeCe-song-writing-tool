@@ -18,7 +18,12 @@ export class SequenceSegment {
   }
 
   // --- Domain behaviour ---
-    moveChord(chordID, pos) {
+
+  getChordIDs(){
+    return this.chordIDs;
+  }
+
+  moveChord(chordID, pos) {
     const currentIndex = this.chordIDs.indexOf(chordID);
     if (currentIndex === -1) return;
 
@@ -75,11 +80,20 @@ export function createEmptySequence({tempo, timeSignature, rhythm}){
 export function addChordAtEnd(sequenceID, chordID, state){
   const sequence = SequenceSegment.deserialize(state.sequences.byID[sequenceID]);
   sequence.addChordAtEnd(chordID);
-  return sequence;
+  return sequence.serialize();
 }
 
 export function addChordAtPos(sequenceID, chordID, pos, state){
   const sequence = SequenceSegment.deserialize(state.sequences.byID[sequenceID]);
   sequence.addChordAtPos(chordID, pos);
-  return sequence;
+  return sequence.serialize();
+}
+
+export function getChords(sequenceID, state){
+  const sequence = SequenceSegment.deserialize(state.sequences.byID[sequenceID]);
+  let chords = [];
+  sequence.getChordIDs().forEach((chordID) => {
+    chords.push(state.chords.byID[chordID]);
+  })
+  return chords;
 }
