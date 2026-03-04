@@ -11,6 +11,7 @@ export function SequenceView({ store }) {
         });
         return unsub;
     }, [store.state.editor]);
+    
     const baseWidth = store.selectors.editor.selectBaseWidth(store.state);
     const totalWidth = baseWidth * editorState.zoomLevel;
 

@@ -14,7 +14,7 @@ export function WindowContent({ store, id }) {
   }
 
   function testerButton(){
-    dispatchAction("initiateSection", {sectionDSL: song.sections[2]})
+    dispatchAction("initiateSong", {songDSL: song})
     dispatchAction("getSongDescription", {});
   }
 
