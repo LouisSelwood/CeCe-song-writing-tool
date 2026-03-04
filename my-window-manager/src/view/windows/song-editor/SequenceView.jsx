@@ -1,8 +1,25 @@
-import "./SongEditor.css"
+import "./SongEditor.css";
+import buildBars from "../../components/buildBars.jsx";
+import { ZoomableScrollContainer } from "../shared-components/ZoomableScrollableContainer.jsx";
+import {useState, useRef, useEffect, useLayoutEffect} from "react";
+
 export function SequenceView({ store }) {
-  return (
-    <div style={{display: "flex", justifyContents: "center", alighItems: "center", color: "white", fontSize: 20, width: "10000px"}}>
-        sequence
-    </div>
-  );
+    const [editorState, setEditorState] = useState(store.state.editor)
+    useEffect(() => {
+        const unsub = store.subscribe(() => {
+            setEditorState(store.state.editor);
+        });
+        return unsub;
+    }, [store.state.editor]);
+    const baseWidth = store.selectors.editor.selectBaseWidth(store.state);
+    const totalWidth = baseWidth * editorState.zoomLevel;
+
+    const songspace = store.selectors.editor.selectSongSpace(store.state);
+    const bars = buildBars(songspace, editorState.beatWidth, editorState.zoomLevel);
+
+    return (
+        <ZoomableScrollContainer store={store} contentWidth={totalWidth} baseWidth={baseWidth}>
+            {bars}
+        </ZoomableScrollContainer>
+    );
 }
