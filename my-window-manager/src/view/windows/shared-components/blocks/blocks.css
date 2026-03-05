@@ -1,0 +1,39 @@
+.chord-block{
+    background-color: #71c378;
+    border-radius: 6;
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "'Anton', sans-serif";
+    font-weight: 700;
+    text-transform: "uppercase";
+    letter-spacing: "1px";
+}
+
+.sequence-block{
+    background-color: #7971c3;
+    border-radius: 6;
+    border: 1px solid black;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    font-family: "'Anton', sans-serif";
+    font-weight: 700;
+    text-transform: "uppercase";
+    letter-spacing: "1px";
+
+}
+
+.section-block{
+    background-color: #c37171;
+    border-radius: 12;
+    border: 3px solid black;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    font-family: "'Anton', sans-serif";
+    font-weight: 700;
+    text-transform: "uppercase";
+    letter-spacing: "1px";
+}

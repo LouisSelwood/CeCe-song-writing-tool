@@ -8,7 +8,6 @@ export function ZoomableScrollContainer({ store, children, contentWidth, baseWid
     useEffect(() => {
         const unsub = store.subscribe(() => {
             setEditorState(store.state.editor);
-            console.log(`zoom: ${store.state.editor.zoomLevel}`)
         });
         return unsub;
     }, [store]);

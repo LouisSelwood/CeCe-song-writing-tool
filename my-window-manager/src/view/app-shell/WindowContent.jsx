@@ -16,6 +16,7 @@ export function WindowContent({ store, id }) {
   function testerButton(){
     dispatchAction("initiateSong", {songDSL: song})
     dispatchAction("getSongDescription", {});
+    dispatchAction("updateSongSpaceFromState", {});
   }
 
 

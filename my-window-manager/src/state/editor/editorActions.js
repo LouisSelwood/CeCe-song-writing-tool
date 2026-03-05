@@ -56,3 +56,72 @@ export const setActiveEditor = (newEditor) => (state) => {
   editor.activeEditor = newEditor;
   state.editor = editor;
 }
+
+export const updateSongSpaceFromState= () => (state) => {
+  const songSpace = {beats: {}, objects: {}}
+
+  const song = state.project.currentProject.songContents;
+  let currentBeat = 0;
+  let beatsIntoBar = 0;
+  song.forEach((sectionID) => { 
+      const section = state.sections.byID[sectionID];
+      songSpace.objects[section.id] = {
+          type: "section",
+          startBeat: currentBeat,
+      }
+      section.sequenceIDs.forEach((sequenceID) => {
+          const sequence = state.sequences.byID[sequenceID];
+          songSpace.objects[sequence.id] = {
+              type: "sequence",
+              startBeat: currentBeat,
+          }
+          sequence.chordIDs.forEach((chordID) => {
+              const chord = state.chords.byID[chordID];
+              songSpace.objects[chord.id] = {
+                  type: "chord",
+                  startBeat: currentBeat,
+                  length: chord.duration,
+              }
+
+              for (let i = 0; i < chord.duration; i++) {
+                  const ts = sequence.timeSignature;
+                  const isBarStart = beatsIntoBar === 0;
+
+                  songSpace.beats[currentBeat] = {
+                      barStart: isBarStart,
+                      tempo: sequence.tempo,
+                      timeSignature: ts,
+                      rhythm: sequence.rhythm,
+                      objects: {
+                          section: section.id,
+                          sequence: sequence.id,
+                          chord: chord.id,
+                      }
+                  };
+
+                  // advance counters
+                  beatsIntoBar += 1;
+
+                  // if we reached the bar length, reset
+                  if (beatsIntoBar === ts.numerator) {
+                      beatsIntoBar = 0;
+                  }
+
+                  currentBeat += 1;
+              }
+
+          })
+          songSpace.objects[sequence.id].length = currentBeat - songSpace.objects[sequence.id].startBeat;
+      })
+      songSpace.objects[section.id].length = currentBeat - songSpace.objects[section.id].startBeat;
+  })
+  state.editor.songSpace = songSpace;
+  
+}
+
+export const updateStateFromSongSpace = () => (state) => {
+
+}
+
+
+

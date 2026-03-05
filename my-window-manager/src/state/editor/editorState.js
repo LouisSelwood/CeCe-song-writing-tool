@@ -1,4 +1,5 @@
 export const editorInitialState = {
+    songSpace: null,
     //single select state
     chordSelected: null,
     sequenceSelected: null,

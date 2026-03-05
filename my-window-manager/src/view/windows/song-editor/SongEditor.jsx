@@ -1,7 +1,7 @@
-import "./SongEditor.css";
-import {SongView} from "./SongView.jsx"
-import {SectionView} from "./SectionView.jsx";
-import {SequenceView} from "./SequenceView.jsx";
+import "./songEditor.css";
+import {SongView} from "./views/SongView.jsx"
+import {SectionView} from "./views/SectionView.jsx";
+import {SequenceView} from "./views/SequenceView.jsx";
 import {useState, useEffect} from "react";
 export function SongEditor({ store }) {
   //contains hover state of view buttons
