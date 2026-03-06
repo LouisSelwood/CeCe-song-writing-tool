@@ -7,6 +7,7 @@ export function SongEditor({ store }) {
   //contains hover state of view buttons
   const [viewButtons, setViewButtons] = useState({"song": false, "section": false, "sequence": false})
   
+  
   //handles mouse events for overall song editor ui
   useEffect(() => {
 
@@ -65,6 +66,7 @@ export function SongEditor({ store }) {
     else if(viewButtons[view]) return "40px"
     else return "20px"
   }
+  
   return (
 
     <div className="outer-container">

@@ -46,6 +46,10 @@ export function ZoomableScrollContainer({ store, children, contentWidth, baseWid
                 const ZOOM_IN = 1 + zoomStrengthRef.current;
                 const ZOOM_OUT = 1 - zoomStrengthRef.current;
 
+                const avgSectionLength = store.selectors.sections.getAverageSectionLength(store.state);
+                const avgSequenceLength = store.selectors.sequences.getAverageSequenceLength(store.state);
+                store.actions.checkValidEditor(viewportWidth, {section: avgSectionLength, sequence: avgSequenceLength})
+                console.log("WHYYYY")
                 if (e.deltaY < 0) {
                     lineUpScroll(e, ZOOM_IN);
                     store.actions.setZoom(zoomRef.current * ZOOM_IN);

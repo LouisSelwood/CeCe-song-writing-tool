@@ -1,7 +1,6 @@
-import { SectionBlock } from "../windows/shared-components/blocks/SectionBlock.jsx";
-export default function buildSections(store){
+import { SectionTag } from "../windows/shared-components/blocks/SectionTag.jsx";
+export default function buildSectionTags(store){
     const songSpace = store.state.editor.songSpace;
-    console.log(songSpace.objects)
     const sectionObjects = Object.entries(songSpace.objects)
     .filter(([key, value]) => value.type === "section")
     .map(([key, value]) => ({
@@ -10,8 +9,8 @@ export default function buildSections(store){
     }))
     .sort((a, b) => a.startBeat - b.startBeat);
 
-    const sectionBlocks = sectionObjects.map(section => (
-        <SectionBlock
+    const sectionTags = sectionObjects.map(section => (
+        <SectionTag
             key={section.id}
             store={store}
             sectionID={section.id}
@@ -20,5 +19,5 @@ export default function buildSections(store){
         />
     ));
 
-    return sectionBlocks;
+    return sectionTags;
 }

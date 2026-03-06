@@ -1,7 +1,7 @@
 import "./blocks.css";
 
 
-export function ChordBlock({ store, chordID, startBeat, length }) {
+export function SectionTag({ store, sectionID, startBeat, length }) {
   const beatWidth = store.state.editor.beatWidth;
   const zoom = store.state.editor.zoomLevel;
 
@@ -14,15 +14,15 @@ export function ChordBlock({ store, chordID, startBeat, length }) {
 
   return (
     <div
-      className="chord-block"
+      className="section-tag"
       style={{
         left: left + "px",
         width: width + "px",
-        height: "100px",
+        height: "30px",
         fontSize: fontSize + "px"
       }}
     >
-      {store.selectors.chords.getChordAsString(store.state, chordID)}
+      {store.state.sections.byID[sectionID].name}
     </div>
   );
 }

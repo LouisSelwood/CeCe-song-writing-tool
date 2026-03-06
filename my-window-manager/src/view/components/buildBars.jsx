@@ -7,7 +7,6 @@ export const buildBars = (state) => {
     // UI behaviour flags (optional)
     const showBeats = zoomLevel > 3;
     const sparseBars = zoomLevel < 0.5;
-    console.log(zoomLevel)
     // Convert beats object → sorted array of beats
     // This ensures we process beats in correct timeline order.
     const beatEntries = Object.entries(songSpace.beats)

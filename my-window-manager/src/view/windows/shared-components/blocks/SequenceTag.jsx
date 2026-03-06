@@ -1,7 +1,6 @@
 import "./blocks.css";
 
-
-export function ChordBlock({ store, chordID, startBeat, length }) {
+export function SequenceTag({ store, sequenceID, startBeat, length }) {
   const beatWidth = store.state.editor.beatWidth;
   const zoom = store.state.editor.zoomLevel;
 
@@ -9,20 +8,18 @@ export function ChordBlock({ store, chordID, startBeat, length }) {
   const width = length * beatWidth * zoom;
   const left = startBeat * beatWidth * zoom;
 
-  // Optional: scale font size with width
-  const fontSize = Math.max(10, zoom * 5);
 
   return (
     <div
-      className="chord-block"
+      className="sequence-tag"
       style={{
         left: left + "px",
         width: width + "px",
-        height: "100px",
-        fontSize: fontSize + "px"
+        height: "30px",
+        
       }}
     >
-      {store.selectors.chords.getChordAsString(store.state, chordID)}
+      
     </div>
   );
 }

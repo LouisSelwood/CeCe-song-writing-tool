@@ -13,3 +13,23 @@ export const getSectionWidth = (state, id) => {
     })
     return widthInBeats;
 }
+
+export const getAverageSectionLength = (state) => {
+    let widths = {}
+    const song = state.project.currentProject.songContents;
+    song.forEach((sectionID) => {
+        widths[sectionID] = 0;
+        const section = state.sections.byID[sectionID];
+        section.sequenceIDs.forEach((sequenceID) => {
+            const sequence = state.sequences.byID[sequenceID];
+            sequence.chordIDs.forEach((chordID) => {
+                const chord = state.chords.byID[chordID];
+                widths[sectionID] += chord.duration * sequence.timeSignature.numerator;
+            })
+        })
+    })
+    const pureWidths = Object.values(widths);
+    if (!Array.isArray(pureWidths) || pureWidths.length === 0) return NaN;
+    const sum = pureWidths.reduce((s, v) => s + v, 0);
+    return sum / pureWidths.length;
+}

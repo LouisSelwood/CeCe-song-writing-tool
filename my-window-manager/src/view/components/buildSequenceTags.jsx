@@ -1,5 +1,5 @@
-import { SequenceBlock } from "../windows/shared-components/blocks/SequenceBlock.jsx";
-export default function buildSequences(store){
+import { SequenceTag } from "../windows/shared-components/blocks/SequenceTag";
+export default function buildSequenceTags(store){
     const songSpace = store.state.editor.songSpace;
     console.log(songSpace.objects)
     const sequenceObjects = Object.entries(songSpace.objects)
@@ -11,7 +11,7 @@ export default function buildSequences(store){
     .sort((a, b) => a.startBeat - b.startBeat);
 
     const sequenceBlocks = sequenceObjects.map(sequence => (
-        <SequenceBlock
+        <SequenceTag
             key={sequence.id}
             store={store}
             sequenceID={sequence.id}
