@@ -107,6 +107,7 @@ export const updateSongSpaceFromState= () => (state) => {
                     songSpace.beats[currentBeat] = {
                         barStart: isBarStart,
                         tempo: sequence.tempo,
+                        keySignature: sequence.keySignature,
                         timeSignature: ts,
                         rhythm: sequence.rhythm,
                         objects: {

@@ -24,7 +24,8 @@ export function buildSectionFromDSL(sectionDSL, domain){
 export function buildSequenceFromDSL(sequenceDSL, domain){
     let timeSignature = getTimeSig(sequenceDSL.timeSignature)
     let {id, sequence} = domain.sequences.createEmptySequence({
-        tempo: sequenceDSL.tempo, 
+        tempo: sequenceDSL.tempo,
+        keySignature: sequenceDSL.keySignature,
         timeSignature: timeSignature, 
         rhythm: sequenceDSL.rhythm
     });

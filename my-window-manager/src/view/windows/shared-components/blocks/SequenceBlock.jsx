@@ -10,7 +10,7 @@ export function SequenceBlock({ store, sequenceID, startBeat, length }) {
 
   // Optional: scale font size with width
   const fontSize = Math.max(10, zoom * 5);
-  const contents = store.selectors.sequences.getContentsAsString(store.state, sequenceID)
+  const contents = store.selectors.sequences.getChordsAsNotation(store.state, sequenceID)
   return (
     <div
       className="sequence-block"
@@ -21,9 +21,14 @@ export function SequenceBlock({ store, sequenceID, startBeat, length }) {
         fontSize: fontSize + "px"
       }}
     >
-        {contents.map((text, i) => (
-            <div key={`${sequenceID}-${i}`}>{text}</div>
-        ))}
+
+      {contents.map((content, index) => (
+        <div key={index}>
+          {content}
+        </div>
+      ))}
+
+
 
     </div>
   );

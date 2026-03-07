@@ -7,6 +7,7 @@ export function SequenceTag({ store, sequenceID, startBeat, length }) {
   // Width and left must both scale with zoom
   const width = length * beatWidth * zoom;
   const left = startBeat * beatWidth * zoom;
+  const contents = store.selectors.sequences.getChordsAsNotation(store.state, sequenceID);
 
 
   return (
@@ -19,7 +20,12 @@ export function SequenceTag({ store, sequenceID, startBeat, length }) {
         
       }}
     >
-      
+      {contents.map((content, index) => (
+        <div key={index}>
+          {content}
+        </div>
+      ))}
+
     </div>
   );
 }

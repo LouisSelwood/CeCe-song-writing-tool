@@ -38,6 +38,14 @@
     background-color: #7971c3;
     box-sizing: border-box;
     border: 3px solid black;
+    justify-content: space-evenly;
+    align-items: center;
+    font-family: "'Anton', sans-serif";
+    font-weight: 700;
+    text-transform: "uppercase";
+    letter-spacing: "1px";
+    box-sizing: border-box;
+
 }
 
 .section-tag{

@@ -20,7 +20,8 @@ export const getChordWidth = (state, sequenceID, chordID) => {
 }
 
 export const getChordAsString = (state, chordID) => {
-    const chord = state.chords.byID[chordID];
-    const qualityAbrev = chord.quality === "Minor" ? "m" : ""
-    return `${chord.root}${qualityAbrev}${chord.extensions.join("")}`;
+    const chord = state.chords.byID[chordID]
+    const strQuality = chord.quality === "Major" ? "" : chord.quality;
+    const strBass = chord.bass === "" ? "" : `/${chord.bass}`
+    return `${chord.root}${strQuality}${strBass}`;
 }

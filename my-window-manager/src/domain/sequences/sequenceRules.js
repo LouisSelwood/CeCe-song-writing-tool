@@ -2,6 +2,7 @@ export class SequenceSegment {
   constructor({
     id,
     tempo,
+    keySignature,
     timeSignature,
     rhythm,
     name = "Sequence",
@@ -10,6 +11,7 @@ export class SequenceSegment {
   }) {
     this.id = id;
     this.tempo = tempo;
+    this.keySignature = keySignature;
     this.timeSignature = timeSignature;
     this.rhythm = rhythm;
     this.name = name;
@@ -55,6 +57,7 @@ export class SequenceSegment {
       type: "ChordSequenceSegment",
       id: this.id,
       tempo: this.tempo,
+      keySignature: this.keySignature,
       timeSignature: this.timeSignature,
       rhythm: this.rhythm,
       name: this.name,
@@ -72,8 +75,8 @@ function generateID() {
   return "seq-" + Math.random().toString(36).slice(2);
 }
 
-export function createEmptySequence({tempo, timeSignature, rhythm}){
-  const newSequence = new SequenceSegment({id: generateID(), tempo, timeSignature, rhythm});
+export function createEmptySequence({tempo, timeSignature, rhythm, keySignature}){
+  const newSequence = new SequenceSegment({id: generateID(), tempo, timeSignature, rhythm, keySignature});
   return {id: newSequence.id, sequence: newSequence.serialize()};
 }
 

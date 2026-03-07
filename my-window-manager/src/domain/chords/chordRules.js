@@ -3,21 +3,23 @@ class ChordSegment {
         id,
         root,          // "C", "D#", "Gb"
         quality,       // "maj7", "min", "dim", "sus4", etc.
-        extensions, // ["9", "#11"] etc.
+        bass, 
         duration,  //in bars, how long the chord lasts
         metadata = {}, // optional: user notes, tags, model confidence, etc.
         }) {
         this.id = id;
         this.root = root;
         this.quality = quality;
-        this.extensions = extensions;
+        this.bass = bass;
         this.duration = duration;
         this.metadata = metadata;
     }
 
 
     toString() {
-        return `${this.root} ${this.quality} ${this.extensions.join("")}`;
+        const strQuality = this.quality === "Major" ? "" : this.quality;
+        const strBass = this.bass === "" ? "" : `/${this.bass}`
+        return `${this.root}${strQuality}${strBass}`;
     }
 
     // --- Serialization ---
@@ -27,7 +29,7 @@ class ChordSegment {
         id: this.id,
         root: this.root,
         quality: this.quality,
-        extensions: [...this.extensions],
+        bass: this.bass,
         duration: this.duration,
         metadata: { ...this.metadata },
     };
@@ -42,7 +44,7 @@ function generateID() {
     return "cho-" + Math.random().toString(36).slice(2);
 }
 
-export function createChord(params){ //params are root, quality, extensions, and duration
+export function createChord(params){ //params are root, quality, bass, and duration
     const newChord = new ChordSegment({id: generateID(), ...params})
     return {id: newChord.id, chord: newChord.serialize()};
 }

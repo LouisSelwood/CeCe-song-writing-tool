@@ -1,3 +1,7 @@
+import * as tonal from "../../utils/tonalWrapper";
+
+
+
 export const selectSequenceByID = (state, id) => state.sequences.byID[id];
 export const selectAllSequences = (state) => state.sequences.allIDs.map(id => state.sequences.byID[i]);
 
@@ -31,15 +35,15 @@ export const getAverageSequenceLength = (state) => {
     return sum / pureWidths.length;
 }
 
-export const getContentsAsString = (state, sequenceID) => {
-    const sequence = state.sequences.byID[sequenceID]
-    let chordStrings = []
-    sequence.chordIDs.forEach((chordID) => {
-        const chord = state.chords.byID[chordID];
-        const qualityAbrev = chord.quality === "Minor" ? "m" : ""
-        chordStrings.push(`${chord.root}${qualityAbrev}${chord.extensions.join("")}`);
-        chordStrings.push("-")
+export const getChordsAsNotation = (state, sequenceID) => {
+    const sequence = state.sequences.byID[sequenceID];
+    if (!sequence) return [];
+    const chords = sequence.chordIDs.map(id => {
+        return state.chords.byID[id];
     })
-    chordStrings.pop();
-    return chordStrings;
+    const chordStrs = tonal.chordsToString(chords);
+    const key = sequence.keySignature;
+    const romanProgression = tonal.chordsToRoman(chordStrs, key)
+    return romanProgression;
+
 }

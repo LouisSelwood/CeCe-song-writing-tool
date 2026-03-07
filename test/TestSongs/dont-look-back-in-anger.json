@@ -5,38 +5,40 @@
         "sequences": [
           {
             "tempo": 80,
+            "keySignature": "C",
             "timeSignature": "4/4",
             "rhythm": "normal",
             "chords": [
               {
                 "root": "C",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 1
               },
               {
                 "root": "F",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 1
               }
             ]
           },
           {
             "tempo": 80,
+            "keySignature": "C",
             "timeSignature": "4/4",
             "rhythm": "normal",
             "chords": [
               {
                 "root": "C",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 1
               },
               {
                 "root": "F",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 1
               }
             ]
@@ -48,122 +50,124 @@
         "sequences": [
           {
             "tempo": 80,
+            "keySignature": "C",
             "timeSignature": "4/4",
             "rhythm": "normal",
             "chords": [
               {
                 "root": "C",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "G",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "A",
-                "quality": "Minor",
-                "extensions": [],
+                "quality": "m",
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "E",
-                "quality": "Major",
-                "extensions": ["7"],
+                "quality": "7",
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "F",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "G",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "C",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "A",
-                "quality": "Minor",
-                "extensions": [],
+                "quality": "m",
+                "bass": "",
                 "duration": 0.25
               },
               {
                 "root": "G",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.25
               }
             ]
           },
           {
             "tempo": 80,
+            "keySignature": "C",
             "timeSignature": "4/4",
             "rhythm": "normal",
             "chords": [
               {
                 "root": "C",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "G",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "A",
-                "quality": "Minor",
-                "extensions": [],
+                "quality": "m",
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "E",
-                "quality": "Major",
-                "extensions": ["7"],
+                "quality": "7",
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "F",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "G",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "C",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "A",
-                "quality": "Minor",
-                "extensions": [],
+                "quality": "m",
+                "bass": "",
                 "duration": 0.25
               },
               {
                 "root": "G",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.25
               }
             ]
@@ -175,118 +179,122 @@
         "sequences": [
           {
             "tempo": 80,
+            "keySignature": "C",
             "timeSignature": "4/4",
             "rhythm": "normal",
             "chords": [
               {
                 "root": "F",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "F",
-                "quality": "Minor",
-                "extensions": ["6"],
+                "quality": "m6",
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "C",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 1
               }
             ]
           },
           {
             "tempo": 80,
+            "keySignature": "C",
             "timeSignature": "4/4",
             "rhythm": "normal",
             "chords": [
               {
                 "root": "F",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "F",
-                "quality": "Minor",
-                "extensions": ["6"],
+                "quality": "m6",
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "C",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 1
               }
             ]
           },
           {
             "tempo": 80,
+            "keySignature": "C",
             "timeSignature": "4/4",
             "rhythm": "normal",
             "chords": [
               {
                 "root": "F",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "F",
-                "quality": "Minor",
-                "extensions": ["6"],
+                "quality": "m6",
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "C",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 1
               }
             ]
           },
           {
             "tempo": 80,
+            "keySignature": "C",
             "timeSignature": "4/4",
             "rhythm": "normal",
             "chords": [
               {
                 "root": "G",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 1
               },
               {
-                "root": "E/Ab",
-                "quality": "Major",
-                "extensions": ["7"],
+                "root": "E",
+                "quality": "7",
+                "bass": "G#",
                 "duration": 1
               },
               {
                 "root": "A",
-                "quality": "Minor",
-                "extensions": [],
+                "quality": "m",
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "G",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "F",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 1
               },
               {
                 "root": "G",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 2
               }
               
@@ -300,165 +308,168 @@
         "sequences": [
           {
             "tempo": 80,
+            "keySignature": "C",
             "timeSignature": "4/4",
             "rhythm": "normal",
             "chords": [
               {
                 "root": "C",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "G",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "A",
-                "quality": "Minor",
-                "extensions": [],
+                "quality": "m",
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "E",
-                "quality": "Major",
-                "extensions": ["7"],
+                "quality": "7",
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "F",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "G",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "C",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "A",
-                "quality": "Minor",
-                "extensions": [],
+                "quality": "m",
+                "bass": "",
                 "duration": 0.25
               },
               {
                 "root": "G",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.25
               }
             ]
           },
           {
             "tempo": 80,
+            "keySignature": "C",
             "timeSignature": "4/4",
             "rhythm": "normal",
             "chords": [
               {
                 "root": "C",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "G",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "A",
-                "quality": "Minor",
-                "extensions": [],
+                "quality": "m",
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "E",
-                "quality": "Major",
-                "extensions": ["7"],
+                "quality": "7",
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "F",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "G",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               }
             ]
           },
           {
             "tempo": 80,
+            "keySignature": "C",
             "timeSignature": "4/4",
             "rhythm": "normal",
             "chords": [
               {
                 "root": "C",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "G",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "A",
-                "quality": "Minor",
-                "extensions": [],
+                "quality": "m",
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "E",
-                "quality": "Major",
-                "extensions": ["7"],
+                "quality": "7",
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "F",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "G",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "C",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "A",
-                "quality": "Minor",
-                "extensions": [],
+                "quality": "m",
+                "bass": "",
                 "duration": 0.25
               },
               {
                 "root": "G",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.25
               }
             ]
@@ -470,122 +481,124 @@
         "sequences": [
           {
             "tempo": 80,
+            "keySignature": "C",
             "timeSignature": "4/4",
             "rhythm": "normal",
             "chords": [
               {
                 "root": "C",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "G",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "A",
-                "quality": "Minor",
-                "extensions": [],
+                "quality": "m",
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "E",
-                "quality": "Major",
-                "extensions": ["7"],
+                "quality": "7",
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "F",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "G",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "C",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "A",
-                "quality": "Minor",
-                "extensions": [],
+                "quality": "m",
+                "bass": "",
                 "duration": 0.25
               },
               {
                 "root": "G",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.25
               }
             ]
           },
           {
             "tempo": 80,
+            "keySignature": "C",
             "timeSignature": "4/4",
             "rhythm": "normal",
             "chords": [
               {
                 "root": "C",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "G",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "A",
-                "quality": "Minor",
-                "extensions": [],
+                "quality": "m",
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "E",
-                "quality": "Major",
-                "extensions": ["7"],
+                "quality": "7",
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "F",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "G",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "C",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "A",
-                "quality": "Minor",
-                "extensions": [],
+                "quality": "m",
+                "bass": "",
                 "duration": 0.25
               },
               {
                 "root": "G",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.25
               }
             ]
@@ -597,118 +610,122 @@
         "sequences": [
           {
             "tempo": 80,
+            "keySignature": "C",
             "timeSignature": "4/4",
             "rhythm": "normal",
             "chords": [
               {
                 "root": "F",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "F",
-                "quality": "Minor",
-                "extensions": ["6"],
+                "quality": "m6",
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "C",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 1
               }
             ]
           },
           {
             "tempo": 80,
+            "keySignature": "C",
             "timeSignature": "4/4",
             "rhythm": "normal",
             "chords": [
               {
                 "root": "F",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "F",
-                "quality": "Minor",
-                "extensions": ["6"],
+                "quality": "m6",
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "C",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 1
               }
             ]
           },
           {
             "tempo": 80,
+            "keySignature": "C",
             "timeSignature": "4/4",
             "rhythm": "normal",
             "chords": [
               {
                 "root": "F",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "F",
-                "quality": "Minor",
-                "extensions": ["6"],
+                "quality": "m6",
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "C",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 1
               }
             ]
           },
           {
             "tempo": 80,
+            "keySignature": "C",
             "timeSignature": "4/4",
             "rhythm": "normal",
             "chords": [
               {
                 "root": "G",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 1
               },
               {
-                "root": "E/Ab",
-                "quality": "Major",
-                "extensions": ["7"],
+                "root": "E",
+                "quality": "7",
+                "bass": "G#",
                 "duration": 1
               },
               {
                 "root": "A",
-                "quality": "Minor",
-                "extensions": [],
+                "quality": "m",
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "G",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "F",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 1
               },
               {
                 "root": "G",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 2
               }
               
@@ -722,122 +739,124 @@
         "sequences": [
           {
             "tempo": 80,
+            "keySignature": "C",
             "timeSignature": "4/4",
             "rhythm": "normal",
             "chords": [
               {
                 "root": "C",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "G",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "A",
-                "quality": "Minor",
-                "extensions": [],
+                "quality": "m",
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "E",
-                "quality": "Major",
-                "extensions": ["7"],
+                "quality": "7",
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "F",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "G",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "C",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "A",
-                "quality": "Minor",
-                "extensions": [],
+                "quality": "m",
+                "bass": "",
                 "duration": 0.25
               },
               {
                 "root": "G",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.25
               }
             ]
           },
           {
             "tempo": 80,
+            "keySignature": "C",
             "timeSignature": "4/4",
             "rhythm": "normal",
             "chords": [
               {
                 "root": "C",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "G",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "A",
-                "quality": "Minor",
-                "extensions": [],
+                "quality": "m",
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "E",
-                "quality": "Major",
-                "extensions": ["7"],
+                "quality": "7",
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "F",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "G",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "C",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "A",
-                "quality": "Minor",
-                "extensions": [],
+                "quality": "m",
+                "bass": "",
                 "duration": 0.25
               },
               {
                 "root": "G",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.25
               }
             ]
@@ -850,118 +869,122 @@
         "sequences": [
           {
             "tempo": 80,
+            "keySignature": "C",
             "timeSignature": "4/4",
             "rhythm": "normal",
             "chords": [
               {
                 "root": "F",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "F",
-                "quality": "Minor",
+                "quality": "m",
                 "extensions": ["6"],
                 "duration": 0.5
               },
               {
                 "root": "C",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 1
               }
             ]
           },
           {
             "tempo": 80,
+            "keySignature": "C",
             "timeSignature": "4/4",
             "rhythm": "normal",
             "chords": [
               {
                 "root": "F",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "F",
-                "quality": "Minor",
+                "quality": "m",
                 "extensions": ["6"],
                 "duration": 0.5
               },
               {
                 "root": "C",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 1
               }
             ]
           },
           {
             "tempo": 80,
+            "keySignature": "C",
             "timeSignature": "4/4",
             "rhythm": "normal",
             "chords": [
               {
                 "root": "F",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "F",
-                "quality": "Minor",
+                "quality": "m",
                 "extensions": ["6"],
                 "duration": 0.5
               },
               {
                 "root": "C",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 1
               }
             ]
           },
           {
             "tempo": 80,
+            "keySignature": "C",
             "timeSignature": "4/4",
             "rhythm": "normal",
             "chords": [
               {
                 "root": "G",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 1
               },
               {
-                "root": "E/Ab",
-                "quality": "Major",
-                "extensions": ["7"],
+                "root": "E",
+                "quality": "7",
+                "bass": "G#",
                 "duration": 1
               },
               {
                 "root": "A",
-                "quality": "Minor",
-                "extensions": [],
+                "quality": "m",
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "G",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "F",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 1
               },
               {
                 "root": "G",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 1
               }
               
@@ -975,122 +998,124 @@
         "sequences": [
           {
             "tempo": 80,
+            "keySignature": "C",
             "timeSignature": "4/4",
             "rhythm": "normal",
             "chords": [
               {
                 "root": "C",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "G",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "A",
-                "quality": "Minor",
-                "extensions": [],
+                "quality": "m",
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "E",
-                "quality": "Major",
-                "extensions": ["7"],
+                "quality": "7",
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "F",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "G",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "C",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "A",
-                "quality": "Minor",
-                "extensions": [],
+                "quality": "m",
+                "bass": "",
                 "duration": 0.25
               },
               {
                 "root": "G",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.25
               }
             ]
           },
           {
             "tempo": 80,
+            "keySignature": "C",
             "timeSignature": "4/4",
             "rhythm": "normal",
             "chords": [
               {
                 "root": "C",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "G",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "A",
-                "quality": "Minor",
-                "extensions": [],
+                "quality": "m",
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "E",
-                "quality": "Major",
-                "extensions": ["7"],
+                "quality": "7",
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "F",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "G",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "C",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "A",
-                "quality": "Minor",
-                "extensions": [],
+                "quality": "m",
+                "bass": "",
                 "duration": 0.25
               },
               {
                 "root": "G",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.25
               }
             ]
@@ -1103,104 +1128,106 @@
         "sequences": [
           {
             "tempo": 80,
+            "keySignature": "C",
             "timeSignature": "4/4",
             "rhythm": "normal",
             "chords": [
               {
                 "root": "C",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "G",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "A",
-                "quality": "Minor",
-                "extensions": [],
+                "quality": "m",
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "E",
-                "quality": "Major",
-                "extensions": ["7"],
+                "quality": "7",
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "F",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "G",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "C",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "A",
-                "quality": "Minor",
-                "extensions": [],
+                "quality": "m",
+                "bass": "",
                 "duration": 0.25
               },
               {
                 "root": "G",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.25
               }
             ]
           },
           {
             "tempo": 80,
+            "keySignature": "C",
             "timeSignature": "4/4",
             "rhythm": "normal",
             "chords": [
               {
                 "root": "C",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "G",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "A",
-                "quality": "Minor",
-                "extensions": [],
+                "quality": "m",
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "E",
-                "quality": "Major",
-                "extensions": ["7"],
+                "quality": "7",
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "F",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 1
               },
               {
                 "root": "F",
-                "quality": "Minor",
-                "extensions": [],
+                "quality": "m",
+                "bass": "",
                 "duration": 2
               }
             ]
@@ -1213,49 +1240,50 @@
         "sequences": [
           {
             "tempo": 80,
+            "keySignature": "C",
             "timeSignature": "4/4",
             "rhythm": "normal",
             "chords": [
               {
                 "root": "C",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "G",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "A",
-                "quality": "Minor",
-                "extensions": [],
+                "quality": "m",
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "E",
-                "quality": "Major",
-                "extensions": ["7"],
+                "quality": "7",
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "F",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "F",
-                "quality": "minor",
-                "extensions": [],
+                "quality": "m",
+                "bass": "",
                 "duration": 0.5
               },
               {
                 "root": "C",
                 "quality": "Major",
-                "extensions": [],
+                "bass": "",
                 "duration": 1
               }
             ]

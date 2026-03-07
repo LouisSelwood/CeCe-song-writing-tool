@@ -22,7 +22,6 @@ window.api.onDispatch(({ action, payload }) => {
   store.actions[action](payload);
 });
 
-
 //Publisher: publishes message newState to be intercepted by electron.js
 store.subscribe((newState) => {
   window.api.send("store:update", newState);
