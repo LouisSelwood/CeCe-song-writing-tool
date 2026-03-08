@@ -25,11 +25,13 @@ export const buildBars = (state) => {
                 bars.push({
                     barStart: true,
                     barIndex: idx,
+                    time: beat.time,
                 });
             }else{
                 bars.push({
                     barStart: false,
                     barIndex: idx,
+                    time: beat.time,
                 });
             }
         }else if(sparseBars){
@@ -39,6 +41,7 @@ export const buildBars = (state) => {
                     bars.push({
                         barStart: true,
                         barIndex: idx,
+                        time: beat.time,
                     });
                 }
             }
@@ -48,6 +51,7 @@ export const buildBars = (state) => {
                 bars.push({
                     barStart: true,
                     barIndex: idx,
+                    time: beat.time,
                 });
             }
         }

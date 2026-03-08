@@ -39,6 +39,12 @@ export const scrollEditor = (x, y) => (state, domain) => {
   state.editor.scrollY = y
 }
 
+export const updateScrollPosition = (newPosition) => (state) => {
+    const editor = state.editor;
+    editor.scrollPosition = newPosition;
+    state.editor = editor
+}
+
 export const startEditorDrag = (payload) => (state, domain) => {
   state.editor.mode = "dragging"
   state.editor.dragState = payload
@@ -79,6 +85,7 @@ export const updateSongSpaceFromState= () => (state) => {
 
     const song = state.project.currentProject.songContents;
     let currentBeat = 0;
+    let currentTime = 0;
     let beatsIntoBar = 0;
     song.forEach((sectionID) => { 
         const section = state.sections.byID[sectionID];
@@ -104,12 +111,15 @@ export const updateSongSpaceFromState= () => (state) => {
                     const ts = sequence.timeSignature;
                     const isBarStart = beatsIntoBar === 0;
 
+                    const time = {min: Math.floor(currentTime / 60), sec: Math.floor(currentTime % 60)}
+
                     songSpace.beats[currentBeat] = {
                         barStart: isBarStart,
                         tempo: sequence.tempo,
                         keySignature: sequence.keySignature,
                         timeSignature: ts,
                         rhythm: sequence.rhythm,
+                        time,
                         objects: {
                             section: section.id,
                             sequence: sequence.id,
@@ -126,6 +136,7 @@ export const updateSongSpaceFromState= () => (state) => {
                     }
 
                     currentBeat += 1;
+                    currentTime += 60 / sequence.tempo;
                 }
 
             })

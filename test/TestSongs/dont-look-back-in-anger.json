@@ -881,8 +881,8 @@
               },
               {
                 "root": "F",
-                "quality": "m",
-                "extensions": ["6"],
+                "quality": "m6",
+                "bass": "",
                 "duration": 0.5
               },
               {
@@ -907,8 +907,8 @@
               },
               {
                 "root": "F",
-                "quality": "m",
-                "extensions": ["6"],
+                "quality": "m6",
+                "bass": "",
                 "duration": 0.5
               },
               {
@@ -933,8 +933,8 @@
               },
               {
                 "root": "F",
-                "quality": "m",
-                "extensions": ["6"],
+                "quality": "m6",
+                "bass": "",
                 "duration": 0.5
               },
               {

@@ -224,6 +224,11 @@ export const updateWindow = ({ id, patch }) => (state, domain) => {
 };
 
 export const dockWindow = ({id, dock}) => (state, domain) => {
+    if(dock === "maximise"){
+        domain.windows.transition(state, id, "MAXIMISE");
+        console.log("Maximise")
+        return;
+    }
     domain.windows.transition(state, id, "DOCK")
     const newDock = {...state.windows.docks[dock]}
     newDock.contentIDs.push(id);

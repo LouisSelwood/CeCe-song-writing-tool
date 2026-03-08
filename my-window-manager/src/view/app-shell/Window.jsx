@@ -154,12 +154,9 @@ export function Window({ store, id }) {
 
     //ends drag
     function handleUp() {
-      console.log("Mouse up on window");
-      console.log("store.actions.stopDrag:", typeof store.actions.endDrag);
       const currDock = checkDocks();
       store.actions.endDrag("move");
       if(currDock !== "none"){
-        console.log({id, currDock})
         store.actions.dockWindow({id, dock: currDock})
 
       }
@@ -222,6 +219,7 @@ export function Window({ store, id }) {
     if (desktop.x < 60) return "left";
     if (desktop.x > desktop.width - 60) return "right";
     if (desktop.y > desktop.height - 60) return "bottom";
+    if (desktop.y < store.state.windows.projectBarHeight + 60) return "maximise";
 
     return "none";
   }

@@ -1,3 +1,4 @@
+
 // ZoomableScrollContainer.jsx
 import { useRef, useEffect, useLayoutEffect, useState } from "react";
 
@@ -12,6 +13,14 @@ export function ZoomableScrollContainer({ store, children, contentWidth, baseWid
         return unsub;
     }, [store]);
 
+    // Keep container.scrollLeft in sync with store.state.editor.scrollPosition
+    useLayoutEffect(() => {
+        const container = containerRef.current;
+        if (!container) return;
+        if (typeof editorState.scrollPosition === 'number') {
+            container.scrollLeft = editorState.scrollPosition;
+        }
+    }, [editorState.scrollPosition]);
     // references needed as these values need to be accessible in a useEffect which only updates on load
     const containerRef = useRef(null);
     const zoomRef = useRef(editorState.zoomLevel);
@@ -33,6 +42,7 @@ export function ZoomableScrollContainer({ store, children, contentWidth, baseWid
         const centerBeat = (container.scrollLeft + centerX) / oldZoom;
 
         container.scrollLeft = centerBeat * oldZoom - centerX;
+        store.actions.updateScrollPosition(container.scrollLeft);
     }, [contentWidth]);
 
     // triggered once on load, creates events to listen for zooming
@@ -51,7 +61,7 @@ export function ZoomableScrollContainer({ store, children, contentWidth, baseWid
                 store.actions.checkValidEditor(viewportWidth, {section: avgSectionLength, sequence: avgSequenceLength})
                 console.log("WHYYYY")
                 if (e.deltaY < 0) {
-                    lineUpScroll(e, ZOOM_IN);
+                    //lineUpScroll(e, ZOOM_IN);
                     store.actions.setZoom(zoomRef.current * ZOOM_IN);
                 } else {
                     const newZoom = zoomRef.current * ZOOM_OUT;
@@ -59,7 +69,7 @@ export function ZoomableScrollContainer({ store, children, contentWidth, baseWid
 
                     // checks if zoom out would make the new width smaller than the view width
                     if (newTotalWidth > viewportWidth) {
-                        lineUpScroll(e, ZOOM_OUT);
+                        //lineUpScroll(e, ZOOM_OUT);
                         store.actions.setZoom(newZoom);
                     } else {
                         // sets zoom so that view width = song width
@@ -81,6 +91,7 @@ export function ZoomableScrollContainer({ store, children, contentWidth, baseWid
             const newScrollLeft = timelineX * newZoom - cursorX;
 
             container.scrollLeft = newScrollLeft;
+            store.actions.updateScrollPosition(container.scrollLeft);
         }
 
         // adds a zoom listener (checks both mouse and track pad zoom)
@@ -89,6 +100,19 @@ export function ZoomableScrollContainer({ store, children, contentWidth, baseWid
         return () => window.removeEventListener("wheel", handleZoom);
 
     }, []);
+
+    // Listen for scroll events and update scroll position in store
+    useEffect(() => {
+        const container = containerRef.current;
+        if (!container) return;
+        const handleScroll = () => {
+            store.actions.updateScrollPosition(container.scrollLeft);
+        };
+        container.addEventListener("scroll", handleScroll);
+        return () => {
+            container.removeEventListener("scroll", handleScroll);
+        };
+    }, [store]);
 
     return (
         <div className="songspace-container" ref={containerRef}> {/* Scrollable Area */}

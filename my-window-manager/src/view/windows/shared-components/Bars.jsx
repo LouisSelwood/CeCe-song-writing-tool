@@ -18,8 +18,8 @@ export function Bars({ state }){
                 left,
             }}
             >
-            <div className="bar-label">
-                {bar.barIndex + 1}
+            <div className="bar-label" style={{userSelect: "none"}}>
+                {`${bar.time.min}:${bar.time.sec}`}
             </div>
             </div>
         );

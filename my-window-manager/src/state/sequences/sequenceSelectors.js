@@ -1,4 +1,4 @@
-import * as tonal from "../../utils/tonalWrapper";
+import * as tonal from "../../../src/data/utils/tonalWrapper.js";
 
 
 
@@ -44,6 +44,8 @@ export const getChordsAsNotation = (state, sequenceID) => {
     const chordStrs = tonal.chordsToString(chords);
     const key = sequence.keySignature;
     const romanProgression = tonal.chordsToRoman(chordStrs, key)
-    return romanProgression;
-
+    return romanProgression.map((notation, index) => ({
+        notation,
+        length: (chords[index].duration * sequence.timeSignature.numerator)
+    }));
 }

@@ -25,20 +25,13 @@ export const editorInitialState = {
     scrollX: 0,
     scrollY: 0,
 
+    //song space position
+    scrollPosition: 0,
+
     numBars: 64,
     beatsPerBar: 4,
     beatWidth: 20,
 
-
-    // Panels / UI layout
-    leftPanelOpen: true,
-    rightPanelOpen: false,
-    bottomPanelOpen: false,
-    inspectorOpen: false,
-
-    // Editor modes
-    mode: "idle",              // "idle", "editing", "dragging", "resizing"
-    dragState: null,           // holds data during drag operations
 
     // History navigation (undo/redo)
     historyIndex: 0

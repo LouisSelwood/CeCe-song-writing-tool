@@ -12,6 +12,8 @@
     text-transform: "uppercase";
     letter-spacing: "1px";
     box-sizing: border-box;
+    user-select: none;
+    -webkit-user-drag: none;
 }
 
 .sequence-block{
@@ -28,12 +30,14 @@
     text-transform: "uppercase";
     letter-spacing: "1px";
     box-sizing: border-box;
+    user-select: none;
+    -webkit-user-drag: none;
 
 }
 
 .sequence-tag{
     position: absolute;
-    top: 30%;
+    top: 35%;
     display: flex;
     background-color: #7971c3;
     box-sizing: border-box;
@@ -45,6 +49,8 @@
     text-transform: "uppercase";
     letter-spacing: "1px";
     box-sizing: border-box;
+    user-select: none;
+    -webkit-user-drag: none;
 
 }
 
@@ -62,6 +68,8 @@
     text-transform: "uppercase";
     letter-spacing: "1px";
     box-sizing: border-box;
+    user-select: none;
+    -webkit-user-drag: none;
 }
 
 .section-block{
@@ -78,4 +86,6 @@
     text-transform: "uppercase";
     letter-spacing: "1px";
     box-sizing: border-box;
+    user-select: none;
+    -webkit-user-drag: none;
 }

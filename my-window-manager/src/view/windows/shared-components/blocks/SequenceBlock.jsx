@@ -23,8 +23,12 @@ export function SequenceBlock({ store, sequenceID, startBeat, length }) {
     >
 
       {contents.map((content, index) => (
-        <div key={index}>
-          {content}
+        <div key={index} style={{
+          display: "flex", 
+          width: content.length * store.state.editor.beatWidth * store.state.editor.zoomLevel, 
+          justifyContent: "center"}}
+        > 
+          {content.notation}
         </div>
       ))}
 
