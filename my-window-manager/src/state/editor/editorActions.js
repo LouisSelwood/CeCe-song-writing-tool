@@ -64,21 +64,21 @@ export const setActiveEditor = (newEditor) => (state) => {
 }
 
 export const checkValidEditor = (screenWidth, average) => (state) => {
-    const editor = { ...state.editor };
-    const sequenceWidth = average.sequence * editor.beatWidth * editor.zoomLevel;
-    const sectionWidth = average.section * editor.beatWidth * editor.zoomLevel;
-    console.log(`Section: ${sectionWidth}`);
-    console.log(`Sequence: ${sequenceWidth}`);
-    console.log(`screen: ${screenWidth}`)
+    if(state.editor.autoSwitch){
+        const editor = { ...state.editor };
+        const sequenceWidth = average.sequence * editor.beatWidth * editor.zoomLevel;
+        const sectionWidth = average.section * editor.beatWidth * editor.zoomLevel;
 
-    if (sectionWidth < screenWidth) {
-        editor.activeEditor = "song";
-    } else if (sequenceWidth > screenWidth) {
-        editor.activeEditor = "sequence";
-    } else {
-        editor.activeEditor = "section";
-    }
-    state.editor = editor;
+        if (sectionWidth < screenWidth) {
+            editor.activeEditor = "song";
+        } else if (sequenceWidth > screenWidth) {
+            editor.activeEditor = "sequence";
+        } else {
+            editor.activeEditor = "section";
+        }
+        state.editor = editor;
+        }
+    
 }
 export const updateSongSpaceFromState= () => (state) => {
     const songSpace = {beats: {}, objects: {}}

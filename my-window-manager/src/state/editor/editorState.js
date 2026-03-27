@@ -12,6 +12,7 @@ export const editorInitialState = {
 
     activeEditor: null,  //holds current window active (sequence, section, song editor)
     activeTool: "selector",
+    autoSwitch: false,
 
     //cursor hover state
     hoveredChordID: null,
@@ -22,14 +23,8 @@ export const editorInitialState = {
     playheadPosition: 0,       // in beats
     zoomStrength: 0.05,
     zoomLevel: 1,              // 1 = 100%
-    scrollX: 0,
-    scrollY: 0,
-
-    //song space position
     scrollPosition: 0,
 
-    numBars: 64,
-    beatsPerBar: 4,
     beatWidth: 20,
 
 
