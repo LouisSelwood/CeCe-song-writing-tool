@@ -1,7 +1,59 @@
 const popoutWindows = {};
 let mainWindow = null;
-const { app, BrowserWindow } = require('electron');
+const { app, Menu, BrowserWindow } = require('electron');
 const path = require('path');
+
+//Creates Custom Electron Settings
+function addSettings() {
+  const currentMenu = Menu.getApplicationMenu();
+  const template = currentMenu.items.map(item => {
+    if (item.label === 'File') {
+      return {
+        label: 'File',
+        submenu: [
+          {
+            label: 'Save',
+            accelerator: 'CmdOrCtrl+S',
+            click: (menuItem, browserWindow) => {
+              if (browserWindow) {
+                browserWindow.webContents.send('menu-save-project');
+              }
+            }
+          },
+          {
+            label: 'Save As',
+            accelerator: 'Shift+CmdOrCtrl+S',
+            click: (menuItem, browserWindow) => {
+              if (browserWindow) {
+                browserWindow.webContents.send('menu-save-as');
+              }
+            }
+          },
+          {
+            label: 'Load Project',
+            accelerator: 'CmdOrCtrl+O',
+            click: (menuItem, browserWindow) => {
+              if (browserWindow) {
+                browserWindow.webContents.send('menu-load-project');
+              }
+            }
+          },
+
+          { type: 'separator' },
+
+          // Keep any existing File menu items
+          ...item.submenu.items.map(i => i)
+        ]
+      };
+    }
+
+    // Leave all other menus unchanged
+    return item;
+  });
+
+  const menu = Menu.buildFromTemplate(template);
+  Menu.setApplicationMenu(menu);
+}
 
 function createWindow() {
   mainWindow = new BrowserWindow({
@@ -17,6 +69,8 @@ function createWindow() {
 
 
   mainWindow.loadURL('http://localhost:5173');
+
+  addSettings(); //Injects the custom settings
 
   mainWindow.on("closed", () => {
     Object.values(popoutWindows).forEach((win) => {
@@ -103,3 +157,20 @@ ipcMain.handle("get-app-bounds", () => {
   return mainWindow.getBounds(); 
 ;
 });
+
+ipcMain.handle("write-file", async (event, path, data) => {
+  const fs = require("fs/promises");
+  await fs.writeFile(path, data, "utf8");
+});
+
+ipcMain.handle("rename-file", async (event, oldPath, newPath) => {
+  const fs = require("fs/promises");
+  await fs.rename(oldPath, newPath);
+});
+
+ipcMain.handle("load-file", async (event, path) => {
+  const fs = require("fs/promises");
+  const data = await fs.readFile(path, "utf8");
+  return data;
+})
+

@@ -3,10 +3,12 @@ export class Project {
     name,
     songContents = [],
     metadata = {},
+    filePath,
   }) {
     this.name = name;
     this.songContents = songContents;
     this.metadata = metadata;
+    this.filePath = filePath;
   }
 
   getSectionIDs(){
@@ -42,6 +44,7 @@ export class Project {
       name: this.name,
       songContents: [...this.songContents],
       metadata: { ...this.metadata },
+      filePath: this.filePath,
     };
   }
 
@@ -49,13 +52,14 @@ export class Project {
     return new Project({
       name: data.name ?? "Untitled",
       songContents: data.songContents ?? [],
-      metadata: data.metadata ?? {}
+      metadata: data.metadata ?? {},
+      filePath: data.filePath ?? null
     });
   }
 }
 
 export function createProject(projectName){
-  const project = new Project({name: projectName});
+  const project = new Project({name: projectName, filePath: null});
   return project.serialize();
 }
 export function addSectionAtEnd(sectionID, state){

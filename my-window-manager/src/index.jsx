@@ -14,7 +14,7 @@ import song from '../../test/TestSongs/dont-look-back-in-anger.json';
 
 const store = createStore(initialState, actions, selectors, domain); //creates the global store
 
-store.actions.createNewProject("Don't Look Back In Anger");
+  //store.actions.createNewProject("Don't Look Back In Anger");
 //sends initial state to the shared store (for popout windows)
 window.api.send("store:init", store.getState());
 
@@ -35,16 +35,32 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   </React.StrictMode>
 );
 
+//Listens for file I/O Events.
+window.electronAPI.onMenuSaveProject(() => {
+  store.actions.saveProject();
+});
+
+window.electronAPI.onMenuSaveAs(() => {
+  store.actions.saveProjectAs("C:\\Users\\Louis Selwood\\OneDrive\\Documents\\University Work\\Dissertation\\SaveTests\\");
+});
+
+window.electronAPI.onMenuLoadProject(() => {
+  store.actions.loadProject("C:\\Users\\Louis Selwood\\OneDrive\\Documents\\University Work\\Dissertation\\SaveTests\\Don't Look Back In Anger.json");
+});
+
+
 store.actions.openWindow("Chord Workshop");
 store.actions.openWindow("Song Editor");
 store.actions.openWindow("Settings");
+store.actions.createNewProject("Untitled")
 
 //store.actions.dockWindow({id: store.state.windows.allIDs[0], dock: "left"})
 
 //Tests
-store.actions.initiateSong({songDSL: song})
-store.actions.getSongDescription({})
-store.actions.updateSongSpaceFromState({});
-const projectData = store.domain.app.serializeProject(store.state)
-const validationErrors = store.domain.app.validateProjectData(projectData)
-console.log(validationErrors)
+// store.actions.initiateSong({songDSL: song})
+// store.actions.getSongDescription({})
+// store.actions.updateSongSpaceFromState({});
+// const projectData = store.domain.app.serializeProject(store.state)
+// const validationErrors = store.domain.app.validateProjectData(projectData)
+// store.domain.app.saveProjectAs("C:\\Users\\Louis Selwood\\OneDrive\\Documents\\University Work\\Dissertation\\SaveTests", store.state);
+

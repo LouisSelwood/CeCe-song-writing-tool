@@ -1,10 +1,10 @@
 export function createStore(initialState, actions, selectors, domain) {
-  const state = structuredClone(initialState)
+  const stateHolder = {state: structuredClone(initialState)};
   let listeners = [];
 
   //Publisher: notifies and/or updates each subscribed function/component when the state mutates.
   function notify() {
-    for (const fn of listeners) fn(state);
+    for (const fn of listeners) fn(stateHolder.state);
   }
 
   //Subscriber: subscribes a function to recieve updates of state changes from the publisher
@@ -15,6 +15,10 @@ export function createStore(initialState, actions, selectors, domain) {
     };
   }
 
+  function setState(newState) {
+    stateHolder.state = newState;
+    notify();
+  }
   //binds the actions into a single dictionary
   const boundActions = {}
 
@@ -23,11 +27,11 @@ export function createStore(initialState, actions, selectors, domain) {
       const fn = action(...args);
 
       //actions mutate the state directly
-      const result = fn(state, domain, boundActions);
+      const result = fn(stateHolder.state, domain, boundActions, setState);
 
       //calls publisher
       notify();
-      state.app.version++;
+      stateHolder.state.app.version++;
       //return result if action returns a value
       return result;
     };
@@ -35,11 +39,14 @@ export function createStore(initialState, actions, selectors, domain) {
 
 
   return {
-    state,
+    get state() {
+      return stateHolder.state;
+    },
+
     actions: boundActions,
     selectors: selectors,
     domain: domain,
-    getState: () => state,
+    getState: () => stateHolder.state,
     subscribe
   }
 }

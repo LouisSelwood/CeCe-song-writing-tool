@@ -1,12 +1,81 @@
+import { initialState } from "../../state/store/initialState";
+import * as fileSystem from "../../data/file/fileSystem";
+
+//Extracts only project specific areas of the state
 export function serializeProject(state) {
   return {
     version: 1,
-    project: state.project,
+    project: state.project.currentProject,
     sections: state.sections,
     sequences: state.sequences,
     chords: state.chords,
   };
 }
+
+//injects project specific areas back into state from a json string
+export function deserializeProject(jsonString){
+    let data;
+    //parse JSON string safely
+    try {
+        data = JSON.parse(jsonString);
+    } catch(e) {
+        throw new Error("Invalid JSON: " + e.messaage);
+    }
+
+    //Validate Data
+    const errors = validateProjectData(data);
+    if(errors.length > 0){
+        throw new Error("Project file failed validdation\n" + errors.join("\n"));
+    }
+
+    //reconstruct state
+    const newState = structuredClone(initialState);
+
+    newState.project.currentProject = data.project;
+    newState.sections = data.sections;
+    newState.sequences = data.sequences;
+    newState.chords = data.chords;
+
+    return newState;
+}
+
+//Saves the project in a new file
+export async function saveProjectAs(folder, state){
+    state.project.currentProject.filePath = folder + "\\" + state.project.currentProject.name + ".json";
+    const data = serializeProject(state);
+    await fileSystem.saveProjectToFile(data);
+}
+
+//Saves the project at the listed file path
+export async function saveExistingProject(state) {
+  const path = state.project.currentProject.filePath;
+
+  //Checks if the listed file path exists
+  if (!path) {
+    throw new Error("Project has no file path. Use Save As… instead.");
+  }
+
+  //gets data a validates it
+  const data = serializeProject(state);
+  const errors = validateProjectData(data);
+
+  if (errors.length > 0) {
+    throw new Error("Cannot save project: " + errors.join("\n"));
+  }
+
+  //calls Data layer to save file
+  await fileSystem.saveProjectToFile(data);
+}
+
+//Loads a project file and injects project specific areas into the state.
+export async function loadProject(state, filePath){
+    const jsonString = await fileSystem.loadProjectFromFile(filePath)
+    const newState = deserializeProject(jsonString)
+    return newState;
+}
+
+
+
 
 export function validateProjectData(data) {
     let errors = [];

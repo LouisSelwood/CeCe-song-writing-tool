@@ -28,10 +28,21 @@ contextBridge.exposeInMainWorld('api', {
     return () => ipcRenderer.removeListener("store:dispatch", handler);
   },
 
+  writeFile: (path, data) => ipcRenderer.invoke("write-file", path, data),
+
+  renameFile: (oldPath, newPath) => ipcRenderer.invoke("rename-file", oldPath, newPath),
+
+  loadFile: (path) => ipcRenderer.invoke("load-file", path)
+
+
 })
 contextBridge.exposeInMainWorld("electronAPI", {
   closePopout: (id) => ipcRenderer.invoke("close-popout", id),
-  getAppBounds: () => ipcRenderer.invoke("get-app-bounds")
+  getAppBounds: () => ipcRenderer.invoke("get-app-bounds"),
+  onMenuSaveProject: (callback) => ipcRenderer.on('menu-save-project', callback),
+  onMenuSaveAs: (callback) => ipcRenderer.on('menu-save-as', callback),
+  onMenuLoadProject: (callback) => ipcRenderer.on('menu-load-project', callback)
+
 
 });
 
