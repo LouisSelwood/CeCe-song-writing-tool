@@ -9,6 +9,7 @@ import { initialState } from "./state/store/initialState.js";
 import { selectors } from "./state/store/selectors.js";
 import { actions } from "./state/store/actions.js";
 import { domain } from "./domain/index.js";
+import song from '../../test/TestSongs/dont-look-back-in-anger.json';
 
 
 const store = createStore(initialState, actions, selectors, domain); //creates the global store
@@ -39,3 +40,11 @@ store.actions.openWindow("Song Editor");
 store.actions.openWindow("Settings");
 
 //store.actions.dockWindow({id: store.state.windows.allIDs[0], dock: "left"})
+
+//Tests
+store.actions.initiateSong({songDSL: song})
+store.actions.getSongDescription({})
+store.actions.updateSongSpaceFromState({});
+const projectData = store.domain.app.serializeProject(store.state)
+const validationErrors = store.domain.app.validateProjectData(projectData)
+console.log(validationErrors)

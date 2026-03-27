@@ -38,6 +38,7 @@ export function createStore(initialState, actions, selectors, domain) {
     state,
     actions: boundActions,
     selectors: selectors,
+    domain: domain,
     getState: () => state,
     subscribe
   }
