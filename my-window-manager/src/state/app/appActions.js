@@ -69,7 +69,7 @@ export const setLastKeyPressed = (key) => (state) => {
   state.app.lastKeyPressed = key;
 }
 
-export const createNewProject = (name) => (state, domain) => {
+export const createNewProject = ({name}) => (state, domain) => {
   state.project.currentProject = domain.project.createProject(name);
 }
 
@@ -86,7 +86,6 @@ export const saveProject = () => (state, domain) => {
 //loads the project at the file path location
 export const loadProject = (filePath) =>
   async (state, domain, actions, setState) => {
-
     const newState = await domain.app.loadProject(state, filePath);
     setState(newState)
     actions.updateSongSpaceFromState();

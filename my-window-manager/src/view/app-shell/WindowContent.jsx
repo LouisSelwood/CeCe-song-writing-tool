@@ -14,11 +14,10 @@ export function WindowContent({ store, id }) {
   }
 
   function testerButton(){
-    dispatchAction("saveProject", {})
-  }
-
-  function testLoad(){
-    dispatchAction("loadProject", {filePath: "C:\\Users\\Louis Selwood\\OneDrive\\Documents\\University Work\\Dissertation\\SaveTests\\Don't Look Back In Anger.json"})
+    dispatchAction("createNewProject", {name: "Dont Look Back In Anger"})
+    dispatchAction("initiateSong", {songDSL: song})
+    dispatchAction("getSongDescription", {});
+    dispatchAction("updateSongSpaceFromState", {});
   }
 
 
@@ -45,10 +44,6 @@ export function WindowContent({ store, id }) {
       <div 
         style={{width: 60, height: 60, alignSelf: "center",justifySelf: "space-between", color: "white",fontSize: 12, display: "flex", backgroundColor: "#2b5f3b", borderColor: "black", borderWidth: 4, borderRadius: 6}}
         onMouseDown={testerButton}>
-      </div>
-      <div 
-        style={{width: 60, height: 60, alignSelf: "center",justifySelf: "space-between", color: "white",fontSize: 12, display: "flex", backgroundColor: "#2b5f3b", borderColor: "black", borderWidth: 4, borderRadius: 6}}
-        onMouseDown={testLoad}>
       </div>
       {store.state.windows.byID[id].state}
     </div>

@@ -41,7 +41,7 @@ export function deserializeProject(jsonString){
 
 //Saves the project in a new file
 export async function saveProjectAs(folder, state){
-    state.project.currentProject.filePath = folder + "\\" + state.project.currentProject.name + ".json";
+    state.project.currentProject.filePath = folder + "\\" + state.project.currentProject.name + ".cecep";
     const data = serializeProject(state);
     await fileSystem.saveProjectToFile(data);
 }

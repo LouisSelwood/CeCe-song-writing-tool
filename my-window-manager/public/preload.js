@@ -41,7 +41,11 @@ contextBridge.exposeInMainWorld("electronAPI", {
   getAppBounds: () => ipcRenderer.invoke("get-app-bounds"),
   onMenuSaveProject: (callback) => ipcRenderer.on('menu-save-project', callback),
   onMenuSaveAs: (callback) => ipcRenderer.on('menu-save-as', callback),
-  onMenuLoadProject: (callback) => ipcRenderer.on('menu-load-project', callback)
+  onMenuLoadProject: (callback) => ipcRenderer.on('menu-load-project', callback),
+  openProjectDialog: () => ipcRenderer.invoke('open-project-dialog'),
+  saveProjectAsDialog: () => ipcRenderer.invoke('save-project-as-dialog'),
+
+
 
 
 });

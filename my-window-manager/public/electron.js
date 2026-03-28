@@ -111,6 +111,8 @@ function createPopoutWindow(win){
 
 }
 
+
+
 //IPC Handling
 const { ipcMain } = require('electron');
 
@@ -173,4 +175,35 @@ ipcMain.handle("load-file", async (event, path) => {
   const data = await fs.readFile(path, "utf8");
   return data;
 })
+
+const { dialog } = require('electron');
+
+ipcMain.handle('open-project-dialog', async () => {
+  const result = await dialog.showOpenDialog({
+    title: 'Load Project',
+    buttonLabel: 'Load',
+    properties: ['openFile'],
+    filters: [
+      { name: 'CeCe Projects', extensions: ['cecep'] },
+      { name: 'All Files', extensions: ['*'] }
+    ]
+  });
+
+  if (result.canceled) return null;
+  return result.filePaths[0];
+});
+
+ipcMain.handle('save-project-as-dialog', async () => {
+  const result = await dialog.showOpenDialog({
+    title: 'Save Project Folder',
+    buttonLabel: 'Save As',
+    properties: ['openDirectory'],
+    filters: [
+      { name: 'All Files', extensions: ['*'] }
+    ]
+  });
+
+  if (result.canceled) return null;
+  return result.filePaths[0];
+});
 

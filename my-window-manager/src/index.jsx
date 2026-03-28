@@ -40,13 +40,28 @@ window.electronAPI.onMenuSaveProject(() => {
   store.actions.saveProject();
 });
 
-window.electronAPI.onMenuSaveAs(() => {
-  store.actions.saveProjectAs("C:\\Users\\Louis Selwood\\OneDrive\\Documents\\University Work\\Dissertation\\SaveTests\\");
-});
+window.electronAPI.onMenuSaveAs(handleProjectSaveAs);
 
-window.electronAPI.onMenuLoadProject(() => {
-  store.actions.loadProject("C:\\Users\\Louis Selwood\\OneDrive\\Documents\\University Work\\Dissertation\\SaveTests\\Don't Look Back In Anger.json");
-});
+window.electronAPI.onMenuLoadProject(handleProjectLoad);
+
+async function handleProjectLoad(){
+  const filePath = await window.electronAPI.openProjectDialog();
+    if (!filePath) {
+      console.log("User Cancelled")
+      return; // user cancelled
+    }
+    store.actions.loadProject(filePath);
+    
+}
+
+async function handleProjectSaveAs(){
+  const filePath = await window.electronAPI.saveProjectAsDialog();
+  if(!filePath){
+    console.log("User Cancelled")
+    return;
+  }
+  store.actions.saveProjectAs(filePath);
+}
 
 
 store.actions.openWindow("Chord Workshop");
