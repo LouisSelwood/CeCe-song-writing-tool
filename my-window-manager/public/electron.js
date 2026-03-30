@@ -38,6 +38,15 @@ function addSettings() {
               }
             }
           },
+          {
+            label: 'Test',
+            accelerator: 'CmdTrCtrl+T',
+            click: (menuItem, browserWindow) => {
+              if (browserWindow) {
+                browserWindow.webContents.send('run-test-function');
+              }
+            }
+          },
 
           { type: 'separator' },
 
@@ -176,7 +185,13 @@ ipcMain.handle("load-file", async (event, path) => {
   return data;
 })
 
+
+
 const { dialog } = require('electron');
+
+ipcMain.handle('show-error', (_, { title, message }) => {
+  dialog.showErrorBox(title, message);
+});
 
 ipcMain.handle('open-project-dialog', async () => {
   const result = await dialog.showOpenDialog({

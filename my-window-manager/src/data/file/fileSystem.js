@@ -15,3 +15,7 @@ export async function loadProjectFromFile(filePath){
     console.log("Project Loaded")
     return jsonString;
 }
+
+export async function renameProject(filePath, newFilePath){
+    await window.api.renameFile(filePath, newFilePath);
+}

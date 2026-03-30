@@ -24,6 +24,7 @@ export function WindowContent({ store, id }) {
 
 
 
+
   async function dispatchAction(action, payload) {
     // React window: store.actions exists → call main store directly
     if (store.actions) {

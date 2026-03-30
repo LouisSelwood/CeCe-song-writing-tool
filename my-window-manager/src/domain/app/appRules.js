@@ -1,4 +1,5 @@
 import { initialState } from "../../state/store/initialState";
+import * as helpers from "./appHelpers.js"
 import * as fileSystem from "../../data/file/fileSystem";
 
 //Extracts only project specific areas of the state
@@ -19,12 +20,14 @@ export function deserializeProject(jsonString){
     try {
         data = JSON.parse(jsonString);
     } catch(e) {
+        window.electronAPI.showError("Invalid Project File", e.message)
         throw new Error("Invalid JSON: " + e.messaage);
     }
 
     //Validate Data
     const errors = validateProjectData(data);
     if(errors.length > 0){
+        window.electronAPI.showError("Invalid Project File", "Project file cannot be loaded due to errors: \n" + errors.join("\n"))
         throw new Error("Project file failed validdation\n" + errors.join("\n"));
     }
 
@@ -52,6 +55,7 @@ export async function saveExistingProject(state) {
 
   //Checks if the listed file path exists
   if (!path) {
+    window.electronAPI.showError("Project Has No File Path", "try using Save As instead as there is no file path for this project yet")
     throw new Error("Project has no file path. Use Save As… instead.");
   }
 
@@ -60,6 +64,8 @@ export async function saveExistingProject(state) {
   const errors = validateProjectData(data);
 
   if (errors.length > 0) {
+    window.electronAPI.showError("Cannot Save Project", "Cannot Save Project due to errors: \n" + + errors.join("\n"))
+
     throw new Error("Cannot save project: " + errors.join("\n"));
   }
 
@@ -71,9 +77,17 @@ export async function saveExistingProject(state) {
 export async function loadProject(state, filePath){
     const jsonString = await fileSystem.loadProjectFromFile(filePath)
     const newState = deserializeProject(jsonString)
+
+    //apply any needed changes to name and file path (in the case of the file name being changed)
+    newState.project.currentProject.name = helpers.getProjectNameFromFilePath(filePath);
+    newState.project.currentProject.filePath = filePath;
+
     return newState;
 }
 
+export async function renameProject(filePath, newFilePath){
+    fileSystem.renameProject(filePath, newFilePath);
+}
 
 
 

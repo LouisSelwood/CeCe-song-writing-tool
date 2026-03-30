@@ -1,6 +1,4 @@
-export const setProjectName = (newProjectName) => (state, domain) => {
-    //domain logic goes here
-}
+
 export const setIsSaved = (newValue) => (state) => {
     state.projectBar.isSaved = newValue;
 }

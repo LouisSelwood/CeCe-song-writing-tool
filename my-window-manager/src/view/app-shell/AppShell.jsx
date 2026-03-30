@@ -1,5 +1,6 @@
 import "./css/AppShell.css";
 import { Desktop } from "./Desktop.jsx";
+import { useState, useEffect } from "react";
 
 /**
  * Top-level layout wrapper for the desktop enviroment

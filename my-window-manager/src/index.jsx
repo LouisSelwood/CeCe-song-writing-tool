@@ -44,6 +44,10 @@ window.electronAPI.onMenuSaveAs(handleProjectSaveAs);
 
 window.electronAPI.onMenuLoadProject(handleProjectLoad);
 
+window.electronAPI.onRunTestFunction(() => {
+  store.actions.setProjectName({name: "Dont Look Back In Happiness"})
+  console.log(store.state.project.currentProject)
+})
 async function handleProjectLoad(){
   const filePath = await window.electronAPI.openProjectDialog();
     if (!filePath) {
@@ -53,6 +57,7 @@ async function handleProjectLoad(){
     store.actions.loadProject(filePath);
     
 }
+
 
 async function handleProjectSaveAs(){
   const filePath = await window.electronAPI.saveProjectAsDialog();
