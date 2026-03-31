@@ -2,6 +2,10 @@ const popoutWindows = {};
 let mainWindow = null;
 const { app, Menu, BrowserWindow } = require('electron');
 const path = require('path');
+const { spawn } = require("child_process");
+
+let pythonProcess;
+
 
 //Creates Custom Electron Settings
 function addSettings() {
@@ -87,11 +91,44 @@ function createWindow() {
     })
   })
 }
-app.whenReady().then(createWindow);
+
+function startPythonBackend() {
+  pythonProcess = spawn("python", ["../../cece-backend/primary-model/start_backend.py"], {
+    cwd: __dirname,
+    //shell: true
+  });
+
+  pythonProcess.stdout.on("data", data => {
+    console.log(`PYTHON: ${data}`);
+  });
+
+  pythonProcess.stderr.on("data", data => {
+    console.error(`PYTHON ERROR: ${data}`);
+  });
+
+  pythonProcess.on("close", code => {
+    console.log(`Python backend exited with code ${code}`);
+  });
+}
+
+app.whenReady().then(() => {
+  startPythonBackend();
+  createWindow();
+});
+
+
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') app.quit();
 });
+
+app.on("before-quit", () => {
+  if (pythonProcess) {
+    pythonProcess.kill();
+    console.log("python process killed")
+  }
+});
+
 
 function createPopoutWindow(win){
   const popout = new BrowserWindow({

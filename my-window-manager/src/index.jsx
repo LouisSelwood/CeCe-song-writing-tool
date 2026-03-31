@@ -44,10 +44,15 @@ window.electronAPI.onMenuSaveAs(handleProjectSaveAs);
 
 window.electronAPI.onMenuLoadProject(handleProjectLoad);
 
-window.electronAPI.onRunTestFunction(() => {
-  store.actions.setProjectName({name: "Dont Look Back In Happiness"})
-  console.log(store.state.project.currentProject)
-})
+window.electronAPI.onRunTestFunction(testFunction)
+
+async function testFunction(){
+  const chordString = "C major/:C major C major:E major E major:B major E major:"
+  const result = await fetch("http://localhost:8000/getlogits?chords=" + encodeURIComponent(chordString));
+  const data = await result.json();
+  console.log(data.result);
+}
+
 async function handleProjectLoad(){
   const filePath = await window.electronAPI.openProjectDialog();
     if (!filePath) {
