@@ -44,13 +44,25 @@ window.electronAPI.onMenuSaveAs(handleProjectSaveAs);
 
 window.electronAPI.onMenuLoadProject(handleProjectLoad);
 
-window.electronAPI.onRunTestFunction(testFunction)
+window.electronAPI.onRunTestFunction(() => {
+  testFunction();
+  
+})
 
 async function testFunction(){
-  const chordString = "C major/:C major C major:E major E major:B major E major:"
-  const result = await fetch("http://localhost:8000/getlogits?chords=" + encodeURIComponent(chordString));
-  const data = await result.json();
-  console.log(data.result);
+
+  const Verse = store.state.project.currentProject.songContents[2]
+  console.log(Verse)
+  const VerseSequences = store.state.sections.byID[Verse].sequenceIDs
+  console.log(VerseSequences)
+  let chords = []
+  VerseSequences.forEach(sequenceID => {
+    const sequence = store.state.sequences.byID[sequenceID]
+    chords.push(...sequence.chordIDs)
+  })
+
+  const data = await store.domain.primary.getSequenceSuggestions(store.state, chords)
+  console.log(data);
 }
 
 async function handleProjectLoad(){

@@ -2,11 +2,13 @@ export class Project {
   constructor({
     name,
     songContents = [],
+    globalKey,
     metadata = {},
     filePath,
   }) {
     this.name = name;
     this.songContents = songContents;
+    this.globalKey = globalKey;
     this.metadata = metadata;
     this.filePath = filePath;
   }
@@ -43,6 +45,7 @@ export class Project {
     return {
       name: this.name,
       songContents: [...this.songContents],
+      globalKey: this.globalKey,
       metadata: { ...this.metadata },
       filePath: this.filePath,
     };
@@ -52,6 +55,7 @@ export class Project {
     return new Project({
       name: data.name ?? "Untitled",
       songContents: data.songContents ?? [],
+      globalKey: data.globalKey ?? null,
       metadata: data.metadata ?? {},
       filePath: data.filePath ?? null
     });
@@ -59,7 +63,7 @@ export class Project {
 }
 
 export function createProject(projectName){
-  const project = new Project({name: projectName, filePath: null});
+  const project = new Project({name: projectName, filePath: null, globalKey: "C major"});
   return project.serialize();
 }
 export function addSectionAtEnd(sectionID, state){

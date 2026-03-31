@@ -4,6 +4,7 @@ import {sequencesDomain} from "./sequences/sequenceIndex.js";
 import {sectionsDomain} from "./sections/sectionIndex.js";
 import {projectDomain} from "./project/projectIndex.js";
 import {appDomain} from "./app/appIndex.js";
+import { primaryDomain } from "./primary/primaryIndex.js";
 
 export const domain = {
     windows: windowsDomain,
@@ -12,4 +13,5 @@ export const domain = {
     sections: sectionsDomain,
     project: projectDomain,
     app: appDomain,
+    primary: primaryDomain,
 }

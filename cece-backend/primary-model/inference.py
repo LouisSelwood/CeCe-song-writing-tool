@@ -32,58 +32,51 @@ NOTE_TO_SEMITONE = {
 
 EXTENSION_TOKENS = {
 
-    # ─── Basic Triads ───────────────────────────────
-    "":          "CHORD_EXTENSION__",      # major triad (e.g. "C")
-    "m":         "CHORD_EXTENSION__",      # minor triad (e.g. "Cm") — quality comes from CHORD_DEGREE in context
-    "maj":       "CHORD_EXTENSION__",      # major triad alternate spelling
-    "min":       "CHORD_EXTENSION__",      # minor triad alternate spelling
-    "major":     "CHORD_EXTENSION__",
-    "minor":     "CHORD_EXTENSION__",
-    "aug":       "CHORD_EXTENSION__(+)",   # augmented (e.g. "Caug", "C+")
-    "+":         "CHORD_EXTENSION__(+)",   # augmented alternate symbol
-    "sus2":      "CHORD_EXTENSION__(sus2)",# suspended 2nd (e.g. "Csus2")
-    "sus4":      "CHORD_EXTENSION__(sus4)",# suspended 4th (e.g. "Csus4")
-    "sus":       "CHORD_EXTENSION__(sus4)",# suspended — defaults to sus4
+    # ─── Root Position ───────────────────────────────
+    "major":        "CHORD_EXTENSION__",
+    "minor":        "CHORD_EXTENSION__",
+    "dim":          "CHORD_EXTENSION__",
+    "7":            "CHORD_EXTENSION__7",
+    "maj7":         "CHORD_EXTENSION__7",
+    "m7":           "CHORD_EXTENSION__7",
+    "sus2":         "CHORD_EXTENSION__(sus2)",
+    "sus4":         "CHORD_EXTENSION__(sus4)",
+    "aug":          "CHORD_EXTENSION__(+)",
 
-    # ─── 7th Chords ─────────────────────────────────
-    "7":         "CHORD_EXTENSION__7",     # dominant 7th (e.g. "G7")
-    "maj7":      "CHORD_EXTENSION__7",     # major 7th (e.g. "Cmaj7")
-    "M7":        "CHORD_EXTENSION__7",     # major 7th alternate symbol
-    "m7":        "CHORD_EXTENSION__7",     # minor 7th (e.g. "Am7")
-    "min7":      "CHORD_EXTENSION__7",     # minor 7th alternate spelling
-    "dim7":      "CHORD_EXTENSION__7",     # diminished 7th (e.g. "Bdim7")
-    "mM7":       "CHORD_EXTENSION__7",     # minor major 7th
-    "minMaj7":   "CHORD_EXTENSION__7",     # minor major 7th alternate spelling
+    # ─── 1st Inversion (3rd in bass) ─────────────────
+    "major/3":      "CHORD_EXTENSION__6",
+    "minor/3":      "CHORD_EXTENSION__6",
+    "dim/3":        "CHORD_EXTENSION__6",
+    "7/3":          "CHORD_EXTENSION__65",
+    "maj7/3":       "CHORD_EXTENSION__65",
+    "m7/3":         "CHORD_EXTENSION__65",
+    "sus2/3":       "CHORD_EXTENSION__6(sus2)",
+    "sus4/3":       "CHORD_EXTENSION__6(sus4)",
+    "aug/3":        "CHORD_EXTENSION__6(+)",
 
-    # ─── Inversions (Triads) ────────────────────────
-    "/3":        "CHORD_EXTENSION__6",     # first inversion — 3rd in bass (e.g. "C/E")
-    "/5":        "CHORD_EXTENSION__64",    # second inversion — 5th in bass (e.g. "C/G")
-    "inv1":      "CHORD_EXTENSION__6",     # first inversion explicit
-    "inv2":      "CHORD_EXTENSION__64",    # second inversion explicit
+    # ─── 2nd Inversion (5th in bass) ─────────────────
+    "major/5":      "CHORD_EXTENSION__64",
+    "minor/5":      "CHORD_EXTENSION__64",
+    "dim/5":        "CHORD_EXTENSION__64",
+    "7/5":          "CHORD_EXTENSION__43",
+    "maj7/5":       "CHORD_EXTENSION__43",
+    "m7/5":         "CHORD_EXTENSION__43",
+    "sus2/5":       "CHORD_EXTENSION__64(sus2)",
+    "sus4/5":       "CHORD_EXTENSION__64(sus4)",
+    "aug/5":        "CHORD_EXTENSION__64(+)",
 
-    # ─── Inversions (7th Chords) ────────────────────
-    "7/3":       "CHORD_EXTENSION__65",    # first inversion 7th — 3rd in bass
-    "7/5":       "CHORD_EXTENSION__43",    # second inversion 7th — 5th in bass
-    "7/7":       "CHORD_EXTENSION__2",     # third inversion 7th — 7th in bass
-    "inv1_7":    "CHORD_EXTENSION__65",    # first inversion 7th explicit
-    "inv2_7":    "CHORD_EXTENSION__43",    # second inversion 7th explicit
-    "inv3_7":    "CHORD_EXTENSION__2",     # third inversion 7th explicit
-
-    # ─── Suspended Inversions ───────────────────────
-    "sus2/3":    "CHORD_EXTENSION__6(sus2)",
-    "sus4/3":    "CHORD_EXTENSION__6(sus4)",
-    "sus2/5":    "CHORD_EXTENSION__64(sus2)",
-    "sus4/5":    "CHORD_EXTENSION__64(sus4)",
-
-    # ─── Augmented Inversions ───────────────────────
-    "aug/3":     "CHORD_EXTENSION__6(+)",
-    "aug/5":     "CHORD_EXTENSION__64(+)",
-    "+/3":       "CHORD_EXTENSION__6(+)",
-    "+/5":       "CHORD_EXTENSION__64(+)",
+    # ─── 3rd Inversion (7th in bass — 7th chords only) ──
+    "7/7":          "CHORD_EXTENSION__2",
+    "maj7/7":       "CHORD_EXTENSION__2",
+    "m7/7":         "CHORD_EXTENSION__2",
 
 }
 
+
+
 MAJOR_SCALE = [0, 2, 4, 5, 7, 9, 11]
+MAJOR_SCALE_QUALITIES = ["major", "minor", "minor", "major", "major", "minor", "dim"]
+MINOR_SCALE_QUALITIES = ["minor", "dim", "major", "minor", "minor", "major", "major"]
 MINOR_SCALE = [0, 2, 3, 5, 7, 8, 10]
 CHROMATIC_DEGREES_MAJOR = {
     0: "0", 1: "b2", 2: "1", 3: "b3", 4: "2", 5: "3",
@@ -99,7 +92,7 @@ CHROMATIC_DEGREES_MINOR = {
 
 def chords_to_tokens(chords: str):
     #Breaks down data into chords
-    keyChords = chords.split("/")
+    keyChords = chords.split("]")
     globalKey = keyChords[0].split(" ")
     chordStrings = [c for c in keyChords[1].split(":") if c.strip() != ""]
 
@@ -115,6 +108,12 @@ def chords_to_tokens(chords: str):
     return(tokens)
 
 def chord_tokeniser(root: str, quality: str, keyRoot: str, keyMode: str, globalKeyRoot: str, globalKeyMode: str):
+    bass = ""
+    if("/" in root):
+        root_split = root.split("/")
+        root = root_split[0]
+        bass = root_split[1]
+
     
     #Validate Input
     if root not in NOTE_TO_SEMITONE:
@@ -135,7 +134,9 @@ def chord_tokeniser(root: str, quality: str, keyRoot: str, keyMode: str, globalK
     keySemi = NOTE_TO_SEMITONE[keyRoot]
 
     interval = (rootSemi - keySemi) % 12
-    
+    if(bass != ""):
+        bass_interval = get_bass_interval(root, bass)
+        quality += bass_interval
     #Gets Extension Token
     extensionToken = EXTENSION_TOKENS[quality]
 
@@ -164,6 +165,29 @@ def chord_tokeniser(root: str, quality: str, keyRoot: str, keyMode: str, globalK
         case "minor":
             tonalityDegree = MINOR_SCALE.index(tonalityInterval)
 
+    # Determine base triad quality
+    if quality.startswith("m") and not quality.startswith("maj"):
+        quality_base = "minor"
+    elif quality.startswith("dim") or quality.startswith("o"):
+        quality_base = "dim"
+    else:
+        quality_base = "major"
+
+    # Expected diatonic quality
+    if keyMode == "major":
+        expected_quality = MAJOR_SCALE_QUALITIES[int(degree)]
+    else:
+        expected_quality = MINOR_SCALE_QUALITIES[int(degree)]
+
+    # Detect modal mixture
+    borrowed = (quality_base != expected_quality)
+
+    # Set tonality mode
+    if borrowed:
+        tonalityMode = "m" if keyMode == "major" else "M"
+    else:
+        tonalityMode = "M" if keyMode == "major" else "m"
+
     #creates tokens
     tokens = ["CHORD_CHANGE"]
     tokens.append(f"CHORD_DEGREE__{degree}")
@@ -172,10 +196,29 @@ def chord_tokeniser(root: str, quality: str, keyRoot: str, keyMode: str, globalK
     tokens.append(extensionToken)
     tokens.append("CHORD_OCTAVE__0")
 
+    print(tokens)
     #returns tokens
     return(tokens)
 
+def get_bass_interval(root: str, bass: str) -> str:
 
+    root_semi = NOTE_TO_SEMITONE[root]   # NOTE: square brackets, not parentheses
+    bass_semi = NOTE_TO_SEMITONE[bass]
+
+    interval = (bass_semi - root_semi) % 12
+
+    match interval:
+        case 0:
+            return ""       # root position
+        case 3 | 4:
+            return "/3"     # minor or major 3rd → 1st inversion
+        case 6 | 7 | 8:
+            return "/5"     # dim, perfect, aug 5th → 2nd inversion
+        case 9 | 10 | 11:
+            return "/7"     # dim, minor, major 7th → 3rd inversion
+        case _:
+            raise ValueError(f"Interval of {interval} semitones from '{root}' to '{bass}' is not a standard inversion.")
+            
 
 @torch.no_grad()
 def get_logits(chordInput: str) -> dict[str, float]:
