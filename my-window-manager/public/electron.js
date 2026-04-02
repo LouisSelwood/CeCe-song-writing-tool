@@ -93,7 +93,7 @@ function createWindow() {
 }
 
 function startPythonBackend() {
-  pythonProcess = spawn("python", ["../../cece-backend/primary-model/start_backend.py"], {
+  pythonProcess = spawn("python", ["../../cece-backend/start_backend.py"], {
     cwd: __dirname,
     //shell: true
   });

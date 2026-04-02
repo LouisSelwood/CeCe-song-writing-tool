@@ -45,7 +45,7 @@ window.electronAPI.onMenuSaveAs(handleProjectSaveAs);
 window.electronAPI.onMenuLoadProject(handleProjectLoad);
 
 window.electronAPI.onRunTestFunction(() => {
-  testFunction();
+  testFunction2();
   
 })
 
@@ -62,6 +62,13 @@ async function testFunction(){
   })
 
   const data = await store.domain.primary.getSequenceSuggestions(store.state, chords)
+  console.log(data);
+}
+
+async function testFunction2(){
+  const chordString = "C Am F G Gm"
+  const result = await fetch("http://localhost:8000/explain?chords=" + encodeURIComponent(chordString));
+  const data = await result.json();
   console.log(data);
 }
 
