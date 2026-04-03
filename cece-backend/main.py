@@ -4,7 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 from primary.inference import predict_chord
-from secondary.secondary_utils import explain_chords
+from secondary.secondary_utils import sequence_analysis
 
 app = FastAPI()
 
@@ -35,6 +35,6 @@ def predict_next(chords: str):
 
 @app.get("/explain")
 def explain(chords: str):
-    text = explain_chords(chords)
+    text = sequence_analysis(chords)
     print(text)
     return {"explanation": text}

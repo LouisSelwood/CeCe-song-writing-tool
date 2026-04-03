@@ -66,10 +66,37 @@ async function testFunction(){
 }
 
 async function testFunction2(){
-  const chordString = "C Am F G Gm"
-  const result = await fetch("http://localhost:8000/explain?chords=" + encodeURIComponent(chordString));
+  console.log("Sending for Results")
+  const format = `
+You are a concise music theory assistant. Output ONLY one JSON array. No extra text.
+
+Task
+Given a chord progression and its key, compute each chord's scale degree and function.
+
+Required output schema
+{"chord":"string","reason":"<=12 words","theory":"I|ii|iii|IV|V|vi|vii°|V/target|borrowed iv|bVI|V7|I6|other"}
+
+Rules
+- Compute scale_degree from the given key; do not guess.
+- Use canonical mapping for the key. For C major use: C:I, Dm:ii, Em:iii, F:IV, G:V, Am:vi, Bdim:vii°.
+- Label secondary dominants as V/target and borrowed chords explicitly.
+- When referencing borrowed chords, specifically reference which key it is borrowed from by researching music theory
+- Keep reason factual and <=12 words.
+- Output exactly one JSON array with one object per chord. No extra fields.
+
+Few-shot examples
+[
+  {"chord":"C","reason":"Tonic establishing the key.","theory":"I"},
+  {"chord":"E7","reason":"Secondary dominant resolving to vi.","theory":"V/vi"}
+]
+
+Now analyse:
+`
+  
+  const chordString = "Chord Progression: {C (I), Am (vi), Fm (borrowed iv), G7 (V7)}  \n Key: {C major}"
+  const result = await fetch("http://localhost:8000/explain?chords=" + encodeURIComponent(format + chordString));
   const data = await result.json();
-  console.log(data);
+  console.log(data.explanation)
 }
 
 async function handleProjectLoad(){
