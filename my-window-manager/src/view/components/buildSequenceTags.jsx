@@ -1,7 +1,6 @@
 import { SequenceTag } from "../windows/shared-components/blocks/SequenceTag";
 export default function buildSequenceTags(store){
     const songSpace = store.state.editor.songSpace;
-    console.log(songSpace.objects)
     const sequenceObjects = Object.entries(songSpace.objects)
     .filter(([key, value]) => value.type === "sequence")
     .map(([key, value]) => ({

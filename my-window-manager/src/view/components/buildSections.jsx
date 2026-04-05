@@ -1,7 +1,6 @@
 import { SectionBlock } from "../windows/shared-components/blocks/SectionBlock.jsx";
 export default function buildSections(store){
     const songSpace = store.state.editor.songSpace;
-    console.log(songSpace.objects)
     const sectionObjects = Object.entries(songSpace.objects)
     .filter(([key, value]) => value.type === "section")
     .map(([key, value]) => ({

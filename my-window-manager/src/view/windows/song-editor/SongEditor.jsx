@@ -79,9 +79,6 @@ export function SongEditor({ store }) {
         <div className="view-button-container"
             style={{ width: getViewButtonWidth("section") }}
             data-action="section" />
-        <div className="view-button-container"
-            style={{ width: getViewButtonWidth("sequence") }}
-            data-action="sequence" />
       </div>
 
       {/*Scrollable Content*/}

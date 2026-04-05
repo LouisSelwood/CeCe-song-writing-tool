@@ -33,3 +33,8 @@ export const getAverageSectionLength = (state) => {
     const sum = pureWidths.reduce((s, v) => s + v, 0);
     return sum / pureWidths.length;
 }
+
+export const getFinalPosition = (state) => {
+    const songSpace = state.editor.songSpace;
+    
+}

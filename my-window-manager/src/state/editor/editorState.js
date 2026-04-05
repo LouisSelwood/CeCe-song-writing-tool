@@ -1,5 +1,6 @@
 export const editorInitialState = {
     songSpace: null,
+    endPosition: null,
     //single select state
     chordSelected: null,
     sequenceSelected: null,
@@ -15,6 +16,7 @@ export const editorInitialState = {
     autoSwitch: false,
 
     //cursor hover state
+    hoveredGapPosition: null,
     hoveredChordID: null,
     hoveredSequenceID: null,
     hoveredSectionID: null,

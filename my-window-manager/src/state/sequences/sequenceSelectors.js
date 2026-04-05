@@ -1,7 +1,5 @@
 import * as tonal from "../../../src/data/utils/tonalWrapper.js";
 
-
-
 export const selectSequenceByID = (state, id) => state.sequences.byID[id];
 export const selectAllSequences = (state) => state.sequences.allIDs.map(id => state.sequences.byID[i]);
 
@@ -42,10 +40,15 @@ export const getChordsAsNotation = (state, sequenceID) => {
         return state.chords.byID[id];
     })
     const chordStrs = tonal.chordsToString(chords);
-    const key = sequence.keySignature;
-    const romanProgression = tonal.chordsToRoman(chordStrs, key)
-    return romanProgression.map((notation, index) => ({
-        notation,
-        length: (chords[index].duration * sequence.timeSignature.numerator)
-    }));
+    return chords.map((chord, index) => ({
+        name: chordStrs[index],
+        length: (chord.duration * sequence.timeSignature.numerator)
+    }))
+    // const key = sequence.keySignature;
+    // const romanProgression = tonal.chordsToRoman(chordStrs, key)
+
+    // return romanProgression.map((notation, index) => ({
+    //     notation,
+    //     length: (chords[index].duration * sequence.timeSignature.numerator)
+    // }));
 }

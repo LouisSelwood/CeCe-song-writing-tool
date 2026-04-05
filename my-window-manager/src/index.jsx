@@ -45,10 +45,13 @@ window.electronAPI.onMenuSaveAs(handleProjectSaveAs);
 window.electronAPI.onMenuLoadProject(handleProjectLoad);
 
 window.electronAPI.onRunTestFunction(() => {
-  testFunction2();
+  testFunction3();
   
 })
 
+async function testFunction3(){
+  console.log(store.state.editor.beatWidth)
+}
 async function testFunction(){
 
   const Verse = store.state.project.currentProject.songContents[2]
@@ -124,6 +127,8 @@ store.actions.openWindow("Chord Workshop");
 store.actions.openWindow("Song Editor");
 store.actions.openWindow("Settings");
 store.actions.createNewProject("Untitled")
+console.log(store.state.project.currentProject)
+store.actions.updateSongSpaceFromState();
 
 //store.actions.dockWindow({id: store.state.windows.allIDs[0], dock: "left"})
 

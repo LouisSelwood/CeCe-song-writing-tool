@@ -2,6 +2,8 @@ import "../SongEditor.css";
 import {Bars} from "../../shared-components/Bars.jsx"
 import buildSections from "../../../components/buildSections.jsx"
 import { ZoomableScrollContainer } from "../../shared-components/ZoomableScrollableContainer.jsx";
+import { AddSectionButton } from "../../shared-components/Buttons/AddSection.jsx";
+import { AddSectionInsert } from "../../shared-components/Buttons/AddSectionInsert.jsx";
 import {useState, useRef, useEffect, useLayoutEffect} from "react";
 
 export function SongView({ store }) {
@@ -18,8 +20,13 @@ export function SongView({ store }) {
 
     return (
         <ZoomableScrollContainer store={store} contentWidth={totalWidth} baseWidth={baseWidth}>
+    
             <Bars state={store.state}/>
-            {sections}
+            <div className="section-holder">
+                {sections}
+                {AddSectionButton({store})}
+                {AddSectionInsert({store})}
+            </div>
         </ZoomableScrollContainer>
     );
 }

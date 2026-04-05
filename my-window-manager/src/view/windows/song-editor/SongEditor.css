@@ -78,3 +78,21 @@
   width: 2px;
   background: red;
 }
+
+.section-holder {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 1px solid red;
+}
+
+.sequence-holder {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 1px solid red;
+}

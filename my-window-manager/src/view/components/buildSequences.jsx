@@ -1,7 +1,6 @@
 import { SequenceBlock } from "../windows/shared-components/blocks/SequenceBlock.jsx";
 export default function buildSequences(store){
     const songSpace = store.state.editor.songSpace;
-    console.log(songSpace.objects)
     const sequenceObjects = Object.entries(songSpace.objects)
     .filter(([key, value]) => value.type === "sequence")
     .map(([key, value]) => ({

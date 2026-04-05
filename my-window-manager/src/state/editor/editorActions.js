@@ -63,6 +63,12 @@ export const setActiveEditor = (newEditor) => (state) => {
   state.editor = editor;
 }
 
+export const setHoveredGap = (pos) => (state) => {
+    const editor = {...state.editor}
+    editor.hoveredGapPosition = pos;
+    state.editor = editor;
+}
+
 export const checkValidEditor = (screenWidth, average) => (state) => {
     if(state.editor.autoSwitch){
         const editor = { ...state.editor };
@@ -80,38 +86,67 @@ export const checkValidEditor = (screenWidth, average) => (state) => {
         }
     
 }
-export const updateSongSpaceFromState= () => (state) => {
+export const updateSongSpaceFromState = () => (state) => {
+    if(state.project.currentProject.songContents.length === 0){
+        const songSpace = {beats: {}, objects: {}}
+        let time = 0;
+        for (let i = 0; i <= 200; i++) {
+            songSpace.beats[i] = {
+                barStart: i % 4 === 0,
+                tempo: 80,
+                keySignature: null,
+                timeSignature: {numerator: 4, denominator: 4},
+                rhythm: null,
+                time: {
+                    min: Math.round(time / 60), 
+                    sec: Math.round(time % 60)},
+                objects: {}
+            };
+            time += 60/80;
+        }
+        state.editor.songSpace = songSpace
+        return;
+    }
     const songSpace = {beats: {}, objects: {}}
-
     const song = state.project.currentProject.songContents;
     let currentBeat = 0;
     let currentTime = 0;
     let beatsIntoBar = 0;
+    let lastTempo = null;
+    let lastTs = null;
+
     song.forEach((sectionID) => { 
         const section = state.sections.byID[sectionID];
         songSpace.objects[section.id] = {
             type: "section",
             startBeat: currentBeat,
-        }
+        };
+
         section.sequenceIDs.forEach((sequenceID) => {
             const sequence = state.sequences.byID[sequenceID];
             songSpace.objects[sequence.id] = {
                 type: "sequence",
                 startBeat: currentBeat,
-            }
+            };
+
             sequence.chordIDs.forEach((chordID) => {
                 const chord = state.chords.byID[chordID];
+                const chordLength = chord.duration * sequence.timeSignature.numerator;
+
                 songSpace.objects[chord.id] = {
                     type: "chord",
                     startBeat: currentBeat,
-                    length: chord.duration * sequence.timeSignature.numerator,
-                }
+                    length: chordLength,
+                };
 
-                for (let i = 0; i < (chord.duration * sequence.timeSignature.numerator); i++) {
+                for (let i = 0; i < chordLength; i++) {
                     const ts = sequence.timeSignature;
                     const isBarStart = beatsIntoBar === 0;
 
-                    const time = {min: Math.floor(currentTime / 60), sec: Math.floor(currentTime % 60)}
+                    const time = {
+                        min: Math.floor(currentTime / 60),
+                        sec: Math.floor(currentTime % 60)
+                    };
 
                     songSpace.beats[currentBeat] = {
                         barStart: isBarStart,
@@ -127,25 +162,45 @@ export const updateSongSpaceFromState= () => (state) => {
                         }
                     };
 
-                    // advance counters
                     beatsIntoBar += 1;
-
-                    // if we reached the bar length, reset
-                    if (beatsIntoBar === ts.numerator) {
-                        beatsIntoBar = 0;
-                    }
+                    if (beatsIntoBar === ts.numerator) beatsIntoBar = 0;
 
                     currentBeat += 1;
                     currentTime += 60 / sequence.tempo;
+                    lastTempo = sequence.tempo;
+                    lastTs = sequence.timeSignature
                 }
+            });
 
-            })
-            songSpace.objects[sequence.id].length = currentBeat - songSpace.objects[sequence.id].startBeat;
-        })
-        songSpace.objects[section.id].length = currentBeat - songSpace.objects[section.id].startBeat;
-    })
+            songSpace.objects[sequence.id].length =
+                currentBeat - songSpace.objects[sequence.id].startBeat;
+        });
+
+        songSpace.objects[section.id].length =
+            currentBeat - songSpace.objects[section.id].startBeat;
+    });
+    state.editor.endPosition = currentBeat
+    currentBeat += 1;
+    
+    
+    for (let i = 0; i <= 200; i++) {
+        songSpace.beats[currentBeat + i] = {
+            barStart: i % 4 === 0,
+            tempo: lastTempo,
+            keySignature: null,
+            timeSignature: lastTs,
+            rhythm: null,
+            time : {
+                min: Math.round(currentTime / 60), 
+                sec: Math.round(currentTime % 60)},
+            objects: {}
+        };
+        currentTime += 60 / lastTempo;
+    }
+
     state.editor.songSpace = songSpace;
-}
+};
+
 
 export const updateStateFromSongSpace = () => (state) => {
 

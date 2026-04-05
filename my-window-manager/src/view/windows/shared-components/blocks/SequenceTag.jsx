@@ -27,7 +27,7 @@ export function SequenceTag({ store, sequenceID, startBeat, length }) {
           width: content.length * store.state.editor.beatWidth * store.state.editor.zoomLevel, 
           justifyContent: "center"}}
         > 
-          {content.notation}
+          {content.name}
         </div>
       ))}
 
