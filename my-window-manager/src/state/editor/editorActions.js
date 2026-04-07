@@ -69,6 +69,15 @@ export const setHoveredGap = (pos) => (state) => {
     state.editor = editor;
 }
 
+export const setActiveAddPopup = () => (state) => {
+    if(state.editor.activeEditor === "song"){
+        state.editor.popupActive = "AddSection";
+    }
+    else{
+        state.editor.popupActive = "AddSequence";
+    }
+    console.log(state.editor.popupActive)
+}
 export const checkValidEditor = (screenWidth, average) => (state) => {
     if(state.editor.autoSwitch){
         const editor = { ...state.editor };

@@ -12,7 +12,12 @@ export class SectionSegment {
   }
 
   // --- Domain behaviour ---
-
+  generateNewID(){
+    this.id = "sect-" + Math.random().toString(36).slice(2);
+  }
+  emptySequence(){
+    this.sequenceIDs = [];
+  }
   getSequenceIDs(){
     return this.sequenceIDs;
   }
@@ -71,8 +76,15 @@ export function createEmptySection(type){
   return{id: newSection.id, section: newSection.serialize()};
 }
 
-export function addSequenceAtEnd(sectionID, sequenceID, state){
-  const section = SectionSegment.deserialize(state.sections.byID[sectionID]);
+export function duplicateSection(sectionObj){
+  const newSection = SectionSegment.deserialize(sectionObj)
+  newSection.generateNewID();
+  newSection.emptySequence();
+  return newSection.serialize();
+}
+
+export function addSequenceAtEnd(sectionObj, sequenceID){
+  const section = SectionSegment.deserialize(sectionObj);
   section.addSequenceAtEnd(sequenceID);
   return section.serialize()
 }

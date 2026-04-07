@@ -6,11 +6,12 @@ import {useState, useEffect} from "react";
 export function SongEditor({ store }) {
   //contains hover state of view buttons
   const [viewButtons, setViewButtons] = useState({"song": false, "section": false, "sequence": false})
-  
-  
+  const [songVersion, setSongVersion] = useState(store.state.project.songVersion);
+  const [editorState, setEditorState] = useState(store.state.editor);
+
+
   //handles mouse events for overall song editor ui
   useEffect(() => {
-
     //triggers on mouse move
     function handleMouseMove(e) {
       const action = e.target.dataset.action;
@@ -53,13 +54,18 @@ export function SongEditor({ store }) {
 });
 
   //subscribes to store and updates state
-  const [editorState, setEditorState] = useState(store.state.editor);
   useEffect(() => {
     const unsub = store.subscribe(() => {
-      setEditorState(store.state.editor)
+      setEditorState(store.state.editor);   // existing
+      setSongVersion(store.state.project.songVersion); // new
     });
     return unsub;
-  },[store])
+  }, []);
+
+
+  useEffect(() => {
+    store.actions.updateSongSpaceFromState();
+  }, [songVersion]);
 
   function getViewButtonWidth(view){
     if(editorState.activeEditor === view) return "60px";

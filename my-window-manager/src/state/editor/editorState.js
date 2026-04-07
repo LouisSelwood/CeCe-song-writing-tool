@@ -11,9 +11,11 @@ export const editorInitialState = {
     selectedSequenceIDs: [],
     selectedSectionIDs: [],
 
-    activeEditor: null,  //holds current window active (sequence, section, song editor)
+    activeEditor: "song",  //holds current window active (sequence, section, song editor)
     activeTool: "selector",
-    autoSwitch: false,
+    autoSwitch: true,
+    popupActive: null,
+
 
     //cursor hover state
     hoveredGapPosition: null,

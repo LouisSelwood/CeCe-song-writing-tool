@@ -1,8 +1,8 @@
 .add-section-button{
-    width: 100px;
-    height: 100px;
+    width: 60px;
+    height: 60px;
     position: absolute;
-    bottom: 0;
+    bottom: 25px;
     background-color: #02fec7;
     transition: background-color 0.15s ease;
     border-radius: 36px;
@@ -28,7 +28,7 @@
 .add-section-insert{
     position: absolute;
     border-radius: 36px;
-    top: 30px;
+    top: 50px;
     display: flex;
     flex-direction: column;
     justify-content: center;

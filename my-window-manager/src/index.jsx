@@ -50,7 +50,8 @@ window.electronAPI.onRunTestFunction(() => {
 })
 
 async function testFunction3(){
-  console.log(store.state.editor.beatWidth)
+  store.actions.copySectionAtEnd(store.state.sections.allIDs[0])
+  console.log(store.state.sections.byID)
 }
 async function testFunction(){
 

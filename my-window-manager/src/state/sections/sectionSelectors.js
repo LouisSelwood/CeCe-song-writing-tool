@@ -38,3 +38,13 @@ export const getFinalPosition = (state) => {
     const songSpace = state.editor.songSpace;
     
 }
+
+export const getUniqueSections = (state) => {
+    let uniqueSections = {}
+    Object.values(state.sections.byID).forEach((section) => {
+        if(!Object.values(uniqueSections).includes(section.name)){
+            uniqueSections[section.id] = section.name;
+        }
+    })
+    return uniqueSections;
+}

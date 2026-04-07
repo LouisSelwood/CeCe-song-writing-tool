@@ -1,0 +1,56 @@
+.add-section {
+  position: absolute;
+  display: flex;
+  flex-direction: column;   /* stack title + scroll area vertically */
+
+  background: #1e1e1e;
+  border: 1px solid #444;
+  border-radius: 8px;
+  padding: 0;               /* title bar already has padding */
+  min-height: 60px;
+  max-height: 160px;        /* cap total height */
+
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+
+  bottom: 50px;
+  transform: translateY(50%);
+}
+
+.title-bar {
+  position: sticky;
+  top: 0;
+  height: 32px;
+  background-color: #1e1e1e;
+  border-bottom: 1px solid #444;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  font-weight: 600;
+  color: #fff;
+  z-index: 10;
+}
+
+.section-name-container {
+  display: flex;
+  flex-direction: column;
+
+  overflow-y: auto;         /* scrollable */
+}
+
+
+.add-section-option {
+  height: 40px;
+  width: 200px;
+  padding-left: 10px;
+  justify-content: center;
+  align-items: flex-start;
+  background: #02fec7;
+  border: 1px solid black;
+  cursor: pointer;
+  font-weight: 600;
+  text-align: left;
+}
+
+.add-section-option:hover {
+  background: #00d9a8;
+}

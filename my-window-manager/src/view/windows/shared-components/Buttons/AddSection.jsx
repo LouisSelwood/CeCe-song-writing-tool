@@ -15,10 +15,14 @@ export function AddSectionButton({ store }) {
   const zoom = state.editor.zoomLevel;
 
   const left = state.editor.endPosition * beatWidth * zoom;
+  function openAddSections(){
+    store.actions.setActiveAddPopup();
+  }
   return (
     <div
       className="add-section-button"
       style={{left: left + 20}}
+      onMouseDown={(openAddSections)}
     >
         +
     </div>

@@ -15,6 +15,9 @@ class ChordSegment {
         this.metadata = metadata;
     }
 
+    generateNewID(){
+        this.id = "cho-" + Math.random().toString(36).slice(2);
+    }
 
     toString() {
         const strQuality = this.quality === "Major" ? "" : this.quality;
@@ -47,6 +50,13 @@ function generateID() {
 export function createChord(params){ //params are root, quality, bass, and duration
     const newChord = new ChordSegment({id: generateID(), ...params})
     return {id: newChord.id, chord: newChord.serialize()};
+}
+
+export function duplicateChord(chordID, state){
+    const chord = state.chords.byID[chordID]
+    const newChord = ChordSegment.deserialize(chord);
+    newChord.generateNewID();
+    return newChord.serialize();
 }
 
 export function getChordAsString(chordID,state){

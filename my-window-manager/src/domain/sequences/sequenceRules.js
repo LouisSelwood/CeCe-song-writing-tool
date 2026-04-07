@@ -21,6 +21,14 @@ export class SequenceSegment {
 
   // --- Domain behaviour ---
 
+  generateNewID(){
+    this.id = "seq-" + Math.random().toString(36).slice(2);
+  }
+
+  emptyChordIDs(){
+    this.chordIDs = [];
+  }
+
   getChordIDs(){
     return this.chordIDs;
   }
@@ -80,8 +88,15 @@ export function createEmptySequence({tempo, timeSignature, rhythm, keySignature}
   return {id: newSequence.id, sequence: newSequence.serialize()};
 }
 
-export function addChordAtEnd(sequenceID, chordID, state){
-  const sequence = SequenceSegment.deserialize(state.sequences.byID[sequenceID]);
+export function duplicateSequence(sequence){
+  const newSequence = SequenceSegment.deserialize(sequence);
+  newSequence.generateNewID();
+  newSequence.emptyChordIDs();
+  return newSequence.serialize();
+}
+
+export function addChordAtEnd(sequenceObj, chordID){
+  const sequence = SequenceSegment.deserialize(sequenceObj);
   sequence.addChordAtEnd(chordID);
   return sequence.serialize();
 }
