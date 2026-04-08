@@ -8,7 +8,7 @@
  */
 
 export function buildSectionFromDSL(sectionDSL, domain){
-    let {id, section} = domain.sections.createEmptySection(sectionDSL.name);
+    let section = domain.sections.createEmptySection(sectionDSL.name);
     let sequences = [];
     let chords = [];
     sectionDSL.sequences.forEach((sequence) => { 
@@ -17,7 +17,7 @@ export function buildSectionFromDSL(sectionDSL, domain){
         sequences.push({id: genSequence.id, sequence: genSequence.sequence})
         chords.push(...genSequence.chords);
     })
-    return({section, id, sequences, chords});
+    return({section, id: section.id, sequences, chords});
     
 }
 

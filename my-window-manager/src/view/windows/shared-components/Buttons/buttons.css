@@ -1,18 +1,19 @@
 .add-section-button{
-    width: 60px;
-    height: 60px;
+    width: 46px;
+    height: 46px;
     position: absolute;
-    bottom: 25px;
+    bottom: 18px;
+    transform: TranslateY(50%);
     background-color: #02fec7;
     transition: background-color 0.15s ease;
     border-radius: 36px;
-    border: 6px solid black;
+    border: 2px solid black;
     display: flex;
     justify-content: center;
     align-items: center;
     font-family: "'Anton', sans-serif";
     font-weight: 700;
-    font-size: 56px;
+    font-size: 32px;
     text-transform: "uppercase";
     letter-spacing: "1px";
     box-sizing: border-box;
@@ -28,7 +29,7 @@
 .add-section-insert{
     position: absolute;
     border-radius: 36px;
-    top: 50px;
+    top: 25px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -63,7 +64,7 @@
 }
 
 .insert-line {
-  height: 100px;
+  height: 50px;
   width: 3px;
   background-color: #02fec7;
 }

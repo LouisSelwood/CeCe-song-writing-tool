@@ -1,7 +1,7 @@
-import "./buttons.css"
-import { useState, useEffect } from "react"
+import "./buttons.css";
+import { useState, useEffect } from "react";
 
-export function AddSectionInsert({ store }) {
+export function InsertSectionButton({ store }) {
   const [state, setState] = useState(store.state);
 
   useEffect(() => {
@@ -9,12 +9,10 @@ export function AddSectionInsert({ store }) {
       setState(store.state);
     });
     return unsub;
-  }, []);
+  }, [store]);
 
   const beatWidth = state.editor.beatWidth;
   const zoom = state.editor.zoomLevel;
-
-  if (state.editor.hoveredGapPosition === null) return null;
 
   const left = state.editor.hoveredGapPosition * beatWidth * zoom;
 
@@ -23,13 +21,28 @@ export function AddSectionInsert({ store }) {
     console.log("Mouse Left Marker");
   };
 
+  function openInsertSection() {
+    const currentHover = store.state.editor.hoveredGapPosition;
+    if (currentHover == null) return;
+
+    store.actions.setActiveInsertPopup(true);
+    store.actions.setPopupPosition(currentHover);
+  }
+
+  if (state.editor.hoveredGapPosition === null) return null;
+
   return (
     <div
       className="add-section-insert"
       style={{ left: left - 15 }}
       onMouseLeave={handleMouseLeave}
     >
-      <div className="insert-circle">+</div>
+      <div
+        className="insert-circle"
+        onMouseDown={openInsertSection}
+      >
+        +
+      </div>
       <div className="insert-line" />
     </div>
   );

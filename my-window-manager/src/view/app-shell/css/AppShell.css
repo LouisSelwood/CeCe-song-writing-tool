@@ -8,8 +8,8 @@
   
 }
 .project-bar {
-  background: #1e1e1e;
-  border-bottom: 1px solid #333;
+  background: #ECF0EC;
+  border-bottom: 1px solid #572E07;
   flex-shrink: 0;
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
 }

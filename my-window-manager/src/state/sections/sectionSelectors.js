@@ -42,9 +42,34 @@ export const getFinalPosition = (state) => {
 export const getUniqueSections = (state) => {
     let uniqueSections = {}
     Object.values(state.sections.byID).forEach((section) => {
-        if(!Object.values(uniqueSections).includes(section.name)){
-            uniqueSections[section.id] = section.name;
+        if(!Object.keys(uniqueSections).includes(section.name)){
+            uniqueSections[section.name] = section.id;
         }
     })
     return uniqueSections;
+}
+
+export const getSectionsAsString = (state) => {
+    const songContents = state.project.currentProject.songContents;
+
+
+    let sections = songContents.map(sectionId => {
+        const section = state.sections.byID[sectionId];
+        return section ? section.name : null;
+    });
+
+    return sections.filter(Boolean); // remove nulls if any IDs are missing
+};
+
+export const getSectionPosition = (beatPosition, state) => {
+    const songSpace = state.editor.songSpace;
+    console.log(songSpace)
+    if (!songSpace || !songSpace.objects) return null;
+
+    // Find the object whose startBeat matches the requested beat
+     const entry = Object.entries(songSpace.objects)
+        .find(([id, obj]) => obj.startBeat === beatPosition);
+    
+    const pos = state.project.currentProject.songContents.indexOf(entry[0]);
+    return pos;
 }

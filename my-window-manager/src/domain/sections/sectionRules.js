@@ -73,7 +73,7 @@ function generateID() {
 
 export function createEmptySection(type){
   const newSection = new SectionSegment({id: generateID(), name: type})
-  return{id: newSection.id, section: newSection.serialize()};
+  return newSection.serialize();
 }
 
 export function duplicateSection(sectionObj){

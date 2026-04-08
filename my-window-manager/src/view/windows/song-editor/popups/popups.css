@@ -1,56 +1,122 @@
 .add-section {
   position: absolute;
-  display: flex;
-  flex-direction: column;   /* stack title + scroll area vertically */
-
-  background: #1e1e1e;
-  border: 1px solid #444;
-  border-radius: 8px;
-  padding: 0;               /* title bar already has padding */
-  min-height: 60px;
-  max-height: 160px;        /* cap total height */
-
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-
-  bottom: 50px;
-  transform: translateY(50%);
+  bottom: 18px;
+  transform: TranslateY(50%);
 }
 
 .title-bar {
-  position: sticky;
-  top: 0;
-  height: 32px;
-  background-color: #1e1e1e;
+  padding: 8px 12px;
+  font-weight: bold;
+  background: #2a2a2a;
   border-bottom: 1px solid #444;
-  display: flex;
-  align-items: center;
-  padding: 0 12px;
-  font-weight: 600;
-  color: #fff;
-  z-index: 10;
+  color: white;
 }
 
-.section-name-container {
+.button-stack {
   display: flex;
   flex-direction: column;
-
-  overflow-y: auto;         /* scrollable */
+  gap: 8px;          /* space between buttons */
+  padding: 12px;     /* invisible container padding */
 }
 
-
-.add-section-option {
-  height: 40px;
-  width: 200px;
-  padding-left: 10px;
+.popup-btn {
+  display: flex;
   justify-content: center;
-  align-items: flex-start;
-  background: #02fec7;
-  border: 1px solid black;
+  align-items: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 50px;
+  background: #2b2b2b;
+  border: 1px solid #555;
+  color: white;
   cursor: pointer;
-  font-weight: 600;
   text-align: left;
 }
 
-.add-section-option:hover {
-  background: #00d9a8;
+.popup-btn:hover {
+  background: #3a3a3a;
+}
+
+.submenu {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  background: #2b2b2b;
+  border: 1px solid #555;
+  border-radius: 6px;
+  padding: 6px 0;
+  min-width: 180px;
+
+  max-height: 120px;  
+  overflow-y: auto;     
+  scrollbar-width: thin;
+  scrollbar-color: #555 #2b2b2b;
+}
+
+.submenu-item {
+  padding: 8px 12px;
+  color: white;
+  cursor: pointer;
+}
+
+.submenu-item:hover {
+  background: #3a3a3a;
+}
+
+.submenu-bridge {
+  position: absolute;
+  top: 0;
+  left: calc(100% - 24px); /* overlap the button by 6px */
+  width: 20px;            /* wide enough to catch diagonal movement */
+  height: 100%;
+  background: transparent;
+  z-index: 9998;
+}
+
+/* Vertical Menu*/
+.add-section-top {
+  position: absolute;
+  top: 0;
+  transform: Translate(-50%, -50%);
+
+}
+.button-row {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  padding: 12px;
+}
+
+/* SUBMENU ABOVE */
+.submenu-top {
+  position: absolute;
+  bottom: 100%; /* appear above */
+  background: #2b2b2b;
+  border: 1px solid #555;
+  border-radius: 6px;
+  padding: 6px 0;
+  min-width: 150px;
+  max-height: 120px;  
+  overflow-y: auto;     
+  scrollbar-width: thin;
+  scrollbar-color: #555 #2b2b2b;
+}
+
+/* Invisible hover bridge ABOVE */
+.submenu-bridge-top {
+  position: absolute;
+  bottom: calc(100% - 24px); /* overlap button */
+  width: 150px;
+  height: 20px;
+  background: transparent;
+}
+
+.submenu-item {
+  padding: 8px 12px;
+  color: white;
+  cursor: pointer;
+}
+
+.submenu-item:hover {
+  background: #3a3a3a;
 }

@@ -4,7 +4,7 @@ import buildSequences from "../../../components/buildSequences.jsx";
 import buildSectionTags from "../../../components/buildSectionTags.jsx";
 import { ZoomableScrollContainer } from "../../shared-components/ZoomableScrollableContainer.jsx";
 import { AddSectionButton } from "../../shared-components/Buttons/AddSection.jsx";
-import { AddSectionInsert } from "../../shared-components/Buttons/AddSectionInsert.jsx";
+import { InsertSectionButton } from "../../shared-components/Buttons/InsertSection.jsx";
 import {useState, useRef, useEffect, useLayoutEffect} from "react";
 
 export function SectionView({ store }) {
@@ -28,8 +28,8 @@ export function SectionView({ store }) {
             <div className="sequence-holder">
                 {sectionTags}
                 {sequences}
-                {AddSectionButton({store})}
-                {AddSectionInsert({store})}
+                <AddSectionButton store={store}/>
+                <InsertSectionButton store={store}/>
 
 
             </div>

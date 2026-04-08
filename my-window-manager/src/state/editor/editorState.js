@@ -15,6 +15,8 @@ export const editorInitialState = {
     activeTool: "selector",
     autoSwitch: true,
     popupActive: null,
+    currentPopupPosition: null,
+
 
 
     //cursor hover state

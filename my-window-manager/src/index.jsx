@@ -50,8 +50,7 @@ window.electronAPI.onRunTestFunction(() => {
 })
 
 async function testFunction3(){
-  store.actions.copySectionAtEnd(store.state.sections.allIDs[0])
-  console.log(store.state.sections.byID)
+  console.log(store.selectors.sections.getSectionsAsString(store.state))
 }
 async function testFunction(){
 
@@ -124,11 +123,13 @@ async function handleProjectSaveAs(){
 }
 
 
+store.actions.openWindow("Music Theory");
+store.actions.openWindow("Archive");
 store.actions.openWindow("Chord Workshop");
-store.actions.openWindow("Song Editor");
-store.actions.openWindow("Settings");
+store.actions.dockWindow({id: store.state.windows.allIDs[0], dock: "left"})
+store.actions.dockWindow({id: store.state.windows.allIDs[1], dock: "left"})
+store.actions.dockWindow({id: store.state.windows.allIDs[2], dock: "bottom"})
 store.actions.createNewProject("Untitled")
-console.log(store.state.project.currentProject)
 store.actions.updateSongSpaceFromState();
 
 //store.actions.dockWindow({id: store.state.windows.allIDs[0], dock: "left"})

@@ -46,7 +46,7 @@
   overflow-x: auto;
   overflow-y: hidden;
   position: relative;
-  background: #222;
+  background: #DDE1D1;
 }
 
 .songspace-content {
@@ -59,7 +59,7 @@
   top: 0;
   bottom: 0;
   width: 1px;
-  background: rgba(255, 255, 255, 0.6);
+  background: #AFBAAC;
 }
 .songspace-beat-line {
     position: absolute;
@@ -82,10 +82,9 @@
 .section-holder {
   position: relative;
   width: 100%;
-  height: 200px;
-  top: 40%;
+  height: 100px;
+  top: 50%;
   transform: translateY(-50%);
-  border: 1px solid red;
 }
 
 .sequence-holder {

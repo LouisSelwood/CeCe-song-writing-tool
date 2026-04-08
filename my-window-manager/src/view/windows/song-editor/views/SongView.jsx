@@ -3,8 +3,9 @@ import {Bars} from "../../shared-components/Bars.jsx"
 import buildSections from "../../../components/buildSections.jsx"
 import { ZoomableScrollContainer } from "../../shared-components/ZoomableScrollableContainer.jsx";
 import { AddSectionButton } from "../../shared-components/Buttons/AddSection.jsx";
-import { AddSectionInsert } from "../../shared-components/Buttons/AddSectionInsert.jsx";
-import { AddSections } from "../popups/addSections.jsx";
+import { InsertSectionButton } from "../../shared-components/Buttons/InsertSection.jsx";
+import { AddSectionMenu } from "../popups/AddSectionMenu.jsx";
+import { InsertSectionMenu } from "../popups/InsertSectionMenu.jsx";
 import {useState, useRef, useEffect, useLayoutEffect} from "react";
 
 
@@ -27,10 +28,13 @@ export function SongView({ store }) {
             <div className="section-holder">
                 {sections}
                 <AddSectionButton store={store} />
-                <AddSectionInsert store={store} />
+                <InsertSectionButton store={store} />
 
                 {editorState.popupActive === "AddSection" && (
-                    <AddSections store={store} />
+                    <AddSectionMenu store={store} />
+                )}
+                {editorState.popupActive === "InsertSection" && (
+                    <InsertSectionMenu store={store}/>
                 )}
             </div>
         </ZoomableScrollContainer>

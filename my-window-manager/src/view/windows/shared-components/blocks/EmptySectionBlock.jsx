@@ -1,7 +1,7 @@
 import "./blocks.css";
 import {useRef, useState, useEffect} from "react"
 
-export function SectionBlock({ store, sectionID, startBeat, length }) {
+export function EmptySectionBlock({ store, sectionID, startBeat, length }) {
   const beatWidth = store.state.editor.beatWidth;
   const zoom = store.state.editor.zoomLevel;
 
@@ -51,7 +51,8 @@ export function SectionBlock({ store, sectionID, startBeat, length }) {
         left: left + "px",
         width: width + "px",
         height: "36px",
-        fontSize: fontSize + "px"
+        fontSize: fontSize + "px",
+        backgroundColor: "black"
 
       }}
     >

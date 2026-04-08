@@ -16,7 +16,9 @@ export function AddSectionButton({ store }) {
 
   const left = state.editor.endPosition * beatWidth * zoom;
   function openAddSections(){
-    store.actions.setActiveAddPopup();
+    store.actions.setActiveAddPopup(true);
+    console.log(state.editor.endPosition)
+    store.actions.setPopupPosition(state.editor.endPosition)
   }
   return (
     <div
