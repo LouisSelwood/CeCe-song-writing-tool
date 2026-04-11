@@ -1,0 +1,128 @@
+.add-section {
+  position: absolute;
+  bottom: 18px;
+  transform: translateY(50%);
+}
+
+/* Title bar */
+.title-bar {
+  padding: 8px 12px;
+  font-weight: bold;
+  background: #AFBAAC;
+  border-bottom: 1px solid #9CA89A;
+  color: black;
+
+  /* subtle top-panel shadow */
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+/* Button stack */
+.button-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+}
+
+/* Popup button */
+.popup-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 50px;
+  background: #AFBAAC;
+  border: 1px solid #9CA89A;
+  color: black;
+  cursor: pointer;
+
+  /* soft floating button shadow */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.18);
+}
+
+.popup-btn:hover {
+  background: #9CA89A;
+}
+
+/* Submenu (side) */
+.submenu {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  background: #AFBAAC;
+  border: 1px solid #9CA89A;
+  border-radius: 6px;
+  padding: 6px 0;
+  min-width: 180px;
+
+  max-height: 120px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #9CA89A #AFBAAC;
+
+  /* floating panel shadow */
+  box-shadow: 2px 2px 8px rgba(0,0,0,0.18);
+}
+
+.submenu-item {
+  padding: 8px 12px;
+  color: black;
+  cursor: pointer;
+}
+
+.submenu-item:hover {
+  background: #9CA89A;
+}
+
+/* Hover bridge (side) */
+.submenu-bridge {
+  position: absolute;
+  top: 0;
+  left: calc(100% - 24px);
+  width: 20px;
+  height: 100%;
+  background: transparent;
+  z-index: 9998;
+}
+
+/* Vertical menu */
+.add-section-top {
+  position: absolute;
+  top: 0;
+  transform: translate(-50%, -50%);
+}
+
+.button-row {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  padding: 12px;
+}
+
+/* Submenu above */
+.submenu-top {
+  position: absolute;
+  bottom: 100%;
+  background: #AFBAAC;
+  border: 1px solid #9CA89A;
+  border-radius: 6px;
+  padding: 6px 0;
+  min-width: 150px;
+  max-height: 120px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #9CA89A #AFBAAC;
+
+  /* upward-floating shadow */
+  box-shadow: 0 -2px 8px rgba(0,0,0,0.18);
+}
+
+/* Hover bridge above */
+.submenu-bridge-top {
+  position: absolute;
+  bottom: calc(100% - 24px);
+  width: 150px;
+  height: 20px;
+  background: transparent;
+}

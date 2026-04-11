@@ -44,11 +44,76 @@ export const getChordsAsNotation = (state, sequenceID) => {
         name: chordStrs[index],
         length: (chord.duration * sequence.timeSignature.numerator)
     }))
-    // const key = sequence.keySignature;
-    // const romanProgression = tonal.chordsToRoman(chordStrs, key)
-
-    // return romanProgression.map((notation, index) => ({
-    //     notation,
-    //     length: (chords[index].duration * sequence.timeSignature.numerator)
-    // }));
 }
+
+export const getChordsAsString = (state, sequenceID) => {
+    const sequence = state.sequences.byID[sequenceID]
+    const chords = sequence.chordIDs.map(id => {
+        return state.chords.byID[id];
+    })
+    const chordStrs = tonal.chordsToString(chords);
+    return chordStrs.join(" ")
+}
+
+export const getSequenceParent = (state, sequenceID) => {
+    const sections = state.project.currentProject.songContents;
+    for(const sectionID of sections) {
+        const section = state.sections.byID[sectionID]
+        if(section.sequenceIDs.includes(sequenceID)){
+            return sectionID;
+        }
+    }
+
+}
+
+export const getSequencePosition = (beatPosition, state) => {
+    const songSpace = state.editor.songSpace;
+    const sections = state.project.currentProject.songContents;
+    if (!songSpace || !songSpace.objects) return null;
+
+    // Find the object whose startBeat matches the requested beat
+     const entry = Object.entries(songSpace.objects)
+        .find(([id, obj]) =>
+            obj.type === "sequence" &&
+            obj.startBeat + obj.length === beatPosition
+        );
+    const sectionID = getSequenceParent(state, entry[0]);
+    const pos = state.sections.byID[sectionID].sequenceIDs.indexOf(entry[0]);
+    return pos;
+}
+
+export const getSequenceAtPosition = (beatPosition, state) => {
+    const songSpace = state.editor.songSpace;
+    if (!songSpace || !songSpace.objects) return null;
+
+    const entry = Object.entries(songSpace.objects)
+        .find(([id, obj]) =>
+            obj.type === "sequence" &&
+            obj.startBeat + obj.length === beatPosition
+        );
+
+    return entry ? entry[0] : null;
+};
+
+export const getUniqueSequences = (sectionID, state) => {
+    const uniqueSequences = {}
+    const section = state.sections.byID[sectionID];
+    for(const sequenceID of section.sequenceIDs){
+        const contents = getChordsAsString(state, sequenceID);
+        if(!Object.keys(uniqueSequences).includes(contents)){
+            uniqueSequences[contents] = sequenceID;
+        }
+    }
+    return uniqueSequences;
+    
+}
+
+export const getSelectedSequencesBounds = (state) => {
+    const songSpace = state.editor.songSpace;
+    if(state.editor.selectedSequenceIDs.length > 0){
+        const leftObject = songSpace.objects[state.editor.selectedSequenceIDs.at(0)]
+        const rightObject = songSpace.objects[state.editor.selectedSequenceIDs.at(-1)]
+        return {minLeft: leftObject.startBeat, maxRight: rightObject.startBeat + rightObject.length} 
+    }
+    return {minLeft: null, maxRight: null}
+};

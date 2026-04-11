@@ -1,23 +1,26 @@
 import { SectionBlock } from "../windows/shared-components/blocks/SectionBlock.jsx";
-import { EmptySectionBlock } from "../windows/shared-components/blocks/EmptySectionBlock.jsx"
-export default function buildSections(store){
-    const songSpace = store.state.editor.songSpace;
+import { EmptySectionBlock } from "../windows/shared-components/blocks/EmptySectionBlock.jsx";
+
+export default function buildSections(store, songSpace) {
+    // Extract section objects
     const sectionObjects = Object.entries(songSpace.objects)
-    .filter(([key, value]) => value.type === "section")
-    .map(([key, value]) => ({
-        id: key,
-        ...value
-    }))
-    .sort((a, b) => a.startBeat - b.startBeat);
+        .filter(([_, value]) => value.type === "section")
+        .map(([id, value]) => ({
+            id,
+            ...value
+        }))
+        .sort((a, b) => a.startBeat - b.startBeat);
 
+    // Extract empty section objects
     const emptySectionObjects = Object.entries(songSpace.objects)
-    .filter(([key, value]) => value.type === "emptySection")
-    .map(([key, value]) => ({
-        id: key,
-        ...value
-    }))
-    .sort((a, b) => a.startBeat - b.startBeat);
+        .filter(([_, value]) => value.type === "emptySection")
+        .map(([id, value]) => ({
+            id,
+            ...value
+        }))
+        .sort((a, b) => a.startBeat - b.startBeat);
 
+    // Build actual section blocks
     const sectionBlocks = sectionObjects.map(section => (
         <SectionBlock
             key={section.id}
@@ -27,7 +30,9 @@ export default function buildSections(store){
             length={section.length}
         />
     ));
-    sectionBlocks.push(...emptySectionObjects.map(section => (
+
+    // Build empty section blocks
+    const emptyBlocks = emptySectionObjects.map(section => (
         <EmptySectionBlock
             key={section.id}
             store={store}
@@ -35,7 +40,7 @@ export default function buildSections(store){
             startBeat={section.startBeat}
             length={section.length}
         />
-    )));
+    ));
 
-    return sectionBlocks;
+    return [...sectionBlocks, ...emptyBlocks];
 }

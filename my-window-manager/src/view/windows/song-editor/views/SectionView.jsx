@@ -5,33 +5,31 @@ import buildSectionTags from "../../../components/buildSectionTags.jsx";
 import { ZoomableScrollContainer } from "../../shared-components/ZoomableScrollableContainer.jsx";
 import { AddSectionButton } from "../../shared-components/Buttons/AddSection.jsx";
 import { InsertSectionButton } from "../../shared-components/Buttons/InsertSection.jsx";
-import {useState, useRef, useEffect, useLayoutEffect} from "react";
+import { AddSequenceMenu } from "../popups/AddSequenceMenu.jsx";
+import { InsertSequenceMenu } from "../popups/InsertSequenceMenu.jsx";
+import { EditingMenu } from "../popups/SequenceEditingMenu.jsx";
 
-export function SectionView({ store }) {
-    const [editorState, setEditorState] = useState(store.state.editor)
-    useEffect(() => {
-        const unsub = store.subscribe(() => {
-            setEditorState(store.state.editor);
-        });
-        return unsub;
-    }, [store.state.editor]);
+export function SectionView({ store, editorState, songSpace }) {
 
     const baseWidth = store.selectors.editor.selectBaseWidth(store.state);
     const totalWidth = baseWidth * editorState.zoomLevel;
-    const sequences = buildSequences(store) 
-    const sectionTags = buildSectionTags(store);
 
+    // ⬅️ songSpace now passed directly
+    const sequences = buildSequences(store, songSpace);
+    const sectionTags = buildSectionTags(store, songSpace);
 
     return (
         <ZoomableScrollContainer store={store} contentWidth={totalWidth} baseWidth={baseWidth}>
             <Bars state={store.state}/>
+            {sectionTags}
             <div className="sequence-holder">
-                {sectionTags}
+                <EditingMenu store={store} />
                 {sequences}
-                <AddSectionButton store={store}/>
-                <InsertSectionButton store={store}/>
+                <AddSectionButton store={store} />
+                <InsertSectionButton store={store} />
 
-
+                {editorState.popupActive === "AddSequence" && <AddSequenceMenu store={store} />}
+                {editorState.popupActive === "InsertSequence" && <InsertSequenceMenu store={store}/>}
             </div>
         </ZoomableScrollContainer>
     );

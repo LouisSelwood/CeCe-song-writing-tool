@@ -9,9 +9,9 @@ export const windowInitialState = {
     titleBarHeight: 30,
     projectBarHeight: 60,
     docks: {
-        left: {size: 200, contentIDs: [], focusedID: null},
+        left: {size: 400, contentIDs: [], focusedID: null},
         right: {size: 200, contentIDs: [], focusedID: null},
-        bottom: {size: 200, contentIDs: [], focusedID: null}
+        bottom: {size: 150, contentIDs: [], focusedID: null}
         
     }
 }

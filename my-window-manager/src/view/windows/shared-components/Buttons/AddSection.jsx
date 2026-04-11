@@ -23,7 +23,7 @@ export function AddSectionButton({ store }) {
   return (
     <div
       className="add-section-button"
-      style={{left: left + 20}}
+      style={{left: left + 20, bottom: state.editor.activeEditor === "song" ? "18px" : "40px"}}
       onMouseDown={(openAddSections)}
     >
         +

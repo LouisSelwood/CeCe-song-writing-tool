@@ -2,9 +2,8 @@
     width: 46px;
     height: 46px;
     position: absolute;
-    bottom: 18px;
     transform: TranslateY(50%);
-    background-color: #02fec7;
+    background-color: #AFBAAC;
     transition: background-color 0.15s ease;
     border-radius: 36px;
     border: 2px solid black;
@@ -23,7 +22,7 @@
 }
 
 .add-section-button:hover {
-  background-color: #00af89; /* darker or lighter, your choice */
+  background-color: #9ea99c; /* darker or lighter, your choice */
 }
 
 .add-section-insert{
@@ -51,7 +50,7 @@
   height: 30px;
   border-radius: 16px;
   font-size: 16px;
-  background-color: #02fec7;
+  background-color: #AFBAAC;
   border: 1px solid black;
   align-items: center;
   justify-content: center;
@@ -60,11 +59,11 @@
 }
 
 .insert-circle:hover {
-  background-color: #00af89; /* darker or lighter, your choice */
+  background-color: #8d968b; /* darker or lighter, your choice */
 }
 
 .insert-line {
   height: 50px;
   width: 3px;
-  background-color: #02fec7;
+  background-color: #AFBAAC;
 }

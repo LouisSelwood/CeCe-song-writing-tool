@@ -52,11 +52,10 @@ export function EmptySectionBlock({ store, sectionID, startBeat, length }) {
         width: width + "px",
         height: "36px",
         fontSize: fontSize + "px",
-        backgroundColor: "black"
+        backgroundColor: "pink"
 
       }}
     >
-      {store.state.sections.byID[sectionID].name}
     </div>
   );
 }

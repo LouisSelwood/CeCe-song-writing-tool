@@ -19,7 +19,8 @@ export function SectionTag({ store, sectionID, startBeat, length }) {
         left: left + "px",
         width: width + "px",
         height: "30px",
-        fontSize: fontSize + "px"
+        fontSize: fontSize + "px",
+        backgroundColor: store.state.editor.sectionColours[store.state.sections.byID[sectionID].name]
       }}
     >
       {store.state.sections.byID[sectionID].name}

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import "./popups.css";
+import "./sectionPopups.css";
 
 export function AddSectionMenu({ store }) {
   const popupRef = useRef(null);
@@ -45,13 +45,22 @@ export function AddSectionMenu({ store }) {
   //  CLICK OUTSIDE TO CLOSE
   // -----------------------------
   useEffect(() => {
-    function handleClickOutside(e) {
-      if (popupRef.current && !popupRef.current.contains(e.target)) {
-        store.actions.setActiveAddPopup(false);
+    // Delay attaching the listener so the opening click doesn't close it
+    const timer = setTimeout(() => {
+      function handleClickOutside(e) {
+        if (popupRef.current && !popupRef.current.contains(e.target)) {
+          store.actions.setActiveInsertPopup(false);
+        }
       }
-    }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+      document.addEventListener("mousedown", handleClickOutside);
+
+      // Cleanup
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }, 0);
+
+    return () => clearTimeout(timer);
   }, []);
 
   return (
@@ -76,14 +85,14 @@ export function AddSectionMenu({ store }) {
             {/* Invisible hover bridge */}
             <div
               className="submenu-bridge"
-              style={{ top: 0 }}
+              style={{ top: 30 }}
               onMouseEnter={() => setOpenMenu("one")}
             />
 
             {/* Submenu */}
             <div
               className="submenu"
-              style={{ top: 0 }}
+              style={{ top: 30 }}
               onMouseEnter={() => setOpenMenu("one")}
               onMouseLeave={() => setOpenMenu(null)}
             >
@@ -114,14 +123,14 @@ export function AddSectionMenu({ store }) {
             {/* Invisible hover bridge */}
             <div
               className="submenu-bridge"
-              style={{ top: 60 }}
+              style={{ top: 98 }}
               onMouseEnter={() => setOpenMenu("two")}
             />
 
             {/* Submenu */}
             <div
               className="submenu"
-              style={{ top: 60 }}
+              style={{ top: 98 }}
               onMouseEnter={() => setOpenMenu("two")}
               onMouseLeave={() => setOpenMenu(null)}
             >
@@ -152,14 +161,14 @@ export function AddSectionMenu({ store }) {
             {/* Invisible hover bridge */}
             <div
               className="submenu-bridge"
-              style={{ top: 120 }}
+              style={{ top: 164 }}
               onMouseEnter={() => setOpenMenu("three")}
             />
 
             {/* Submenu */}
             <div
               className="submenu"
-              style={{ top: 120 }}
+              style={{ top: 164 }}
               onMouseEnter={() => setOpenMenu("three")}
               onMouseLeave={() => setOpenMenu(null)}
             >

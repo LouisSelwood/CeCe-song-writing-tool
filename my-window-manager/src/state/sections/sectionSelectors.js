@@ -73,3 +73,17 @@ export const getSectionPosition = (beatPosition, state) => {
     const pos = state.project.currentProject.songContents.indexOf(entry[0]);
     return pos;
 }
+
+export const getSectionType = (sectionID, state) => {
+    return state.sections.byID[sectionID].name;
+}
+
+export const getSelectedSectionsBounds = (state) => {
+    const songSpace = state.editor.songSpace;
+    if(state.editor.selectedSectionIDs.length > 0){
+        const leftObject = songSpace.objects[state.editor.selectedSectionIDs.at(0)]
+        const rightObject = songSpace.objects[state.editor.selectedSectionIDs.at(-1)]
+        return {minLeft: leftObject.startBeat, maxRight: rightObject.startBeat + rightObject.length} 
+    }
+    return {minLeft: null, maxRight: null}
+};

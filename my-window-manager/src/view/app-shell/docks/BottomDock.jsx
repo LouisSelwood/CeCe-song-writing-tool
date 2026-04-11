@@ -147,7 +147,6 @@ export function BottomDock({ store }) {
                             key={index}
                             className="icon-box"
                             data-action={id}
-                            style={{background: iconHover[id] ? "black" : "gray"}}
                         >
                             {store.state.windows.byID[id].type[0]}
                         </div>

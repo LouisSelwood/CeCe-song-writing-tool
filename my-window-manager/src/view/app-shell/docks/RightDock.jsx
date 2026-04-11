@@ -145,7 +145,6 @@ export function RightDock({ store }) {
                             key={index}
                             className="icon-box"
                             data-action={id}
-                            style={{background: iconHover[id] ? "black" : "gray"}}
                             draggable="false"
                         >
                             {store.state.windows.byID[id].type[0]}

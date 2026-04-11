@@ -86,6 +86,7 @@ export const setActiveAddPopup = (newState) => (state) => {
 }
 
 export const setActiveInsertPopup = (newState) => (state) => {
+    console.log(newState)
     let popupActive = null;
     if(newState){
         if(state.editor.activeEditor === "song"){
@@ -102,7 +103,6 @@ export const setActiveInsertPopup = (newState) => (state) => {
 
 export const setPopupPosition = (barPosition) => (state) => {
     state.editor.currentPopupPosition = barPosition;
-    console.log(state.editor.currentPopupPosition)
 }
 export const checkValidEditor = (screenWidth, average) => (state) => {
     if(state.editor.autoSwitch){
@@ -156,9 +156,7 @@ export const updateSongSpaceFromState = () => (state) => {
             type: "section",
             startBeat: currentBeat,
         };
-        console.log(`${section.name}: ${section.sequenceIDs}`)
         if(section.sequenceIDs.length === 0){
-            console.log(section.name)
             songSpace.objects[section.id] = {
                 type: "emptySection",
                 startBeat: currentBeat,
@@ -269,9 +267,296 @@ export const updateSongSpaceFromState = () => (state) => {
 };
 
 
-export const updateStateFromSongSpace = () => (state) => {
 
+export const setSelectedSection = (sectionID) => (state) => {
+  state.editor.selectedSectionID = sectionID;
+  state.editor.selectedSectionIDs = [sectionID];
+}
+
+export const setSelectedSectionRange = (sectionIDs) => (state) =>{
+  state.editor.selectedSectionIDs = sectionIDs;
+}
+
+export const setSelectedSequence = (sequenceID) => (state) =>{
+  state.editor.selectedSequenceID = sequenceID;
+  state.editor.selectedSequenceIDs = [sequenceID];
+}
+
+export const setSelectedSequenceRange = (sequenceIDs) => (state) => {
+  state.editor.selectedSequenceIDs = sequenceIDs;
+}
+
+export const clearAllSelections = () => (state) => {
+  state.editor.selectedSectionID = null;
+  state.editor.selectedSectionIDs = [];
+  state.editor.selectedSequenceID = null;
+  state.editor.selectedSequenceIDs = [];
 }
 
 
+export const startSectionDrag = (mouseX, mouseY, sectionIDs) => (state) => {
+  state.editor.drag = {
+    active: true,
+    started: false,
+    startX: mouseX,
+    startY: mouseY,
+    offsetX: 0,
+    offsetY: 0,
+    sectionIDs
+  };
+}
 
+export const updateSectionDrag = (mouseX, mouseY) => (state) => {
+  const drag = state.editor.drag;
+  if (!drag.active) return;
+
+  const dx = mouseX - drag.startX;
+  const dy = mouseY - drag.startY;
+
+  // threshold: 3px in either direction
+  if (!drag.started) {
+    if (Math.abs(dx) < 3 && Math.abs(dy) < 3) {
+      return;
+    }
+    drag.started = true;
+  }
+
+  drag.offsetX = dx;
+  drag.offsetY = dy;
+}
+
+export const endSectionDrag = () => (state) =>{
+  state.editor.drag = {
+    active: false,
+    started: false,
+    startX: 0,
+    startY: 0,
+    offsetX: 0,
+    offsetY: 0,
+    sectionIDs: []
+  };
+}
+
+export const commitSectionDrag = () => (state, domain, actions) => {
+  const editor = state.editor;
+  const drag = editor.drag;
+
+  if (!drag.active) return;
+
+  const hoveredBeat = editor.hoveredGapPosition;
+
+  if (hoveredBeat == null) {
+    actions.endSectionDrag();
+    return;
+  }
+
+  const songSpace = state.editor.songSpace;
+  if (!songSpace || !songSpace.objects) return null;
+
+  const entry = Object.entries(songSpace.objects)
+    .find(([id, obj]) => obj.startBeat === hoveredBeat);
+
+  let insertPos;
+
+  if (entry) {
+    insertPos = state.project.currentProject.songContents.indexOf(entry[0]);
+  } else {
+    insertPos = state.project.currentProject.songContents.length;
+  }
+
+  const project = state.project.currentProject;
+  const contents = [...project.songContents];
+
+  const draggedIDs = drag.sectionIDs;
+  const draggedSet = new Set(draggedIDs);
+
+  // ---------------------------------------------
+  // FIX: adjust insertPos if dragging forward
+  // ---------------------------------------------
+  const firstDraggedIndex = contents.indexOf(draggedIDs[0]);
+
+  if (insertPos > firstDraggedIndex) {
+    insertPos -= draggedIDs.length;
+  }
+
+  // Remove dragged sections
+  const remaining = contents.filter(id => !draggedSet.has(id));
+
+  // Insert dragged block
+  const before = remaining.slice(0, insertPos);
+  const after = remaining.slice(insertPos);
+  const newContents = [...before, ...draggedIDs, ...after];
+
+  project.songContents = newContents;
+
+  state.project.songVersion += 1;
+  actions.updateSongSpaceFromState();
+  actions.endSectionDrag();
+};
+
+
+
+export const startSequenceDrag = (mouseX, mouseY, sequenceIDs) => (state) => {
+  state.editor.sequenceDrag = {
+    active: true,
+    started: false,
+    startX: mouseX,
+    startY: mouseY,
+    offsetX: 0,
+    offsetY: 0,
+    sequenceIDs
+  };
+}
+
+export const updateSequenceDrag = (mouseX, mouseY) => (state) => {
+  const drag = state.editor.sequenceDrag;
+  if (!drag.active) return;
+
+  const dx = mouseX - drag.startX;
+  const dy = mouseY - drag.startY;
+
+  // 3px threshold
+  if (!drag.started) {
+    if (Math.abs(dx) < 3 && Math.abs(dy) < 3) return;
+    drag.started = true;
+  }
+
+  drag.offsetX = dx;
+  drag.offsetY = dy;
+}
+
+export const endSequenceDrag = () => (state) => {
+  state.editor.sequenceDrag = {
+    active: false,
+    started: false,
+    startX: 0,
+    startY: 0,
+    offsetX: 0,
+    offsetY: 0,
+    sequenceIDs: []
+  };
+}
+
+export const commitSequenceDrag = () => (state, domain, actions) => {
+  const editor = state.editor;
+  const drag = editor.sequenceDrag;
+
+  if (!drag || !drag.active) return;
+
+  const hoveredBeat = editor.hoveredGapPosition;
+
+  if (hoveredBeat == null) {
+    actions.endSequenceDrag();
+    return;
+  }
+
+  const songSpace = state.editor.songSpace;
+  if (!songSpace || !songSpace.objects) {
+    actions.endSequenceDrag();
+    return;
+  }
+
+  // Helper: find parent section of a sequence
+  const getSequenceParent = (sequenceID) => {
+    const sectionOrder = state.project.currentProject.songContents;
+    for (const sectionID of sectionOrder) {
+      const section = state.sections.byID[sectionID];
+      if (section.sequenceIDs.includes(sequenceID)) {
+        return sectionID;
+      }
+    }
+    return null;
+  };
+
+  // ------------------------------------------------------------
+  // 1. Determine target section + insertPos
+  // ------------------------------------------------------------
+  const seqEntry = Object.entries(songSpace.objects)
+    .find(([id, obj]) =>
+      obj.type === "sequence" &&
+      obj.startBeat + obj.length === hoveredBeat
+    );
+
+  let targetSectionID = null;
+  let insertPos = 0;
+
+  if (seqEntry) {
+    // Gap is AFTER an existing sequence
+    const seqID = seqEntry[0];
+    targetSectionID = getSequenceParent(seqID);
+    if (!targetSectionID) {
+      actions.endSequenceDrag();
+      return;
+    }
+
+    const section = state.sections.byID[targetSectionID];
+    const idx = section.sequenceIDs.indexOf(seqID);
+    insertPos = idx + 1;
+
+  } else {
+    // Gap is inside a section → insert at end
+    const sectionEntry = Object.entries(songSpace.objects)
+      .find(([id, obj]) =>
+        obj.type === "section" &&
+        obj.startBeat <= hoveredBeat &&
+        obj.startBeat + obj.length >= hoveredBeat
+      );
+
+    if (!sectionEntry) {
+      actions.endSequenceDrag();
+      return;
+    }
+
+    targetSectionID = sectionEntry[0];
+    const section = state.sections.byID[targetSectionID];
+    insertPos = section.sequenceIDs.length;
+  }
+
+  // ------------------------------------------------------------
+  // 2. Move dragged sequences
+  // ------------------------------------------------------------
+  const draggedSeqIDs = drag.sequenceIDs;
+  if (!draggedSeqIDs || draggedSeqIDs.length === 0) {
+    actions.endSequenceDrag();
+    return;
+  }
+
+  const targetSection = state.sections.byID[targetSectionID];
+  const seqArr = targetSection.sequenceIDs;
+
+  // ------------------------------------------------------------
+  // FIX: adjust insertPos for forward moves inside same section
+  // ------------------------------------------------------------
+  const firstDraggedIndex = seqArr.indexOf(draggedSeqIDs[0]);
+
+  if (firstDraggedIndex !== -1 && insertPos > firstDraggedIndex) {
+    insertPos -= draggedSeqIDs.length;
+  }
+
+  // ------------------------------------------------------------
+  // Remove dragged sequences from their parents
+  // ------------------------------------------------------------
+  for (const seqID of draggedSeqIDs) {
+    const parentID = getSequenceParent(seqID);
+    if (!parentID) continue;
+
+    const arr = state.sections.byID[parentID].sequenceIDs;
+    const idx = arr.indexOf(seqID);
+    if (idx !== -1) arr.splice(idx, 1);
+  }
+
+  // ------------------------------------------------------------
+  // Insert dragged sequences into target section
+  // ------------------------------------------------------------
+  const before = seqArr.slice(0, insertPos);
+  const after = seqArr.slice(insertPos);
+
+  targetSection.sequenceIDs = [...before, ...draggedSeqIDs, ...after];
+
+  // ------------------------------------------------------------
+  // 3. Rebuild + cleanup
+  // ------------------------------------------------------------
+  state.project.songVersion += 1;
+  actions.updateSongSpaceFromState();
+  actions.endSequenceDrag();
+};

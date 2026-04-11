@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import "./sectionPopups.css";
+import "./sequencePopups.css";
 
-export function InsertSectionMenu({ store }) {
+export function InsertSequenceMenu({ store }) {
   const popupRef = useRef(null);
 
   const left =
@@ -21,7 +21,9 @@ export function InsertSectionMenu({ store }) {
     "Recommended D": "recD",
   };
 
-  const uniqueSections = store.selectors.sections.getUniqueSections(store.state);
+  const sequenceID = store.selectors.sequences.getSequenceAtPosition(store.state.editor.currentPopupPosition, store.state)
+  const sectionID = store.selectors.sequences.getSequenceParent(store.state, sequenceID)
+  const uniqueSequences = store.selectors.sequences.getUniqueSequences(sectionID, store.state)
 
   // -----------------------------
   //  HANDLERS (empty for now)
@@ -31,9 +33,14 @@ export function InsertSectionMenu({ store }) {
   }
 
   function HandlePreExistingChoice(id) {
-    const pos = store.selectors.sections.getSectionPosition(store.state.editor.currentPopupPosition, store.state)
+    const pos = store.selectors.sequences.getSequencePosition(store.state.editor.currentPopupPosition, store.state);
+    const sequenceID = store.selectors.sequences.getSequenceAtPosition(store.state.editor.currentPopupPosition, store.state)
+    const sectionID = store.selectors.sequences.getSequenceParent(store.state, sequenceID)
+    console.log(store.state.sections.byID[sectionID].name)
+    console.log(store.state.sequences.byID[sequenceID])
     console.log(pos)
-    store.actions.copySectionAtPos(id, pos);
+    store.actions.copySequenceAtPos(sectionID, id, pos+1)
+  
     store.actions.setActiveAddPopup(false);
   }
 
@@ -47,25 +54,24 @@ export function InsertSectionMenu({ store }) {
   // -----------------------------
   //  CLICK OUTSIDE TO CLOSE
   // -----------------------------
-useEffect(() => {
-  // Delay attaching the listener so the opening click doesn't close it
-  const timer = setTimeout(() => {
-    function handleClickOutside(e) {
-      if (popupRef.current && !popupRef.current.contains(e.target)) {
-        store.actions.setActiveInsertPopup(false);
+  useEffect(() => {
+    // Delay attaching the listener so the opening click doesn't close it
+    const timer = setTimeout(() => {
+      function handleClickOutside(e) {
+        if (popupRef.current && !popupRef.current.contains(e.target)) {
+          store.actions.setActiveInsertPopup(false);
+        }
       }
-    }
-    document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener("mousedown", handleClickOutside);
 
-    // Cleanup
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, 0);
+      // Cleanup
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }, 0);
 
-  return () => clearTimeout(timer);
-}, []);
-
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <div
@@ -136,7 +142,7 @@ useEffect(() => {
               onMouseEnter={() => setOpenMenu("two")}
               onMouseLeave={() => setOpenMenu(null)}
             >
-              {Object.entries(uniqueSections).map(([name, id]) => (
+              {Object.entries(uniqueSequences).map(([name, id]) => (
                 <div
                   key={id}
                   className="submenu-item"

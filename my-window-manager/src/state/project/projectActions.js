@@ -9,6 +9,7 @@ export const initiateSong = ({songDSL}) => (state, domain) => {
     //recieves song objects from builders
     songDSL.sections.forEach((section) => {
         const genSection = buildSectionFromDSL(section, domain);
+        genSection.section.name = genSection.section.name.toLowerCase();
         sections.push({id: genSection.id, section: genSection.section});
         sequences.push(...genSection.sequences);
         chords.push(...genSection.chords);
