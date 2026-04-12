@@ -1,5 +1,5 @@
 import "../SongEditor.css";
-import {Bars} from "../../shared-components/Bars.jsx"
+import { Bars } from "../../shared-components/Bars.jsx";
 import buildSequences from "../../../components/buildSequences.jsx";
 import buildSectionTags from "../../../components/buildSectionTags.jsx";
 import { ZoomableScrollContainer } from "../../shared-components/ZoomableScrollableContainer.jsx";
@@ -14,22 +14,53 @@ export function SectionView({ store, editorState, songSpace }) {
     const baseWidth = store.selectors.editor.selectBaseWidth(store.state);
     const totalWidth = baseWidth * editorState.zoomLevel;
 
-    // ⬅️ songSpace now passed directly
     const sequences = buildSequences(store, songSpace);
     const sectionTags = buildSectionTags(store, songSpace);
 
-    return (
-        <ZoomableScrollContainer store={store} contentWidth={totalWidth} baseWidth={baseWidth}>
-            <Bars state={store.state}/>
-            {sectionTags}
-            <div className="sequence-holder">
-                <EditingMenu store={store} />
-                {sequences}
-                <AddSectionButton store={store} />
-                <InsertSectionButton store={store} />
+    const playheadBeat = store.state.editor.playheadPosition;
+    const x = store.selectors.editor.beatToX(playheadBeat, store.state);
+        function onTimelineClick(e) {
+        const rect = e.currentTarget.getBoundingClientRect();
+        const screenX = e.clientX - rect.left;
 
-                {editorState.popupActive === "AddSequence" && <AddSequenceMenu store={store} />}
-                {editorState.popupActive === "InsertSequence" && <InsertSequenceMenu store={store}/>}
+
+        const beat = store.selectors.editor.snapBeatToNearestBar(
+            store.selectors.editor.xToBeat(screenX, store.state),
+            store.state
+        );
+
+        store.actions.setPlayerPosition(beat);
+    }
+
+    return (
+        <ZoomableScrollContainer 
+            store={store} 
+            contentWidth={totalWidth} 
+            baseWidth={baseWidth}
+        >
+            <div className="timeline-content" onClick={(onTimelineClick)}>
+                <Bars state={store.state} />
+
+                {/* ⭐ PLAYHEAD LINE */}
+                <div className="playhead" style={{ left: x }} />
+
+                {sectionTags}
+
+                <div className="sequence-holder">
+                    <EditingMenu store={store} />
+                    {sequences}
+
+                    <AddSectionButton store={store} />
+                    <InsertSectionButton store={store} />
+
+                    {editorState.popupActive === "AddSequence" && (
+                        <AddSequenceMenu store={store} />
+                    )}
+
+                    {editorState.popupActive === "InsertSequence" && (
+                        <InsertSequenceMenu store={store} />
+                    )}
+                </div>
             </div>
         </ZoomableScrollContainer>
     );

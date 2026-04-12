@@ -43,10 +43,12 @@ contextBridge.exposeInMainWorld("electronAPI", {
   onMenuSaveAs: (callback) => ipcRenderer.on('menu-save-as', callback),
   onMenuLoadProject: (callback) => ipcRenderer.on('menu-load-project', callback),
   onRunTestFunction: (callback) => ipcRenderer.on('run-test-function', callback),
+  onRunTestFunction2: (callback) => ipcRenderer.on('run-test-function2', callback),
   openProjectDialog: () => ipcRenderer.invoke('open-project-dialog'),
   saveProjectAsDialog: () => ipcRenderer.invoke('save-project-as-dialog'),
   showError: (title, message) =>
-    ipcRenderer.invoke('show-error', { title, message })
+    ipcRenderer.invoke('show-error', { title, message }),
+  setInstrument: (message) => ipcRenderer.invoke('set-instrument', message)
 
 
 

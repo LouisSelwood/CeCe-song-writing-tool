@@ -26,9 +26,6 @@ export const hoverSection = (id) => (state, domain) => {
     state.editor.hoveredSectionID = id;
 }
 
-export const setPlayheadPosition = (position) => (state, domain) => {
-  state.editor.playheadPosition = position
-}
 export const setZoom = (newZoom) => (state) => {
   const editor = {...state.editor}
   editor.zoomLevel = newZoom;
@@ -123,7 +120,7 @@ export const checkValidEditor = (screenWidth, average) => (state) => {
 }
 export const updateSongSpaceFromState = () => (state) => {
     if(state.project.currentProject.songContents.length === 0){
-        const songSpace = {beats: {}, objects: {}}
+        const songSpace = {beats: {}, objects: {}, secondsAtBeat: []}
         let time = 0;
         for (let i = 0; i <= 200; i++) {
             songSpace.beats[i] = {
@@ -142,7 +139,7 @@ export const updateSongSpaceFromState = () => (state) => {
         state.editor.songSpace = songSpace
         return;
     }
-    const songSpace = {beats: {}, objects: {}}
+    const songSpace = {beats: {}, objects: {}, secondsAtBeat: []}
     const song = state.project.currentProject.songContents;
     let currentBeat = 0;
     let currentTime = 0;
@@ -263,6 +260,16 @@ export const updateSongSpaceFromState = () => (state) => {
         currentTime += 60 / lastTempo;
     }
 
+    let totalSeconds = 0;
+
+    for (let beat = 0; beat < state.editor.endPosition; beat++) {
+      const beatInfo = songSpace.beats[beat];
+      const bpm = beatInfo.tempo;
+      const spb = 60 / bpm;
+
+      songSpace.secondsAtBeat.push(totalSeconds);
+      totalSeconds += spb;
+    }
     state.editor.songSpace = songSpace;
 };
 
@@ -560,3 +567,8 @@ export const commitSequenceDrag = () => (state, domain, actions) => {
   actions.updateSongSpaceFromState();
   actions.endSequenceDrag();
 };
+
+
+export const setPlayheadPosition = (beat) => (state) => {
+  state.editor.playheadPosition = beat;
+}

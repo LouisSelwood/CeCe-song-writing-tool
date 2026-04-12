@@ -1,7 +1,7 @@
 {
     "sections": [
       {
-        "name": "Intro",
+        "name": "intro",
         "sequences": [
           {
             "tempo": 80,

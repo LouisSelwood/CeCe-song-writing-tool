@@ -55,7 +55,6 @@ export function SongEditor({ store }) {
     return () => document.removeEventListener("mousedown", handleClickOff);
   }, []);
   // Mouse UI logic (unchanged)
-  console.log(store.state.editor.songSpace)
   useEffect(() => {
     function handleMouseMove(e) {
       const action = e.target.dataset.action;

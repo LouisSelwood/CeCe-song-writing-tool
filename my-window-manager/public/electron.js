@@ -51,6 +51,15 @@ function addSettings() {
               }
             }
           },
+          {
+            label: 'Test2',
+            accelerator: 'CmdLrCtrl+L',
+            click: (menuItem, browserWindow) => {
+              if (browserWindow) {
+                browserWindow.webContents.send('run-test-function2');
+              }
+            }
+          },
 
           { type: 'separator' },
 

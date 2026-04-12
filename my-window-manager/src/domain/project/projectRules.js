@@ -1,3 +1,6 @@
+import { extractChordEventsFromSongSpace, chordEventsToMidiChords, buildGlobalMidiEventList } from "../../data/music/chordExtraction";
+
+
 export class Project {
   constructor({
     name,
@@ -84,4 +87,14 @@ export function getSections(state){
     sections.push(state.sections.byID[sectionID]);
   })
   return sections;
+}
+
+export function extractChordEvents(state){
+  return chordEventsToMidiChords(extractChordEventsFromSongSpace(state));
+}
+
+export function getGlobalMidiEventlist(state){
+  const chordEvents = extractChordEvents(state);
+  const globalMidiEvents = buildGlobalMidiEventList(chordEvents, state.editor.songSpace.secondsAtBeat)
+  return globalMidiEvents;
 }

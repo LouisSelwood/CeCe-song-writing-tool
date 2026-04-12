@@ -10,7 +10,7 @@ import { selectors } from "./state/store/selectors.js";
 import { actions } from "./state/store/actions.js";
 import { domain } from "./domain/index.js";
 import song from '../../test/TestSongs/dont-look-back-in-anger.json';
-
+import { loadInstrument } from "./audio/midiWrapper.js";
 
 const store = createStore(initialState, actions, selectors, domain); //creates the global store
 
@@ -45,13 +45,27 @@ window.electronAPI.onMenuSaveAs(handleProjectSaveAs);
 window.electronAPI.onMenuLoadProject(handleProjectLoad);
 
 window.electronAPI.onRunTestFunction(() => {
-  testFunction3();
-  
+  testFunction4();
 })
 
-async function testFunction3(){
-  console.log(store.selectors.sections.getSectionsAsString(store.state))
+window.electronAPI.onRunTestFunction2(() => {
+  store.actions.rewind();
+})
+
+async function testFunction4(){
+
+  await loadInstrument("string_ensemble_1");
+  store.actions.extractGlobalEvents();
+  if(store.state.player.isPlaying){
+    store.actions.pause();
+  }else{
+    store.actions.play();
+  }
+
 }
+
+
+
 async function testFunction(){
 
   const Verse = store.state.project.currentProject.songContents[2]

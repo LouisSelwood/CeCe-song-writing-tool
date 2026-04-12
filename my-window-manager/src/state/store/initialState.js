@@ -8,6 +8,7 @@ import {sidebarInitialState} from "../sidebar/sidebarState.js";
 import {windowInitialState} from "../windows/windowState.js"; 
 import {historyInitialState} from "../history/historyState.js";
 import { projectInitialState } from "../project/projectState.js";
+import { playerInitialState } from "../player/playerState.js";
 
 export const initialState = {
     app: appInitialState,
@@ -20,4 +21,5 @@ export const initialState = {
     windows: windowInitialState,
     history: historyInitialState,
     project: projectInitialState,
+    player: playerInitialState,
 }

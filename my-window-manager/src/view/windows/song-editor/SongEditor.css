@@ -100,3 +100,19 @@
   border: 1px solid red;
 
 }
+
+.timeline-content {
+  position: relative;        /* allows absolutely-positioned playhead */
+  width: 100%;               /* fills the scroll container’s content width */
+  height: 100%;              /* matches the height of the timeline */
+  pointer-events: auto;      /* ensures clicks are captured */
+  display: block;            /* prevents inline weirdness */
+}
+.playhead {
+  position: absolute;
+  top: 0;
+  width: 2px;
+  height: 100%;
+  background: #572E07;
+  pointer-events: none;
+}
