@@ -95,6 +95,39 @@ export function extractChordEvents(state){
 
 export function getGlobalMidiEventlist(state){
   const chordEvents = extractChordEvents(state);
-  const globalMidiEvents = buildGlobalMidiEventList(chordEvents, state.editor.songSpace.secondsAtBeat)
+  const globalMidiEvents = buildGlobalMidiEventList(chordEvents, state.editor.songSpace.secondsAtBeat, state.player.currentRhythm)
   return globalMidiEvents;
 }
+
+export function validateProjectName(name) {
+    if (typeof name !== "string") return false;
+
+    // Trim whitespace
+    const trimmed = name.trim();
+    if (trimmed.length === 0) return false;
+
+    // Forbidden characters on Windows (and generally unsafe everywhere)
+    const forbidden = /[<>:"/\\|?*\x00-\x1F]/;
+
+    if (forbidden.test(trimmed)) return false;
+
+    // Reserved Windows filenames (case-insensitive)
+    const reservedNames = [
+        "CON", "PRN", "AUX", "NUL",
+        "COM1", "COM2", "COM3", "COM4", "COM5", "COM6", "COM7", "COM8", "COM9",
+        "LPT1", "LPT2", "LPT3", "LPT4", "LPT5", "LPT6", "LPT7", "LPT8", "LPT9"
+    ];
+
+    if (reservedNames.includes(trimmed.toUpperCase())) return false;
+
+    // Cannot end with a dot or space (Windows rule)
+    if (/[. ]$/.test(trimmed)) return false;
+
+    // Length limit (common safe limit)
+    if (trimmed.length > 255) return false;
+
+    return true;
+}
+
+
+// workshopDomain.js

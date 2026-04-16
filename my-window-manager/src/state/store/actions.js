@@ -9,6 +9,8 @@ import * as historyActions from "../history/historyActions.js"
 import * as sectionActions from "../sections/sectionActions.js"
 import * as projectActions from "../project/projectActions.js"
 import * as playerActions from "../player/playerActions.js"
+import * as workshopActions from "../workshop/workshopActions.js"
+
 
 export const actions = {
   ...appActions,
@@ -22,4 +24,5 @@ export const actions = {
   ...historyActions,
   ...projectActions,
   ...playerActions,
+  ...workshopActions,
 }

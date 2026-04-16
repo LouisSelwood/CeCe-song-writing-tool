@@ -30,30 +30,31 @@ export function SongEditor({ store }) {
     return () => window.removeEventListener("mouseup", handleMouseUp);
   }, []);
 
-
   useEffect(() => {
     function handleClickOff(e) {
 
-      // If click is inside a popup → ignore
-      if (e.target.closest(".popup-container")) return;
+        // Only unselect if click is inside the SongEditor
+        const editor = document.querySelector(".outer-container");
+        if (!editor) return;
 
-      // If click is on a section block → ignore
-      if (e.target.closest(".section-block")) return;
+        const clickInsideEditor = editor.contains(e.target);
+        if (!clickInsideEditor) return; // ignore clicks outside the editor entirely
 
-      // If click is on a sequence block → ignore
-      if (e.target.closest(".sequence-block")) return;
+      
+        // Ignore clicks on interactive elements
+        if (e.target.closest(".popup-container")) return;
+        if (e.target.closest(".section-block")) return;
+        if (e.target.closest(".sequence-block")) return;
+        if (e.target.closest(".view-button-container")) return;
+        if (e.target.closest(".window-content")) return;
 
-      // If click is on a view button → ignore
-      if (e.target.closest(".view-button-container")) return;
-
-      // Otherwise → clear selection
-      store.actions.clearAllSelections();
-      console.log("yoyo")
+        // Clear selection only if click is inside editor AND not on interactive UI
+        store.actions.clearAllSelections();
     }
 
     document.addEventListener("mousedown", handleClickOff);
     return () => document.removeEventListener("mousedown", handleClickOff);
-  }, []);
+}, []);
   // Mouse UI logic (unchanged)
   useEffect(() => {
     function handleMouseMove(e) {

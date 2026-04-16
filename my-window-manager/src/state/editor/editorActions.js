@@ -285,6 +285,17 @@ export const setSelectedSectionRange = (sectionIDs) => (state) =>{
 }
 
 export const setSelectedSequence = (sequenceID) => (state) =>{
+  state.workshop.newChordPos = null;
+  state.workshop.newChordLength = null;
+  state.workshop.newChordSelected = {
+        startBeat: null,
+        durationBeats: null,
+        bass: null,
+        chordName: null,
+        quality: null,
+        root: null,
+        chordName: null,
+  };
   state.editor.selectedSequenceID = sequenceID;
   state.editor.selectedSequenceIDs = [sequenceID];
 }

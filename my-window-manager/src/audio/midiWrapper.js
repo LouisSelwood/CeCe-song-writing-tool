@@ -14,17 +14,58 @@ export const midiOutput = {
   noteOn(note, velocity = 100) {
     if (!instrument) return;
 
-    const gain = velocity / 127; // Soundfont-player uses 0–1 gain
+    const gain = velocity / 127;
 
     const voice = instrument.play(note, 0, { gain });
+
+    // ⭐ Store the voice so we can kill it later
     activeVoices.set(note, voice);
   },
 
   noteOff(note) {
     const voice = activeVoices.get(note);
-    if (voice) {
+    if (!voice) return;
+
+    try {
+      // Normal stop
       voice.stop();
-      activeVoices.delete(note);
+
+      if (voice.gain && voice.gain.gain) {
+        voice.gain.gain.cancelScheduledValues(0);
+        voice.gain.gain.setValueAtTime(0, getAudioContext().currentTime);
+      }
+
+      if (voice.output) {
+        voice.output.disconnect();
+      }
+
+    } catch (err) {
+      console.warn("Error stopping voice:", err);
     }
+
+    activeVoices.delete(note);
+  },
+
+  // ⭐ Add a global kill switch for pause/stop
+  stopAll() {
+    for (const [note, voice] of activeVoices.entries()) {
+      try {
+        voice.stop();
+
+        if (voice.gain && voice.gain.gain) {
+          voice.gain.gain.cancelScheduledValues(0);
+          voice.gain.gain.setValueAtTime(0, getAudioContext().currentTime);
+        }
+
+        if (voice.output) {
+          voice.output.disconnect();
+        }
+
+      } catch (err) {
+        console.warn("Error stopping voice:", err);
+      }
+    }
+
+    activeVoices.clear();
   }
 };

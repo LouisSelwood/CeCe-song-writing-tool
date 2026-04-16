@@ -35,6 +35,11 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   </React.StrictMode>
 );
 
+
+//loads default midi instrument
+
+loadInstrument("violin");
+
 //Listens for file I/O Events.
 window.electronAPI.onMenuSaveProject(() => {
   store.actions.saveProject();
@@ -45,24 +50,15 @@ window.electronAPI.onMenuSaveAs(handleProjectSaveAs);
 window.electronAPI.onMenuLoadProject(handleProjectLoad);
 
 window.electronAPI.onRunTestFunction(() => {
-  testFunction4();
+  testFunction();
 })
 
 window.electronAPI.onRunTestFunction2(() => {
-  store.actions.rewind();
+
 })
 
-async function testFunction4(){
+window.electronAPI.on
 
-  await loadInstrument("string_ensemble_1");
-  store.actions.extractGlobalEvents();
-  if(store.state.player.isPlaying){
-    store.actions.pause();
-  }else{
-    store.actions.play();
-  }
-
-}
 
 
 
@@ -138,7 +134,7 @@ async function handleProjectSaveAs(){
 
 
 store.actions.openWindow("Music Theory");
-store.actions.openWindow("Archive");
+store.actions.openWindow("Debug");
 store.actions.openWindow("Chord Workshop");
 store.actions.dockWindow({id: store.state.windows.allIDs[0], dock: "left"})
 store.actions.dockWindow({id: store.state.windows.allIDs[1], dock: "left"})

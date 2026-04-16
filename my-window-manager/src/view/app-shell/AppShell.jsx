@@ -1,6 +1,7 @@
 import "./css/AppShell.css";
 import { Desktop } from "./Desktop.jsx";
 import { useState, useEffect } from "react";
+import { ProjectBar } from "../windows/project-bar/ProjectBar.jsx";
 
 /**
  * Top-level layout wrapper for the desktop enviroment
@@ -12,9 +13,7 @@ export function AppShell({ store }) {
   return (
     
     <div className="app-shell">
-      <div className="project-bar" style={{height: store.state.windows.projectBarHeight}}>
-
-      </div>
+      <ProjectBar store={store}/>
       <Desktop store={store} />
 
     </div>

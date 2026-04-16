@@ -77,14 +77,7 @@ export function SequenceBlock({ store, sequenceID, startBeat, length }) {
     store.actions.startSequenceDrag(x, y, dragIDs);
   };
 
-  // DRAG UPDATE (global mousePos) ----------------------------------------
-  useEffect(() => {
-    const drag = editor.sequenceDrag;
-    if (!drag.active) return;
 
-    const { x, y } = store.state.windows.mousePos;
-    store.actions.updateSequenceDrag(x, y);
-  }, [store.state.windows.mousePos.x, store.state.windows.mousePos.y]);
 
   // HOVER GAP LOGIC -------------------------------------------------------
   useEffect(() => {
@@ -164,7 +157,8 @@ export function SequenceBlock({ store, sequenceID, startBeat, length }) {
             width: content.length * beatWidth * zoom,
             justifyContent: "center",
             height: "100%",
-            alignItems: "center"
+            alignItems: "center",
+            border: "1px solid blue",
           }}
         >
           {content.name}

@@ -48,7 +48,6 @@ contextBridge.exposeInMainWorld("electronAPI", {
   saveProjectAsDialog: () => ipcRenderer.invoke('save-project-as-dialog'),
   showError: (title, message) =>
     ipcRenderer.invoke('show-error', { title, message }),
-  setInstrument: (message) => ipcRenderer.invoke('set-instrument', message)
 
 
 

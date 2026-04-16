@@ -52,13 +52,15 @@
 }
 .dock-title-bar {
     width: 100%;
-    height: 40px;
+    height: 30px;
     background: #AFBAAC;
     border-bottom: 3px solid #572E07;
     margin-top: auto; 
     display: flex;
     flex-direction: row;
     align-items: center;
+    user-select: none;
+    -webkit-user-drag: none;
 }
 .wrapper {
     display: contents;

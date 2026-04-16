@@ -1,0 +1,29 @@
+.workshop-bars-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    pointer-events: none;
+}
+
+.ws-bar-line,
+.ws-beat-line {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    border-left: 1px solid rgba(0,0,0,0.3);
+}
+
+.ws-bar-line {
+    border-left: 2px solid rgba(0,0,0,0.6);
+}
+
+.ws-bar-label {
+    position: absolute;
+    top: 0;
+    left: 4px;
+    font-size: 10px;
+    color: #333;
+    user-select: none;
+}

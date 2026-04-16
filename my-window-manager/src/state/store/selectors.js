@@ -8,6 +8,7 @@ import * as chordSelectors from "../chords/chordSelectors.js"
 import * as sectionSelectors from "../sections/sectionSelectors.js"
 import * as projectSelectors from "../project/projectActions.js"
 import * as playerSelectors from "../player/playerSelectors.js"
+import * as workshopSelectors from "../workshop/workshopSelectors.js"
 
 export const selectors = {
   app: appSelectors,
@@ -20,4 +21,5 @@ export const selectors = {
   sections: sectionSelectors,
   project: projectSelectors,
   player: playerSelectors,
+  workshop: workshopSelectors,
 }

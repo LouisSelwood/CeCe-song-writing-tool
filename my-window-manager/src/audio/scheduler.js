@@ -29,7 +29,8 @@ export function startScheduler(
   actions,
   globalEvents,
   secondsAtBeat,
-  midiOutput
+  midiOutput,
+  playerKey,
 ) {
   // If the scheduler is already active, then quit
   if (schedulerRunning) {
@@ -39,7 +40,12 @@ export function startScheduler(
   schedulerRunning = true;
 
   const audioCtx = getAudioContext();
-  const player = state.player;
+  let player = state.player;
+  if(playerKey === "Workshop"){
+    player = state.player.workshopPlayer;
+  }
+  console.log(playerKey)
+
 
   // Determines the start beat
   const startBeat = player.currentBeat;
@@ -54,13 +60,18 @@ export function startScheduler(
 
   // Scheduling loop
   const loop = () => {
-    const player = state.player;
+    let player = state.player;
+    if(playerKey === "Workshop"){
+      player = state.player.workshopPlayer;
+    }
+    console.log(playerKey)
 
     // Checks if the user has stopped the player and ends the scheduling loop
     if (!player.isPlaying) {
       console.log("Player stopped, shutting down scheduler");
 
       stopAllNotes(midiOutput);
+      activeNotes.clear();
       schedulerRunning = false;
       return;
     }

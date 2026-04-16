@@ -70,17 +70,24 @@ CHROMATIC_DEGREES_MINOR = {
 }
 
 INVERSION_BASS = {
-    "6": 3,
-    "64": 5,
-    "65": 3,
-    "43": 5,
-    "2": 7,
-    "6(sus2)": 3,
-    "6(sus4)": 3,
-    "64(sus2)": 5,
-    "64(sus4)": 5,
-    "6(+)": 3,
-    "64(+)": 5,
+    # Triads
+    "6": 2,      # 3rd of chord
+    "64": 4,     # 5th of chord
+
+    # 7th chords
+    "65": 2,     # 3rd
+    "43": 4,     # 5th
+    "2": 6,      # 7th
+
+    # Suspended triads
+    "6(sus2)": 2,
+    "6(sus4)": 2,
+    "64(sus2)": 4,
+    "64(sus4)": 4,
+
+    # Augmented
+    "6(+)": 2,
+    "64(+)": 4,
 }
 
 EXTENSION_QUALITY = {

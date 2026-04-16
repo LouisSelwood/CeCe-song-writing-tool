@@ -1,0 +1,26 @@
+.midi-settings-window {
+    position: absolute;
+    top: 60px;          /* below project bar */
+    right: 0px;        /* aligned to top-right */
+    width: 260px;
+    height: 200px;
+    background: white;
+    border: 1px solid #572E07;
+    border-radius: 8px;
+    padding: 12px;
+    z-index: 9999;      /* ensure it floats above everything */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.midi-settings-content button {
+    display: block;
+    width: 100%;
+    margin-top: 8px;
+}
+
+.instrument-select option {
+    height: 100px;
+    padding: 30px 10px; /* optional, makes text vertically centered */
+    font-size: 16px;    /* optional, scales text */
+}
+

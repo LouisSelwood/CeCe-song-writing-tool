@@ -1,0 +1,171 @@
+.chord-workshop {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: #1a1a1a;
+    color: #572E07;
+    user-select: none;
+    -webkit-user-drag: none;
+    font-weight: 700;
+}
+
+/* ⭐ Top Bar */
+.cw-project-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    height: 50px;
+    background: #AFBAAC;
+    border-bottom: 1px solid #444;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 15px;
+    z-index: 10;
+}
+
+.cw-left label {
+    margin-right: 5px;
+    opacity: 0.7;
+}
+
+.cw-left span {
+    margin-right: 20px;
+}
+
+.cw-right button {
+    margin-left: 10px;
+}
+
+/* ⭐ Content Area */
+.cw-content {
+    position: absolute;
+    top: 50px; /* below project bar */
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    display: flex;
+    flex-direction: row;
+}
+
+/* Chord Editor */
+.cw-chord-editor {
+    flex: 1;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    background: #DDE1D1;
+    border-right: 1px solid #333;
+}
+
+/* Chord Selector */
+.cw-chord-selector {
+    height: 100%;
+    background: #b5b8ab;
+    padding: 20px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ⭐ Draggable left edge */
+.cw-selector-resize-handle {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 6px;
+    height: 100%;
+    cursor: ew-resize;
+    background: transparent;
+}
+
+.cw-selector-resize-handle:hover {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+
+.cw-tempo-display {
+    cursor: pointer;
+    padding: 2px 4px;
+}
+
+.cw-tempo-input {
+    width: 60px;
+    padding: 2px 4px;
+    font-size: 14px;
+    font-weight: 700;
+    border: 1px solid #444;
+    background: #fff;
+    color: #000;
+}
+
+/* Wrapper ensures dropdown positions relative to the label */
+.cw-timesig-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+/* Clickable display */
+.cw-timesig-display {
+    cursor: pointer;
+    padding: 2px 4px;
+}
+
+/* Dropdown positioned directly under the display */
+.cw-timesig-dropdown {
+    position: absolute;
+    top: 100%; /* directly below the display */
+    left: 0;
+    height: 150px;
+    overflow-y: auto;
+    background: #ffffff;
+    color: #000;
+    border: 1px solid #444;
+    padding: 4px 0;
+    border-radius: 4px;
+    z-index: 9999;
+
+    min-width: 80px;
+}
+
+/* Options */
+.cw-timesig-option {
+    padding: 6px 12px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.cw-timesig-option:hover {
+    background: #d0d0d0;
+}
+
+.cw-left-buttons {
+    width: 80px;
+    background: #c9cfc2;
+    border-right: 1px solid #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.cw-left-buttons button {
+    height: 60px;
+    width: 60px;
+    padding: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    background: #eceee8;
+    border: 1px solid #444;
+    border-radius: 24px;
+}
+
+.cw-left-buttons button:hover {
+    background: #dcded7;
+}

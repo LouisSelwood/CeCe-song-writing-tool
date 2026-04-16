@@ -2,7 +2,7 @@ import { getAudioContext } from "../../audio/audioContext.js";
 import { startScheduler } from "../../audio/scheduler.js";
 import { midiOutput } from "../../audio/midiWrapper.js"; // MIDI Controller Wrapper
 import { resetSchedulerState, stopAllNotes } from "../../audio/scheduler.js";
-
+import { loadInstrument } from "../../audio/midiWrapper.js";
 export const setPlaying = (isPlaying) => (state) => {
     state.player.isPlaying = isPlaying;
 }
@@ -33,6 +33,7 @@ export const play = (store) => (state, domain, actions) => {
     }
 
     const currentBeat = state.player.currentBeat;
+    state.editor.scrollPosition = (currentBeat * state.editor.beatWidth * state.editor.zoomLevel) - 200;
 
     actions.setPlaybackStart({
         audioStartTime: audioCtx.currentTime,
@@ -50,6 +51,7 @@ export const play = (store) => (state, domain, actions) => {
         globalEvents,
         secondsAtBeat,
         midiOutput,  // MIDI controller wrapper
+        "Global"
     );
 };
 
@@ -58,12 +60,11 @@ export const play = (store) => (state, domain, actions) => {
 //pauses playing
 export const pause = () => (state, domain, actions) => {
     actions.setPlaying(false);
+    midiOutput.stopAll(); 
+    stopAllNotes(midiOutput);
+    resetSchedulerState();
 };
 
-//initiates rewind
-export const rewind = () => (state, domain, actions) => {
-    actions.setCurrentBeat(0);
-};
 
 export const setPlayerPosition = (beat) => (state, domain, actions) => {
     const audioCtx = getAudioContext();
@@ -81,13 +82,51 @@ export const setPlayerPosition = (beat) => (state, domain, actions) => {
         actions.setPlaying(false);
     }
 };
-export const extractChordEvents = () => (state, domain) => {
-    const chordEvents = domain.project.extractChordEvents(state)
-    console.log(chordEvents)
+
+export const flipPlay = () => (state, domain, actions) => {
+    if(state.player.isPlaying){
+        actions.pause();
+    }else{
+        actions.play();
+    }
+    console.log(state.player.isPlaying)
 }
 
-export const extractGlobalEvents = () => (state, domain) => {
-    const globalEvents = domain.project.getGlobalMidiEventlist(state);
-    console.log(globalEvents)
+export const setActiveInstrument = ({ref, name}) => (state) => {
+    loadInstrument(ref);
+    state.player.currentInstrument = name;
+
+}
+
+export const setRhythm = (pattern) => (state) => {
+    state.player.currentRhythm = pattern;
+}
+
+
+// Rewind/Fast Forward Impementation
+
+export const rewind = () => (state, domain, actions) => {
+    let targetBeat;
+
+    if (state.editor.activeEditor === "song") {
+        targetBeat = domain.sections.getPreviousSectionBeat(state);
+    } else {
+        targetBeat = domain.sequences.getPreviousSequenceBeat(state);
+    }
+
+    actions.setPlayerPosition(targetBeat);
+
+}
+
+export const fastForward = () => (state, domain, actions) => {
+    let targetBeat;
+
+    if (state.editor.activeEditor === "song") {
+        targetBeat = domain.sections.getNextSectionBeat(state);
+    } else {
+        targetBeat = domain.sequences.getNextSequenceBeat(state);
+    }
+
+    actions.setPlayerPosition(targetBeat);
 }
 

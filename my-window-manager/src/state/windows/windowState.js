@@ -3,7 +3,7 @@ export const windowInitialState = {
     order: [],
     byID: {},
     allIDs: [],
-    mousePos: null,
+    mousePos: {},
     focusedWindowID: null,
     drag: null,
     titleBarHeight: 30,

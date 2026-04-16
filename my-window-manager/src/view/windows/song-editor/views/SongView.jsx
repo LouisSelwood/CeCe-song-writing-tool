@@ -1,4 +1,5 @@
 import "../SongEditor.css";
+import { useState, useEffect } from "react";
 import {Bars} from "../../shared-components/Bars.jsx"
 import buildSections from "../../../components/buildSections.jsx"
 import { ZoomableScrollContainer } from "../../shared-components/ZoomableScrollableContainer.jsx";
@@ -29,6 +30,15 @@ export function SongView({ store, editorState, songSpace }) {
 
         store.actions.setPlayerPosition(beat);
     }
+
+    
+    useEffect(() => {
+        const drag = store.state.editor.drag;
+        if (!drag.active) return;
+    
+        const { x, y } = store.state.windows.mousePos;
+        store.actions.updateSectionDrag(x, y);
+    }, [store.state.windows.mousePos.x, store.state.windows.mousePos.y]);
     return (
         <ZoomableScrollContainer 
             store={store} 

@@ -1,7 +1,7 @@
 export async function getSequenceSuggestions(state, chordIDs){
     const chordString = encodeChords(state, chordIDs)
     console.log(chordString)
-    const result = await fetch("http://localhost:8000/getPrediction?chords=" + encodeURIComponent(chordString));
+    const result = await fetch("http://localhost:8000/predict_next?chords=" + encodeURIComponent(chordString));
     const data = await result.json();
     return data;
 }

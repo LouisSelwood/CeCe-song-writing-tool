@@ -10,7 +10,7 @@ print("Loading Vicuna secondary model...")
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # Switch to your Q3 model once downloaded
-MODEL_PATH = os.path.join(BASE_DIR, "model", "vicuna-7b-v1.5.Q4_K_M.gguf")
+MODEL_PATH = os.path.join(BASE_DIR, "model", "vicuna-7b-v1.5.Q3_K_S.gguf")
 
 if not os.path.exists(MODEL_PATH):
     raise FileNotFoundError(

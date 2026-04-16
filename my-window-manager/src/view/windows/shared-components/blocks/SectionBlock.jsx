@@ -91,17 +91,6 @@ export function SectionBlock({ store, sectionID, startBeat, length }) {
   };
 
   // -------------------------------
-  // DRAG UPDATE (global mousePos)
-  // -------------------------------
-  useEffect(() => {
-    const drag = editor.drag;
-    if (!drag.active) return;
-
-    const { x, y } = store.state.windows.mousePos;
-    store.actions.updateSectionDrag(x, y);
-  }, [store.state.windows.mousePos.x, store.state.windows.mousePos.y]);
-
-  // -------------------------------
   // HOVER GAP LOGIC (unchanged)
   // -------------------------------
   useEffect(() => {

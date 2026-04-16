@@ -1,0 +1,79 @@
+.project-bar {
+    width: 100%;
+    background: #ECF0EC;
+    border-bottom: 1px solid #572E07;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0 12px;
+    box-sizing: border-box;
+}
+
+.project-bar-left {
+    border: 1px solid black;
+    border-radius: 12px;
+    padding: 8px 8px;
+    min-width: 300px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.project-title {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.edit-title-btn {
+    margin-left: 6px;
+    font-size: 12px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    opacity: 0.6;
+}
+
+.edit-title-btn:hover {
+    opacity: 1;
+}
+
+.project-title-input {
+    font-size: 14px;
+    padding: 2px 4px;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    width: 160px;
+}
+
+
+.project-bar-center {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0 auto; 
+}
+
+.project-bar-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: auto;
+}
+
+.project-bar-center button {
+    height: 50px;
+    width: 50px;
+    border-radius: 56px;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.project-bar-right button {
+    height: 50px;
+    width: 50px;
+    border-radius: 56px;
+    font-size: 13px;
+    cursor: pointer;
+}

@@ -1,5 +1,6 @@
 import * as harmony from "./harmony";
 import * as timing from "../../audio/timing.js"
+import { RHYTHM_PATTERNS } from "../../audio/rhythms.js";
 
 //Creates a series of chord events from the song space
 export function extractChordEventsFromSongSpace(state) {
@@ -38,9 +39,44 @@ export function extractChordEventsFromSongSpace(state) {
       currentStart = i;
     }
   }
-
+  console.log(events);
   return events;
 }
+
+export function getChordEventsFromWorkshop(state){
+  const events = [];
+  const ws = state.workshop;
+
+  for (const beat of Object.values(ws.songSpace.beats)) {
+    console.log(beat)
+    const chordId = beat.chordID;
+
+    if (!chordId) continue;
+    console.log(chordId)
+    let chordData;
+
+    if (chordId === "newChord") {
+      chordData = ws.newChordSelected;
+    } else {
+      chordData = {...ws.songSpace.objects[chordId], ...state.chords.byID[chordId]};
+
+    }
+    if (!chordData) continue;
+    console.log(chordData)
+    events.push({
+      startBeat: chordData.startBeat,
+      durationBeats: chordData.durationBeats,
+      // whatever your harmony.chordEventToMidiNotes expects:
+      root: chordData.root,
+      quality: chordData.quality,
+      bass: chordData.bass,
+      // etc…
+    });
+  }
+  console.log(events)
+  return events;
+};
+
 
 //converts chord events to midi numeral format and adds it to the chord event
 export function chordEventsToMidiChords(chordEvents) {
@@ -51,7 +87,7 @@ export function chordEventsToMidiChords(chordEvents) {
 }
 
 //converts midi numeral to midi note on/off event
-export function chordEventToTimedMidiEvents(chordEvent, startBeat, durationBeats, secondsAtBeat) {
+export function chordEventToTimedMidiEvents(chordEvent, startBeat, durationBeats, secondsAtBeat, rhythmPattern) {
   const notes = harmony.chordEventToMidiNotes(chordEvent);
 
   //calculates the start and end time in ms
@@ -62,9 +98,31 @@ export function chordEventToTimedMidiEvents(chordEvent, startBeat, durationBeats
   const events = [];
 
   for (const note of notes) {
-    events.push({ type: "noteOn",  note, time: startTime });
-    events.push({ type: "noteOff", note, time: endTime });
-  }
+    const rhythm = RHYTHM_PATTERNS[rhythmPattern];
+
+    for (let i = 0; i < rhythm.length; i++) {
+        const offset = rhythm[i];
+
+        // Skip hits beyond chord duration
+        if (offset >= durationBeats) continue;
+
+        const t = timing.timeAtBeat(startBeat + offset, secondsAtBeat) * 1000;
+
+        // ⭐ Compute next hit time (if it exists)
+        let nextBeat = startBeat + (rhythm[i + 1] ?? durationBeats);
+
+        // ⭐ Clamp nextBeat to chord end
+        if (nextBeat > startBeat + durationBeats) {
+            nextBeat = startBeat + durationBeats;
+        }
+
+        const end = timing.timeAtBeat(nextBeat, secondsAtBeat) * 1000;
+
+        events.push({ type: "noteOn", note, time: t });
+        events.push({ type: "noteOff", note, time: end });
+    }
+}
+
 
   //sorts the event list by time
   events.sort((a, b) => a.time - b.time);
@@ -73,7 +131,7 @@ export function chordEventToTimedMidiEvents(chordEvent, startBeat, durationBeats
 }
 
 //converts all chord events into midi on/off events
-export function buildGlobalMidiEventList(chordEvents, secondsAtBeat) {
+export function buildGlobalMidiEventList(chordEvents, secondsAtBeat, rhythmPattern) {
   let globalEvents = [];
   
   //converts midi numerals to on/off events for each chord
@@ -84,7 +142,8 @@ export function buildGlobalMidiEventList(chordEvents, secondsAtBeat) {
       chordEvent,
       startBeat,
       durationBeats,
-      secondsAtBeat
+      secondsAtBeat,
+      rhythmPattern
     );
 
     globalEvents.push(...events);
@@ -92,6 +151,6 @@ export function buildGlobalMidiEventList(chordEvents, secondsAtBeat) {
 
   //sorts the events by time
   globalEvents.sort((a, b) => a.time - b.time);
-
+  console.log(globalEvents)
   return globalEvents;
 }

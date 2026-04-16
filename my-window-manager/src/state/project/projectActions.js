@@ -114,3 +114,11 @@ export const getSongDescription = () => (state, domain) => {
     console.log(description)
     return description;
 }
+
+export const setProjectName = (name) => (state, domain) => {
+    if(domain.project.validateProjectName(name)){
+        state.project.currentProject.name = name;
+    }else{
+        window.electronAPI.showError("Invalid Name", "project name must be parsable as a file name")
+    }
+}

@@ -1,0 +1,124 @@
+.chord-editor-container {
+    position: relative;
+    width: 80%;
+    height: 80%;
+    overflow: hidden;
+    border: 1px solid black;
+    border-radius: 12px;
+    background: #b9bab1;
+}
+
+.chord-editor-container:active {
+    cursor: grabbing;
+}
+
+.chord-editor-content {
+    position: relative;
+    top: 15%;
+    height: 60%;
+    border: 1px solid red;
+}
+
+.chord-block {
+    position: absolute;
+    height: 60px;
+    border: 1px solid #3a4a3a;
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    color: #2a2a2a;
+    user-select: none;
+    bottom: 0px;
+    top: 50%;
+}
+
+.new-chord-block {
+    position: absolute;
+    height: 60px;
+    border: 1px solid #4a3a48;
+    background-color: #d09b5b;
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    color: #2a2a2a;
+    user-select: none;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.new-chord-button {
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    border: 1px solid #4a3a48;
+    background-color: #d09b5b;
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    color: #2a2a2a;
+    transform: translateX(-50%);
+}
+
+.new-chord-button:hover {
+    background-color: #e2a04f; /* darker or lighter, your choice */
+}
+
+
+.add-section-insert{
+    position: absolute;
+    border-radius: 36px;
+    top: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: "'Anton', sans-serif";
+    font-weight: 700;
+    font-size: 56px;
+    text-transform: "uppercase";
+    letter-spacing: "1px";
+    box-sizing: border-box;
+    user-select: none;
+    -webkit-user-drag: none;
+    transition: background-color 0.15s ease;
+
+}
+
+.insert-circle {
+  display: flex;
+  width: 30px;
+  height: 30px;
+  border-radius: 16px;
+  font-size: 16px;
+  background-color: #AFBAAC;
+  border: 1px solid black;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.15s ease;
+  cursor: pointer;
+}
+
+.insert-circle:hover {
+  background-color: #8d968b; /* darker or lighter, your choice */
+}
+
+.insert-line {
+  height: 50px;
+  width: 3px;
+  background-color: #AFBAAC;
+}
+
+.chord-editor-playhead {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: #572e07;
+  pointer-events: none;
+}

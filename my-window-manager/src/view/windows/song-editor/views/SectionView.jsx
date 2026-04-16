@@ -1,4 +1,5 @@
 import "../SongEditor.css";
+import { useState, useEffect } from "react";
 import { Bars } from "../../shared-components/Bars.jsx";
 import buildSequences from "../../../components/buildSequences.jsx";
 import buildSectionTags from "../../../components/buildSectionTags.jsx";
@@ -31,6 +32,15 @@ export function SectionView({ store, editorState, songSpace }) {
 
         store.actions.setPlayerPosition(beat);
     }
+
+      // DRAG UPDATE (global mousePos) ----------------------------------------
+    useEffect(() => {
+        const drag = store.state.editor.sequenceDrag;
+        if (!drag.active) return;
+    
+        const { x, y } = store.state.windows.mousePos;
+        store.actions.updateSequenceDrag(x, y);
+    }, [store.state.windows.mousePos.x, store.state.windows.mousePos.y]);
 
     return (
         <ZoomableScrollContainer 

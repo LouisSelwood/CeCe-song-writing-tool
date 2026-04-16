@@ -266,7 +266,7 @@ export function Window({ store, id }) {
 
         </div>
         {/*Renders The content of the window*/}
-        <div className="window-content">
+        <div className="window-content" style={{top: store.state.windows.titleBarHeight}}>
           <WindowContent store={store} id={id}/>
         </div>
       </div>

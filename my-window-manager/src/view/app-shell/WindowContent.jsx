@@ -1,4 +1,5 @@
 import "./css/WindowContent.css";
+import { ChordWorkshop } from "../windows/chord-workshop/ChordWorkshop";
 import song from '../../../../test/TestSongs/dont-look-back-in-anger.json';
 
 export function WindowContent({ store, id }) {
@@ -37,16 +38,24 @@ export function WindowContent({ store, id }) {
 
 
   return (
-    <div className="window-content">
-      <div 
-        style={{width: 60, height: 60, alignSelf: "center",justifySelf: "space-between", color: "white",fontSize: 12, display: "flex", backgroundColor: "#2b5f3b", borderColor: "black", borderWidth: 4, borderRadius: 6}}
-        onMouseDown={unPopout}>
-      </div>
-      <div 
-        style={{width: 60, height: 60, alignSelf: "center",justifySelf: "space-between", color: "white",fontSize: 12, display: "flex", backgroundColor: "#2b5f3b", borderColor: "black", borderWidth: 4, borderRadius: 6}}
-        onMouseDown={testerButton}>
-      </div>
-      {store.state.windows.byID[id].state}
+
+    <div style={{height: "100%", width: "100%"}}>
+      {store.state.windows.byID[id].type === "Debug" && (
+        <>
+        <div 
+          style={{width: 60, height: 60, alignSelf: "center",justifySelf: "space-between", color: "white",fontSize: 12, display: "flex", backgroundColor: "#2b5f3b", borderColor: "black", borderWidth: 4, borderRadius: 6}}
+          onMouseDown={unPopout}>
+        </div>
+        <div 
+          style={{width: 60, height: 60, alignSelf: "center",justifySelf: "space-between", color: "white",fontSize: 12, display: "flex", backgroundColor: "#2b5f3b", borderColor: "black", borderWidth: 4, borderRadius: 6}}
+          onMouseDown={testerButton}>
+        </div>
+        </>
+      )}
+
+      {store.state.windows.byID[id].type === "Chord Workshop" && (
+        <ChordWorkshop store={store}/>
+      )}
     </div>
   );
 } 

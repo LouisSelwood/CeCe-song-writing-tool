@@ -3,5 +3,13 @@ export const playerInitialState={
     currentBeat: 0,        // where the playhead is, in beats
     audioStartTime: null,  // audioCtx.currentTime when playback started
     beatAtStart: 0,        // beat position at the moment we hit play
+    currentInstrument: "violin",
+    currentRhythm: "Sparse Cinematic",
 
+    workshopPlayer: {
+        isPlaying: false,
+        currentBeat: 0,
+        audioStartTime: 0,
+        beatAtStart: 0,
+    },
 }
