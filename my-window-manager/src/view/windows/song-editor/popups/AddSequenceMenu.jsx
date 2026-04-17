@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import "./sequencePopups.css";
+import repeatIcon from "../../../../assets/icons/repeat.png"
+import addIcon from "../../../../assets/icons/add.png"
 
 export function AddSequenceMenu({ store }) {
   const popupRef = useRef(null);
@@ -118,49 +120,14 @@ export function AddSequenceMenu({ store }) {
     >
       <div className="button-stack">
 
-        {/* BUTTON 1 — RECOMMENDATIONS */}
-        <div
-          className="popup-btn"
-          onMouseEnter={() => setOpenMenu("one")}
-          onMouseLeave={() => setOpenMenu(null)}
-        >
-          R
-        </div>
-
-        {openMenu === "one" && (
-          <>
-            <div
-              className="submenu-bridge"
-              style={{ top: 0 }}
-              onMouseEnter={() => setOpenMenu("one")}
-            />
-
-            <div
-              className="submenu"
-              style={{ top: 0 }}
-              onMouseEnter={() => setOpenMenu("one")}
-              onMouseLeave={() => setOpenMenu(null)}
-            >
-              {Object.entries(recommendations).map(([name, id]) => (
-                <div
-                  key={id}
-                  className="submenu-item"
-                  onMouseDown={() => HandleRecommendChoice(id)}
-                >
-                  {name}
-                </div>
-              ))}
-            </div>
-          </>
-        )}
-
+        
         {/* BUTTON 2 — PRE-EXISTING */}
         <div
           className="popup-btn"
           onMouseEnter={() => setOpenMenu("two")}
           onMouseLeave={() => setOpenMenu(null)}
         >
-          P
+          <img src={repeatIcon} alt="repeat" style={{height: "60%", width: "60%"}}/>
         </div>
 
         {openMenu === "two" && (
@@ -196,7 +163,7 @@ export function AddSequenceMenu({ store }) {
           onMouseEnter={() => setOpenMenu("three")}
           onMouseLeave={() => setOpenMenu(null)}
         >
-          C
+          <img src={addIcon} alt="add" style={{height: "60%", width: "60%"}}/>
         </div>
 
         {openMenu === "three" && (

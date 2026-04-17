@@ -83,7 +83,6 @@ export const setActiveAddPopup = (newState) => (state) => {
 }
 
 export const setActiveInsertPopup = (newState) => (state) => {
-    console.log(newState)
     let popupActive = null;
     if(newState){
         if(state.editor.activeEditor === "song"){
@@ -157,14 +156,14 @@ export const updateSongSpaceFromState = () => (state) => {
             songSpace.objects[section.id] = {
                 type: "emptySection",
                 startBeat: currentBeat,
-                length: 4,
+                length: 16,
             };
 
             const time = {
                 min: Math.floor(currentTime / 60),
                 sec: Math.floor(currentTime % 60)
             };
-            for(let i=0; i < 4; i++){
+            for(let i=0; i < 16; i++){
                 songSpace.beats[currentBeat] = {
                     barStart: false,
                     tempo: null,
@@ -253,8 +252,9 @@ export const updateSongSpaceFromState = () => (state) => {
             timeSignature: lastTs,
             rhythm: null,
             time : {
-                min: Math.round(currentTime / 60), 
-                sec: Math.round(currentTime % 60)},
+                min: "", 
+                sec: ""
+            },
             objects: {}
         };
         currentTime += 60 / lastTempo;
@@ -276,6 +276,7 @@ export const updateSongSpaceFromState = () => (state) => {
 
 
 export const setSelectedSection = (sectionID) => (state) => {
+
   state.editor.selectedSectionID = sectionID;
   state.editor.selectedSectionIDs = [sectionID];
 }
@@ -285,6 +286,7 @@ export const setSelectedSectionRange = (sectionIDs) => (state) =>{
 }
 
 export const setSelectedSequence = (sequenceID) => (state) =>{
+  state.editor.selectedSequencePrevState = {...state.sequences.byID[sequenceID]};
   state.workshop.newChordPos = null;
   state.workshop.newChordLength = null;
   state.workshop.newChordSelected = {
@@ -304,12 +306,46 @@ export const setSelectedSequenceRange = (sequenceIDs) => (state) => {
   state.editor.selectedSequenceIDs = sequenceIDs;
 }
 
-export const clearAllSelections = () => (state) => {
+export const clearAllSelections = () => (state, domain, actions) => {
+  //Removes empty Sequences
+  const selectedSequence = state.editor.selectedSequenceID
+  if(selectedSequence !== null){
+    if(state.sequences.byID[selectedSequence]?.chordIDs.length === 0){
+      const parentSectionID = state.project.currentProject.songContents
+      .find(sectionID => state.sections.byID[sectionID].sequenceIDs.includes(selectedSequence));
+
+      if (parentSectionID) {
+        const arr = state.sections.byID[parentSectionID].sequenceIDs;
+        state.sections.byID[parentSectionID].sequenceIDs = arr.filter(id => id !== selectedSequence);
+      }
+
+      // Remove from sequences store
+      delete state.sequences.byID[selectedSequence];
+      state.sequences.allIDs = state.sequences.allIDs.filter(x => x !== selectedSequence);
+    }
+    else{
+      actions.generateExplanation(selectedSequence);
+    }
+  }
   state.editor.selectedSectionID = null;
   state.editor.selectedSectionIDs = [];
   state.editor.selectedSequenceID = null;
   state.editor.selectedSequenceIDs = [];
+
+  state.project.songVersion++;
 }
+
+export const generateExplanation = (sequenceID) => async (state, domain, actions) => {
+    const prev = state.editor.selectedSequencePrevState.chordIDs;
+    const curr = state.sequences.byID[sequenceID].chordIDs;
+
+    if (!(prev === curr)) {
+        console.log("UPDATING SEQUENCE EXPLANATION")
+        const updated = await domain.sequences.getExplanation(sequenceID, state);
+        state.sequences.byID[sequenceID] = updated;
+    }
+};
+
 
 
 export const startSectionDrag = (mouseX, mouseY, sectionIDs) => (state) => {

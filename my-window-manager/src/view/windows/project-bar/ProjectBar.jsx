@@ -1,6 +1,10 @@
 import "./projectBar.css";
 import { useState, useEffect, useRef } from "react";
 import { MidiSettings } from "./MidiSettings.jsx";
+import playIcon from "../../../assets/icons/play.png";
+import pauseIcon from "../../../assets/icons/pause.png";
+import backIcon from "../../../assets/icons/rewind.png";
+import forwardIcon from "../../../assets/icons/fastForward.png";
 
 export function ProjectBar({ store }) {
 
@@ -86,11 +90,19 @@ export function ProjectBar({ store }) {
 
             {/* CENTER */}
             <div className="project-bar-center">
-                <button onClick={() => store.actions.rewind()}>d</button>
-                <button onClick={() => store.actions.flipPlay()}>
-                    {state.player.isPlaying ? "❚❚" : "▶"}
+                <button onClick={() => store.actions.rewind()}>
+                     <img src={backIcon} alt="back" style={{height: "60%", width: "60%", marginTop: "4px",marginRight: "4px"}}/>
                 </button>
-                <button onClick={() => store.actions.fastForward()}>b</button>
+                <button onClick={() => store.actions.flipPlay()}>
+                    {state.player.isPlaying 
+                    ? 
+                     <img src={pauseIcon} alt="pause" style={{height: "40%", width: "40%", marginTop: "4px"}}/> 
+                    :
+                     <img src={playIcon} alt="play" style={{height: "40%", width: "40%",marginTop: "4px", marginLeft: "4px"}}/>}
+                </button>
+                <button onClick={() => store.actions.fastForward()}>
+                     <img src={forwardIcon} alt="forward" style={{height: "60%", width: "60%", marginTop: "4px",marginLeft: "4px"}}/>
+                </button>
             </div>
 
             {/* RIGHT */}

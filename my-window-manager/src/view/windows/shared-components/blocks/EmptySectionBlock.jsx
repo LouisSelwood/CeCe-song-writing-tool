@@ -17,6 +17,19 @@ export function EmptySectionBlock({ store, sectionID, startBeat, length }) {
   const [edge, setEdge] = useState(null); 
   // edge = "left" | "right" | null
 
+  function handleEmptySectionClick(){
+    if(store.state.sequences.allIDs.length === 0){
+      store.actions.addEmptySequenceAtPos(sectionID, null, 0);
+      store.actions.startChordWorkshop();
+    }
+    else{
+      const prevSectionID = store.state.project.currentProject.songContents[store.state.project.currentProject.songContents.indexOf(sectionID)-1]
+      console.log(prevSectionID)
+      const prevSequence = store.state.sections.byID[prevSectionID].sequenceIDs.at(-1);
+      store.actions.addEmptySequenceAtPos(sectionID, prevSequence, 0);
+      store.actions.startChordWorkshop();
+    }
+  }
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
@@ -55,7 +68,9 @@ export function EmptySectionBlock({ store, sectionID, startBeat, length }) {
         backgroundColor: "pink"
 
       }}
+      onClick={(handleEmptySectionClick)}
     >
+      Click To Start
     </div>
   );
 }

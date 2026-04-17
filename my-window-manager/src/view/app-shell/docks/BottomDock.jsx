@@ -45,7 +45,6 @@ export function BottomDock({ store }) {
     function handleMouseDown(e){
         const action = e.target.dataset.action;
         if (dock.contentIDs.includes(action)) {
-            console.log("yipyip");
             handleIconSelect(e, action);
             return;
         }else if(Object.keys(buttonHover).includes(action)){
@@ -67,7 +66,6 @@ export function BottomDock({ store }) {
         store.actions.startUndockDrag(action, "bottom", mouseX, mouseY);
 
         function handleMove(e){
-            console.log(store.state.windows.drag)
             if(store.state.windows.byID[action].dockedPos === "none"){
                 store.actions.dragWindowMove(e.clientX, e.clientY)
             }else{ 
@@ -92,11 +90,9 @@ export function BottomDock({ store }) {
     //handles tab button presses
     function handleButtonSelect(action){
         if(action === "close"){
-            console.log("window close")
             store.actions.closeWindow(dock.focusedID);
         }
         if(action === "undock"){
-            console.log("window undocked")
             store.actions.undockWindow(dock.focusedID);
         }
     }
@@ -112,9 +108,7 @@ export function BottomDock({ store }) {
         }
         //ends drag
         function handleUp(){
-            console.log(`before: ${store.state.windows.drag}`)
             store.actions.endDrag("dockResize");
-            console.log(`after: ${store.state.windows.drag}`)
             window.removeEventListener("mousemove", handleMove);
             window.removeEventListener("mouseup", handleUp);
         }

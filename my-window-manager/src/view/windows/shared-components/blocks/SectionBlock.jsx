@@ -97,7 +97,7 @@ export function SectionBlock({ store, sectionID, startBeat, length }) {
     const el = ref.current;
     if (!el) return;
 
-    const threshold = 1;
+    const threshold = 6;
 
     const handleMouseMove = (e) => {
       const rect = el.getBoundingClientRect();

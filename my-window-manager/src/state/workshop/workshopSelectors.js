@@ -65,3 +65,13 @@ export const parseChordName = (chordName) => {
         bass: bass || ""
     };
 }
+
+export const getEndBeat = (songSpace) => {
+    const beatKeys = Object.keys(songSpace.beats)
+        .map(Number)
+        .sort((a, b) => a - b);
+
+    if (beatKeys.length === 0) return 0;
+
+    return beatKeys.at(-1);
+};

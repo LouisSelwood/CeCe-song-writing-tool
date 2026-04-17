@@ -39,7 +39,6 @@ export function extractChordEventsFromSongSpace(state) {
       currentStart = i;
     }
   }
-  console.log(events);
   return events;
 }
 
@@ -48,11 +47,9 @@ export function getChordEventsFromWorkshop(state){
   const ws = state.workshop;
 
   for (const beat of Object.values(ws.songSpace.beats)) {
-    console.log(beat)
     const chordId = beat.chordID;
 
     if (!chordId) continue;
-    console.log(chordId)
     let chordData;
 
     if (chordId === "newChord") {
@@ -62,7 +59,6 @@ export function getChordEventsFromWorkshop(state){
 
     }
     if (!chordData) continue;
-    console.log(chordData)
     events.push({
       startBeat: chordData.startBeat,
       durationBeats: chordData.durationBeats,
@@ -73,7 +69,6 @@ export function getChordEventsFromWorkshop(state){
       // etc…
     });
   }
-  console.log(events)
   return events;
 };
 
@@ -151,6 +146,5 @@ export function buildGlobalMidiEventList(chordEvents, secondsAtBeat, rhythmPatte
 
   //sorts the events by time
   globalEvents.sort((a, b) => a.time - b.time);
-  console.log(globalEvents)
   return globalEvents;
 }

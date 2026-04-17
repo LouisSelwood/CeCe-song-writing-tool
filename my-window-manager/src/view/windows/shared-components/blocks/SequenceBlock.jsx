@@ -158,7 +158,6 @@ export function SequenceBlock({ store, sequenceID, startBeat, length }) {
             justifyContent: "center",
             height: "100%",
             alignItems: "center",
-            border: "1px solid blue",
           }}
         >
           {content.name}

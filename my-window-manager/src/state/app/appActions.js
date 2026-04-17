@@ -91,7 +91,6 @@ export const setProjectName = ({ name }) => (state, domain, actions, setState) =
     }
   });
 
-  console.log("Updated project:", updatedProject);
 };
 
 
@@ -102,7 +101,6 @@ export const saveProjectAs = (folder) => (state, domain) => {
 
 //Saves the project to the current listed file
 export const saveProject = () => (state, domain) => {
-  console.log(state.project.currentProject)
   domain.app.saveExistingProject(state);
 }
 
@@ -112,13 +110,11 @@ export const loadProject = (filePath) =>
     const newState = await domain.app.loadProject(state, filePath);
     setState(newState)
     actions.updateSongSpaceFromState();
-    actions.setupProject();
+    //actions.setupProject();
 
 };
 
 export const setupProject = () => (state, domain, actions) => {
-  actions.openWindow("Chord Workshop");
-  actions.openWindow("Song Editor");
-  actions.openWindow("Settings");
+  actions.startChordWorkshop();
 }
 

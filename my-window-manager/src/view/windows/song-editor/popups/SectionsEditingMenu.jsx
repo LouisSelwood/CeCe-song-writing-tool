@@ -1,5 +1,7 @@
 import { useMemo } from "react";
 import "./editingMenu.css";
+import copyIcon from "../../../../assets/icons/copy.png"
+import deleteIcon from "../../../../assets/icons/delete.png"
 
 export function EditingMenu({ store }) {
   if(store.state.editor.drag.active) {return};
@@ -40,9 +42,12 @@ export function EditingMenu({ store }) {
         top: top,
       }}
     >
-      <div className="edit-btn" onMouseDown={handleDelete}>E</div>
-      <div className="edit-btn" onMouseDown={handleDuplicate}>F</div>
-      <div className="edit-btn" onMouseDown={handleArchive}>G</div>
+      <div className="edit-btn" onMouseDown={handleDelete}>
+        <img src={deleteIcon} alt="delete" style={{height: "60%", width: "60%"}}/>
+      </div>
+      <div className="edit-btn" onMouseDown={handleDuplicate}>
+        <img src={copyIcon} alt="copy" style={{height: "60%", width: "60%"}}/>
+      </div>
     </div>
   );
 }

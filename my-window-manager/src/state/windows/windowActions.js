@@ -226,7 +226,6 @@ export const updateWindow = ({ id, patch }) => (state, domain) => {
 export const dockWindow = ({id, dock}) => (state, domain) => {
     if(dock === "maximise"){
         domain.windows.transition(state, id, "MAXIMISE");
-        console.log("Maximise")
         return;
     }
     domain.windows.transition(state, id, "DOCK")
@@ -238,3 +237,16 @@ export const dockWindow = ({id, dock}) => (state, domain) => {
     newWin.dockedPos = dock
     state.windows.byID[id] = newWin;
 };
+
+export const startChordWorkshop = () => (state, domain, actions) => {
+    const currentChordWorkshop = Object.values(state.windows.byID).find(window => window.type === "Chord Workshop")
+    if(currentChordWorkshop){
+        actions.closeWindow(currentChordWorkshop.id);
+    }
+    actions.openWindow("Chord Workshop");
+    const newChordWorkshop = Object.values(state.windows.byID).find(window => window.type === "Chord Workshop")
+    actions.dockWindow({id: newChordWorkshop.id, dock: "bottom"})
+    actions.switchDockWindow(newChordWorkshop.id, "bottom")
+    state.windows.docks.bottom.size = 500;
+    
+}

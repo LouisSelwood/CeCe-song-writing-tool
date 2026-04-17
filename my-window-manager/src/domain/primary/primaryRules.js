@@ -1,6 +1,12 @@
 export async function getSequenceSuggestions(state, chordIDs){
     const chordString = encodeChords(state, chordIDs)
-    console.log(chordString)
+    const result = await fetch("http://localhost:8000/predict_next?chords=" + encodeURIComponent(chordString));
+    const data = await result.json();
+    return data;
+}
+
+export async function getEmptySequenceSuggestions(state){
+    const chordString = state.project.currentProject.globalKey + "]" + state.project.currentProject.globalKey + " " + state.project.currentProject.globalKey
     const result = await fetch("http://localhost:8000/predict_next?chords=" + encodeURIComponent(chordString));
     const data = await result.json();
     return data;

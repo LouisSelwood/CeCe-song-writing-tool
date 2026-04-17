@@ -13,7 +13,33 @@ export function buildWorkshopBars(songSpace, zoomLevel, beatWidth) {
         }))
         .sort((a, b) => a.beatIndex - b.beatIndex);
 
-    if (beatEntries.length === 0) return bars;
+    if (beatEntries.length === 0) {
+        const beatsPerBar = songSpace.timeSig?.numerator ?? 4;
+
+        // Generate 10 empty bars starting at beat 0
+        for (let i = 0; i < 10; i++) {
+            const barStartBeat = i * beatsPerBar;
+
+            bars.push({
+                barStart: true,
+                beatIndex: barStartBeat,
+                time: { min: 0, sec: 0 }
+            });
+
+            if (zoomLevel > 3) {
+                for (let b = 1; b < beatsPerBar; b++) {
+                    bars.push({
+                        barStart: false,
+                        beatIndex: barStartBeat + b,
+                        time: { min: 0, sec: 0 }
+                    });
+                }
+            }
+        }
+
+        return bars;
+    }
+
 
     let currBar = 0;
 

@@ -47,6 +47,7 @@ export function SongEditor({ store }) {
         if (e.target.closest(".sequence-block")) return;
         if (e.target.closest(".view-button-container")) return;
         if (e.target.closest(".window-content")) return;
+        if (e.target.closest(".edit-btn-real")) return;
 
         // Clear selection only if click is inside editor AND not on interactive UI
         store.actions.clearAllSelections();

@@ -21,7 +21,7 @@ export const snapBeatToNearestBar = (beat, state) => {
   const beatInfo = state.editor.songSpace.beats[Math.floor(beat)];
   if (!beatInfo) return Math.round(beat); // fallback
 
-  const numerator = beatInfo.timeSignature.numerator;   // ✔ correct
+  const numerator = beatInfo.timeSignature?.numerator;   // ✔ correct
   const barLength = numerator;                          // beats per bar
 
   const barIndex = Math.round(beat / barLength);

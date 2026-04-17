@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import "./sectionPopups.css";
+import repeatIcon from "../../../../assets/icons/repeat.png"
+import addIcon from "../../../../assets/icons/add.png"
 
 export function InsertSectionMenu({ store }) {
   const popupRef = useRef(null);
@@ -75,64 +77,27 @@ useEffect(() => {
     >
       <div className="button-row">
 
-        {/* BUTTON 1 — RECOMMENDED */}
-        <div
-          className="popup-btn"
-          onMouseEnter={() => setOpenMenu("one")}
-          onMouseLeave={() => setOpenMenu(null)}
-        >
-          R
-        </div>
-
-        {openMenu === "one" && (
-          <>
-            {/* Invisible hover bridge */}
-            <div
-              className="submenu-bridge-top"
-              style={{ left: 0 }}
-              onMouseEnter={() => setOpenMenu("one")}
-            />
-
-            {/* Submenu ABOVE */}
-            <div
-              className="submenu-top"
-              style={{ left: 0 }}
-              onMouseEnter={() => setOpenMenu("one")}
-              onMouseLeave={() => setOpenMenu(null)}
-            >
-              {Object.entries(recommendations).map(([name, id]) => (
-                <div
-                  key={id}
-                  className="submenu-item"
-                  onMouseDown={() => HandleRecommendChoice(id)}
-                >
-                  {name}
-                </div>
-              ))}
-            </div>
-          </>
-        )}
-
+        
         {/* BUTTON 2 — PRE-EXISTING */}
         <div
           className="popup-btn"
           onMouseEnter={() => setOpenMenu("two")}
           onMouseLeave={() => setOpenMenu(null)}
         >
-          P
+          <img src={repeatIcon} alt="repeat" style={{height: "60%", width: "60%"}}/>
         </div>
 
         {openMenu === "two" && (
           <>
             <div
               className="submenu-bridge-top"
-              style={{ left: 60 }}
+              style={{ left: 0 }}
               onMouseEnter={() => setOpenMenu("two")}
             />
 
             <div
               className="submenu-top"
-              style={{ left: 60 }}
+              style={{ left: 0 }}
               onMouseEnter={() => setOpenMenu("two")}
               onMouseLeave={() => setOpenMenu(null)}
             >
@@ -155,20 +120,20 @@ useEffect(() => {
           onMouseEnter={() => setOpenMenu("three")}
           onMouseLeave={() => setOpenMenu(null)}
         >
-          C
+          <img src={addIcon} alt="add" style={{height: "60%", width: "60%"}}/>
         </div>
 
         {openMenu === "three" && (
           <>
             <div
               className="submenu-bridge-top"
-              style={{ left: 120 }}
+              style={{ left: 60 }}
               onMouseEnter={() => setOpenMenu("three")}
             />
 
             <div
               className="submenu-top"
-              style={{ left: 120 }}
+              style={{ left: 60 }}
               onMouseEnter={() => setOpenMenu("three")}
               onMouseLeave={() => setOpenMenu(null)}
             >
@@ -176,7 +141,7 @@ useEffect(() => {
                 className="submenu-item"
                 onMouseDown={()=>HandleCreateNewSection()}
               >
-                Create New Sequence
+                Create New Section
               </div>
 
             </div>

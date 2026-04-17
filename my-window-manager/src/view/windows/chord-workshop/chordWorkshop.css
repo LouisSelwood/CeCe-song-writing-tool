@@ -169,3 +169,60 @@
 .cw-left-buttons button:hover {
     background: #dcded7;
 }
+
+.cw-sectionname-display {
+    margin-right: 8px;
+    padding: 4px 8px;
+    background: #DDE1D1;
+    border: 1px solid #444;
+    border-radius: 4px;
+    cursor: text;
+}
+
+.cw-sectionname-input {
+    margin-right: 8px;
+    padding: 4px 8px;
+    background: #DDE1D1;
+    border-radius: 4px;
+}
+
+/* Wrapper ensures dropdown positions relative to the label */
+.cw-key-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+/* Clickable display */
+.cw-key-display {
+    cursor: pointer;
+    padding: 2px 4px;
+}
+
+/* Dropdown positioned directly under the display */
+.cw-key-dropdown {
+    position: absolute;
+    top: 100%; /* directly below the display */
+    left: 0;
+    height: 150px;
+    overflow-y: auto;
+    background: #ffffff;
+    color: #000;
+    border: 1px solid #444;
+    padding: 4px 0;
+    border-radius: 4px;
+    z-index: 9999;
+
+    min-width: 80px;
+}
+
+/* Options */
+.cw-key-option {
+    padding: 6px 12px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.cw-key-option:hover {
+    background: #d0d0d0;
+}
+

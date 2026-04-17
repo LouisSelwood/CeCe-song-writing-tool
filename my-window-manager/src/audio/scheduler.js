@@ -44,7 +44,6 @@ export function startScheduler(
   if(playerKey === "Workshop"){
     player = state.player.workshopPlayer;
   }
-  console.log(playerKey)
 
 
   // Determines the start beat
@@ -64,7 +63,6 @@ export function startScheduler(
     if(playerKey === "Workshop"){
       player = state.player.workshopPlayer;
     }
-    console.log(playerKey)
 
     // Checks if the user has stopped the player and ends the scheduling loop
     if (!player.isPlaying) {

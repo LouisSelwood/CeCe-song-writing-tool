@@ -22,9 +22,11 @@ export const editorInitialState = {
         sequenceIDs: []
     },
     //single select state
-    chordSelected: null,
-    sequenceSelected: null,
-    sectionSelected: null,
+    selectedChordID: null,
+    selectedSequenceID: null,
+    selectedSectionID: null,
+
+    selectedSequenceIDPrevState: null,
 
     //multiselect state
     selectedChordIDs: [],

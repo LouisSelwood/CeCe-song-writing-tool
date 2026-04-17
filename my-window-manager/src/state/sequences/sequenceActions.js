@@ -100,3 +100,30 @@ export const duplicateSelectedSequences = () => (state, domain, actions) => {
     }
 }
 
+export const addEmptySequenceAtPos = (sectionID, prevSequenceID, pos) => (state, domain, actions) => {
+    //Find the previous section
+    let prevSequence = null;
+    if(prevSequenceID !== null){
+        prevSequence = state.sequences.byID[prevSequenceID]
+    }
+    else{
+        prevSequence = {
+            tempo: 80,
+            timeSignature: {numerator: 4, denominator: 4},
+            rhythm: null,
+            keySignature: "C major"
+        }
+    }
+    const newSequence = domain.sequences.createEmptySequence({
+        tempo: prevSequence.tempo, 
+        timeSignature: prevSequence.timeSignature, 
+        rhythm: null, 
+        keySignature: prevSequence.keySignature
+    });
+    state.sections.byID[sectionID] = domain.sections.addSequenceAtPos(sectionID, newSequence.id, pos, state)
+    state.sequences.byID[newSequence.id] = newSequence.sequence;
+    state.sequences.allIDs.push(newSequence.id)
+    state.editor.selectedSequenceID = newSequence.id;
+    actions.startChordWorkshop();
+    state.project.songVersion++;
+}

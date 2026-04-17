@@ -22,7 +22,7 @@ export function InsertChordButton({ store }) {
   };
 
   const handleInsert = () => {
-    store.actions.initiateChordSelection()
+    store.actions.initiateChordSelection(state.workshop.hoveredGapPosition)
     store.actions.getRecommendedChordData();
   }
 

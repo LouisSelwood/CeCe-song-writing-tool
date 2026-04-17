@@ -80,7 +80,6 @@
   top: 0;
   bottom: 0;
   width: 2px;
-  background: red;
 }
 
 .section-holder {
@@ -97,7 +96,6 @@
   height: 150px;
   top: 50%;
   transform: translateY(-50%);
-  border: 1px solid red;
 
 }
 

@@ -72,7 +72,7 @@ export const initiateSequence = ({sequenceDSL, parentID, position}) => (state, d
     state.sequences.allIDs.push(genSequence.id);
     //checks if new position is given, if not then add object at the end of parent
     if (!Number.isInteger(position)) state.sections.byID[parentID] = domain.sections.addSequenceAtEnd(parentID, genSequence.id, state); 
-    else state.sections.byID[parentID] = domain.sections.addSequenceAtPos(parentID, genSequence.id, position, state); console.log("Position");
+    else state.sections.byID[parentID] = domain.sections.addSequenceAtPos(parentID, genSequence.id, position, state);
 
     //commits new chords to state
     for(const c of chords) {
@@ -111,7 +111,7 @@ export const getSongDescription = () => (state, domain) => {
             description += `\n`
         })
     })
-    console.log(description)
+
     return description;
 }
 

@@ -3,7 +3,6 @@ export const addEmptySectionAtEnd = () => (state, domain) => {
     state.project.currentProject = domain.project.addSectionAtEnd(newSection.id, state)
     state.sections.byID[newSection.id] = newSection;
     state.sections.allIDs.push(newSection.id)
-    console.log(state.sections)
     state.project.songVersion++;
 }
 
@@ -12,7 +11,6 @@ export const addEmptySectionAtPos = (pos) => (state, domain) => {
     state.project.currentProject = domain.project.addSectionAtPos(newSection.id, pos, state)
     state.sections.byID[newSection.id] = newSection;
     state.sections.allIDs.push(newSection.id)
-    console.log(state.sections)
     state.project.songVersion++;
 }
 
@@ -21,7 +19,7 @@ export const copySectionAtEnd = (sectionID) => (state, domain) => {
     let newChords = [];
     //creates new section and adds to project
     const section = state.sections.byID[sectionID];
-    console.log(section)
+
     let newSection = domain.sections.duplicateSection(section)
     state.project.currentProject = domain.project.addSectionAtEnd(newSection.id, state)
 
@@ -49,9 +47,6 @@ export const copySectionAtEnd = (sectionID) => (state, domain) => {
     //adds section to state
     state.sections.byID[newSection.id] = newSection;
     state.sections.allIDs.push(newSection.id)
-    console.log(newSection);
-    console.log(newSequences);
-    console.log(newChords)
     for(const s of newSequences){
         state.sequences.byID[s.id] = s;
         state.sequences.allIDs.push(s.id);
@@ -70,7 +65,6 @@ export const copySectionAtPos = (sectionID, pos) => (state, domain) => {
     let newChords = [];
     //creates new section and adds to project
     const section = state.sections.byID[sectionID];
-    console.log(section)
     let newSection = domain.sections.duplicateSection(section)
     state.project.currentProject = domain.project.addSectionAtPos(newSection.id, pos, state)
 
@@ -98,9 +92,6 @@ export const copySectionAtPos = (sectionID, pos) => (state, domain) => {
     //adds section to state
     state.sections.byID[newSection.id] = newSection;
     state.sections.allIDs.push(newSection.id)
-    console.log(newSection);
-    console.log(newSequences);
-    console.log(newChords)
     for(const s of newSequences){
         state.sequences.byID[s.id] = s;
         state.sequences.allIDs.push(s.id);
@@ -115,7 +106,6 @@ export const copySectionAtPos = (sectionID, pos) => (state, domain) => {
 }
 
 export const deleteSelectedSections = () => (state) => {
-    console.log(state.project.currentProject.songContents)
     const sections = state.editor.selectedSectionIDs;
     const sequences = []
     for(const sectionID of sections){
@@ -149,4 +139,8 @@ export const duplicateSelectedSections = () => (state, domain, actions) => {
         actions.copySectionAtPos(sectionID, endPos);
         endPos++;
     }
+}
+
+export const changeSectionName = (sectionID, name) => (state) => {
+    state.sections.byID[sectionID].name = name;
 }

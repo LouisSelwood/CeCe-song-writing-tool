@@ -8,6 +8,11 @@ export const setSequenceTimeSignature = (sequenceID, newTimeSignature) => (state
     state.project.songVersion++;
 }
 
+export const setSequenceKeySignature = (sequenceID, newKeySignature) => (state) => {
+    state.sequences.byID[sequenceID].keySignature = newKeySignature;
+    state.project.songVersion++;
+}
+
 export const updateWorkshopFromSongSpace = () => (state) => {
     const seqID = state.editor.selectedSequenceID;
     if (!seqID) {
@@ -30,7 +35,23 @@ export const updateWorkshopFromSongSpace = () => (state) => {
     let objects = {};
     let currentBeat = 0;
     let beatsIntoBar = 0;
-
+    if(sequence.chordIDs.length === 0 && state.workshop.newChordPos !== null){
+        const newLength = timeSig.numerator;
+        state.workshop.newChordLength = newLength;
+        state.workshop.newChordSelected.startBeat = currentBeat;
+        state.workshop.newChordSelected.durationBeats = newLength;
+        for(let i = 0; i < newLength; i++){
+            beats[currentBeat] = {
+                beat: currentBeat,
+                barStart: (currentBeat % timeSig.numerator) === 0,
+                chordID: "newChord",
+                tempo,
+                keySignature: sequence.keySignature,
+                timeSignature: timeSig,
+            };
+            currentBeat++;
+        }
+    }
     for (const chordID of sequence.chordIDs) {
         const chord = state.chords.byID[chordID];
         if (!chord) continue;
@@ -63,13 +84,12 @@ export const updateWorkshopFromSongSpace = () => (state) => {
 
             currentBeat += 1;
         }
-
         if(currentBeat === newChordPos){
-            state.workshop.newChordLength = durationBeats;
+            const newLength = durationBeats;
+            state.workshop.newChordLength = newLength;
             state.workshop.newChordSelected.startBeat = currentBeat;
-            state.workshop.newChordSelected.durationBeats = durationBeats;
-            console.log(state.workshop.newChordSelected)
-            for(let i = 0; i < durationBeats; i++){
+            state.workshop.newChordSelected.durationBeats = newLength;
+            for(let i = 0; i < newLength; i++){
                 beats[currentBeat] = {
                     beat: currentBeat,
                     barStart: (currentBeat % timeSig.numerator) === 0,
@@ -99,7 +119,7 @@ export const updateWorkshopFromSongSpace = () => (state) => {
         timeSig,
         totalBeats: currentBeat
     };
-    console.log(secondsAtBeat)
+
 };
 
 export const setWorkshopZoom = (zoom) => (state) => {
@@ -329,8 +349,8 @@ export const copySelectedChords = () => (state, domain, actions) => {
     state.project.songVersion++;
 };
 
-export const initiateChordSelection = () => (state) => {
-    state.workshop.newChordPos = state.workshop.hoveredGapPosition;
+export const initiateChordSelection = (pos) => (state) => {
+    state.workshop.newChordPos = pos;
     state.project.songVersion++;
    
 }
@@ -353,15 +373,18 @@ export const cancelNewChord = () => (state) => {
 export const getRecommendedChordData = () => async (state, domain) => {
     state.workshop.recommendedChordData = null;
     const parentSequence = state.sequences.byID[state.editor.selectedSequenceID]
-    const songSpace = state.workshop.songSpace;
-    if(!parentSequence) return;
-    if(!songSpace) return;
-    const newChordPrev = Object.values(songSpace.objects).find((s)=> (s.startBeat + s.durationBeats) === state.workshop.newChordPos)
-    const newChordPos = parentSequence.chordIDs.indexOf(newChordPrev.id)
-    const prevChords = parentSequence.chordIDs.slice(0, newChordPos+1);
-    console.log(prevChords)
-    const data = await domain.primary.getSequenceSuggestions(state, prevChords);
-    console.log(data)
+    let data = null;
+    if(parentSequence.chordIDs.length === 0){
+        data = await domain.primary.getEmptySequenceSuggestions(state);
+    }else{
+        const songSpace = state.workshop.songSpace;
+        if(!parentSequence) return;
+        if(!songSpace) return;
+        const newChordPrev = Object.values(songSpace.objects).find((s)=> (s.startBeat + s.durationBeats) === state.workshop.newChordPos)
+        const newChordPos = parentSequence.chordIDs.indexOf(newChordPrev.id)
+        const prevChords = parentSequence.chordIDs.slice(0, newChordPos+1);
+        data = await domain.primary.getSequenceSuggestions(state, prevChords);
+    }
     const entries = Object.entries(data.result);
 
     // Sort by likelihood DESC (higher = more likely)
@@ -380,13 +403,11 @@ export const getRecommendedChordData = () => async (state, domain) => {
         Unadvisable: entries.slice(q3).map(([chord]) => chord),
     };
 
-    console.log(state.workshop.recommendedChordData);
 
 }
 
 export const setNewChord = (chord) => (state) => {
     state.workshop.newChordSelected = {...state.workshop.newChordSelected, ...chord};
-    console.log(state.workshop.newChordSelected)
 
 }
 
@@ -397,9 +418,13 @@ export const commitNewChord = () => (state, domain,actions) => {
     if(!parentSequence) return;
     if(!songSpace) return;
     const newChordPrev = Object.values(songSpace.objects).find((s)=> (s.startBeat + s.durationBeats) === state.workshop.newChordPos)
-    const newChordPos = parentSequence.chordIDs.indexOf(newChordPrev.id);
+    let newChordPos
+    if(parentSequence.chordIDs.length === 0){
+        newChordPos = 0;
+    }else{
+        newChordPos = parentSequence.chordIDs.indexOf(newChordPrev.id);
+    }
     const newChord = domain.chords.createChord({root: chord.root, quality: chord.quality, bass: chord.bass, duration: (state.workshop.newChordLength/parentSequence.timeSignature.numerator)})
-    console.log(newChord);
     state.chords.byID[newChord.id] = newChord.chord;
     state.chords.allIDs.push(newChord.id);
     const newSequence = domain.sequences.addChordAtPos(parentSequence.id, newChord.id, newChordPos+1, state)
@@ -439,13 +464,11 @@ export const updateChordResize = (mouseX) => (state, domain, actions) => {
 
     // Convert px → beats
     const deltaBeats = Math.floor(dx / beatWidth);
-    console.log(deltaBeats)
     const newDuration = Math.max(1, resize.originalDuration + deltaBeats);
 
     // Prevent overlap with next chord
     const sequence = state.sequences.byID[state.editor.selectedSequenceID];
     const chordObj = state.chords.byID[resize.chordID]
-    console.log()
     
     if(newDuration !== (chordObj.duration * sequence.timeSignature.numerator)){
         chordObj.duration = newDuration / sequence.timeSignature.numerator
@@ -454,7 +477,6 @@ export const updateChordResize = (mouseX) => (state, domain, actions) => {
     // Live update
     actions.updateWorkshopFromSongSpace();
     state.project.songVersion++;
-    console.log("donzo");
 };
 
 

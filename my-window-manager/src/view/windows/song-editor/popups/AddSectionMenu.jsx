@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import "./sectionPopups.css";
+import repeatIcon from "../../../../assets/icons/repeat.png"
+import addIcon from "../../../../assets/icons/add.png"
 
 export function AddSectionMenu({ store }) {
   const popupRef = useRef(null);
@@ -71,51 +73,14 @@ export function AddSectionMenu({ store }) {
     >
       <div className="button-stack">
 
-        {/* BUTTON 1 — RECOMMENDATIONS */}
-        <div
-          className="popup-btn"
-          onMouseEnter={() => setOpenMenu("one")}
-          onMouseLeave={() => setOpenMenu(null)}
-        >
-          R
-        </div>
-
-        {openMenu === "one" && (
-          <>
-            {/* Invisible hover bridge */}
-            <div
-              className="submenu-bridge"
-              style={{ top: 30 }}
-              onMouseEnter={() => setOpenMenu("one")}
-            />
-
-            {/* Submenu */}
-            <div
-              className="submenu"
-              style={{ top: 30 }}
-              onMouseEnter={() => setOpenMenu("one")}
-              onMouseLeave={() => setOpenMenu(null)}
-            >
-              {Object.entries(recommendations).map(([name, id]) => (
-                <div
-                  key={id}
-                  className="submenu-item"
-                  onMouseDown={() => HandleRecommendChoice(id)}
-                >
-                  {name}
-                </div>
-              ))}
-            </div>
-          </>
-        )}
-
+        
         {/* BUTTON 2 — PRE-EXISTING */}
         <div
           className="popup-btn"
           onMouseEnter={() => setOpenMenu("two")}
           onMouseLeave={() => setOpenMenu(null)}
         >
-          P
+          <img src={repeatIcon} alt="repeat" style={{height: "60%", width: "60%"}}/>
         </div>
 
         {openMenu === "two" && (
@@ -123,14 +88,14 @@ export function AddSectionMenu({ store }) {
             {/* Invisible hover bridge */}
             <div
               className="submenu-bridge"
-              style={{ top: 98 }}
+              style={{ top: 0 }}
               onMouseEnter={() => setOpenMenu("two")}
             />
 
             {/* Submenu */}
             <div
               className="submenu"
-              style={{ top: 98 }}
+              style={{ top: 0 }}
               onMouseEnter={() => setOpenMenu("two")}
               onMouseLeave={() => setOpenMenu(null)}
             >
@@ -153,7 +118,7 @@ export function AddSectionMenu({ store }) {
           onMouseEnter={() => setOpenMenu("three")}
           onMouseLeave={() => setOpenMenu(null)}
         >
-          C
+          <img src={addIcon} alt="add" style={{height: "60%", width: "60%"}}/>
         </div>
 
         {openMenu === "three" && (
@@ -161,14 +126,14 @@ export function AddSectionMenu({ store }) {
             {/* Invisible hover bridge */}
             <div
               className="submenu-bridge"
-              style={{ top: 164 }}
+              style={{ top: 60 }}
               onMouseEnter={() => setOpenMenu("three")}
             />
 
             {/* Submenu */}
             <div
               className="submenu"
-              style={{ top: 164 }}
+              style={{ top: 60 }}
               onMouseEnter={() => setOpenMenu("three")}
               onMouseLeave={() => setOpenMenu(null)}
             >

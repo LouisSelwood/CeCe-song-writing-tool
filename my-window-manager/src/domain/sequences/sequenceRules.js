@@ -1,3 +1,28 @@
+import { getChordAsString } from "./sequenceHelpers";
+
+const format = `
+f"""You are a concise music theory assistant.
+You never add extra commentary or text outside the JSON.
+You analyse each chord in the context of the full progression, not in isolation.
+
+Chord progression: {chords}
+Key: {key}
+
+For each chord explain why it follows the PREVIOUS chord, not just what it is.
+The first chord should explain its role as the starting chord.
+
+Respond only in a valid JSON array, no text before or after:
+[
+  {{
+    "chord": "chord name",
+    "reason": "max 10 words, why it follows the previous chord",
+    "concept": "one music theory term"
+  }}
+
+Now Analyse
+]"""
+`
+
 export class SequenceSegment {
   constructor({
     id,
@@ -153,3 +178,23 @@ export function getNextSequenceBeat(state) {
     return next ? next.startBeat : beat;
 }
 
+
+export async function getExplanation(sequenceID, state) {
+    const sequence = state.sequences.byID[sequenceID];
+
+    let progression =  "Chord Progression: ";
+    for (const c of sequence.chordIDs) {
+        progression += getChordAsString(state, c) + " ";
+    }
+    progression += "  Key: " + sequence.keySignature
+
+    console.log(progression)
+    const prompt = format + progression;
+
+    const result = await fetch("http://localhost:8000/explain?chords=" + encodeURIComponent(prompt));
+
+    const data = await result.json();
+
+    const newSequence = SequenceSegment.deserialize(sequence.serialize());
+    newSequence.metadata["explanation"] = data;
+}

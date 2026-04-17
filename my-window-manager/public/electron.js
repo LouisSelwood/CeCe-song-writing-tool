@@ -203,7 +203,6 @@ ipcMain.on("store:dispatch", (event, data) => {
 
 //invoked by pop out window, closes the window
 ipcMain.handle("close-popout", (event, id) => {
-  console.log("ID Recieved:", id)
   const win = popoutWindows[id];
   if (win && !win.isDestroyed()) {
     win.close();

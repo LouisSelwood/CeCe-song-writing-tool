@@ -3,6 +3,8 @@ import { WorkshopBars } from "./workshop-bars/WorkshopBars";
 import { ChordBlock } from "./ChordBlock";
 import { NewChordBlock } from "./NewChordBlock";
 import { InsertChordButton } from "./InsertChordButton";
+import { AddChordButton } from "./AddChordButton";
+import tickIcon from "../../../assets/icons/tick.png"
 import "./chordEditor.css";
 
 export function ChordEditor({ store }) {
@@ -127,22 +129,26 @@ export function ChordEditor({ store }) {
                 <InsertChordButton store={store}/>
                 
                 {chordBlocks}
+                <AddChordButton store={store}/>
                 {ws.newChordPos !== null && (
                     <>
-                        <div 
-                            className="new-chord-button" 
-                            style={{left: ((ws.newChordPos + (ws.newChordLength/2)) * beatWidth) - ws.scrollX, top: "0px"}}
-                            onClick={()=>{store.actions.commitNewChord()}}
-                        >
-                            Add
-                        </div>
+                        {ws.newChordSelected.chordName !== null && (
+                            <div 
+                                className="new-chord-button" 
+                                style={{left: ((ws.newChordPos + (ws.newChordLength/2)) * beatWidth) - ws.scrollX, top: "0px"}}
+                                onClick={()=>{store.actions.commitNewChord()}}
+                            >
+                                <img src={tickIcon} alt="tick" style={{height: "60%", width: "60%"}}/>
+                            </div>
+
+                        )}
                         <NewChordBlock store={store}/>
                         <div 
                             className="new-chord-button" 
                             style={{left: ((ws.newChordPos + (ws.newChordLength/2)) * beatWidth) - ws.scrollX, bottom: "0px"}}
                             onClick={()=>{store.actions.cancelNewChord()}}
                         >
-                            Cancel
+                            X
                         </div>
                     </>
                 )}

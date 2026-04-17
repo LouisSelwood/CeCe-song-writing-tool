@@ -13,7 +13,21 @@
     align-items: center;
     height: 40px;
     width: 40px;
-    background: #444;
+    background: #ecf0ec;
+    color: white;
+    border-radius: 36px;
+    cursor: pointer;
+    font-size: 24px;
+    transition: background 0.15s;
+}
+
+.edit-btn-real {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    width: 40px;
+    background: #ecf0ec;
     color: white;
     border-radius: 36px;
     cursor: pointer;

@@ -59,8 +59,9 @@ export function SectionView({ store, editorState, songSpace }) {
                 <div className="sequence-holder">
                     <EditingMenu store={store} />
                     {sequences}
-
-                    <AddSectionButton store={store} />
+                    {store.state.sections.allIDs.length !== 0 && (
+                        <AddSectionButton store={store} />
+                    )}
                     <InsertSectionButton store={store} />
 
                     {editorState.popupActive === "AddSequence" && (

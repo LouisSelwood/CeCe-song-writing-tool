@@ -89,7 +89,6 @@ export const flipPlay = () => (state, domain, actions) => {
     }else{
         actions.play();
     }
-    console.log(state.player.isPlaying)
 }
 
 export const setActiveInstrument = ({ref, name}) => (state) => {

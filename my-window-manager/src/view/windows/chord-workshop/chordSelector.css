@@ -44,3 +44,16 @@
     cursor: pointer;
     user-select: none;
 }
+
+.custom-chord-input-wrapper {
+    padding: 6px 10px;
+}
+
+.custom-chord-input {
+    width: 80%;
+    height: 30px;
+    padding: 6px 8px;
+    border: 1px solid #444;
+    border-radius: 4px;
+    background: #dfe3d6;
+}

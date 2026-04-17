@@ -88,7 +88,6 @@ export function chordEventToMidiNotes(chordEvent) {
 
   // handle inversion if bass is specified
   if (bass !== '') {
-    console.log(bass)
     notes = applyBassInversion(notes, bass);
   }
 

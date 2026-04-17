@@ -63,7 +63,6 @@ export const getSectionsAsString = (state) => {
 
 export const getSectionPosition = (beatPosition, state) => {
     const songSpace = state.editor.songSpace;
-    console.log(songSpace)
     if (!songSpace || !songSpace.objects) return null;
 
     // Find the object whose startBeat matches the requested beat

@@ -46,7 +46,6 @@ export function LeftDock({ store }) {
     function handleMouseDown(e){
         const action = e.target.dataset.action;
         if (dock.contentIDs.includes(action)) {
-            console.log("yipyip");
             handleIconSelect(e, action);
             return;
         }else if(Object.keys(buttonHover).includes(action)){
@@ -92,11 +91,9 @@ export function LeftDock({ store }) {
     //handles tab button presses
     function handleButtonSelect(action){
         if(action === "close"){
-            console.log("window close")
             store.actions.closeWindow(dock.focusedID);
         }
         if(action === "undock"){
-            console.log("window undocked")
             store.actions.undockWindow(dock.focusedID);
         }
     }
