@@ -141,7 +141,7 @@ export function AddSectionMenu({ store }) {
                 className="submenu-item"
                 onMouseDown={() => HandleCreateNewSection()}
               >
-                Create New Sequence
+                Create New Section
               </div>
 
             </div>

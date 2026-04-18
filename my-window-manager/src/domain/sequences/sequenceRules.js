@@ -195,6 +195,6 @@ export async function getExplanation(sequenceID, state) {
 
     const data = await result.json();
 
-    const newSequence = SequenceSegment.deserialize(sequence.serialize());
+    const newSequence = SequenceSegment.deserialize(sequence);
     newSequence.metadata["explanation"] = data;
 }
