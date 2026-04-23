@@ -1,6 +1,6 @@
-import * as harmony from "./harmony";
-import * as timing from "../../audio/timing.js"
-import { RHYTHM_PATTERNS } from "../../audio/rhythms.js";
+import * as harmony from "./harmony.js";
+import * as timing from "../timing.js"
+import { RHYTHM_PATTERNS } from "../rhythms.js";
 
 //Creates a series of chord events from the song space
 export function extractChordEventsFromSongSpace(state) {

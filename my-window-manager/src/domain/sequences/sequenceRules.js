@@ -1,53 +1,42 @@
-import { getChordAsString } from "./sequenceHelpers";
-
-const format = `
-f"""You are a concise music theory assistant.
-You never add extra commentary or text outside the JSON.
-You analyse each chord in the context of the full progression, not in isolation.
-
-Chord progression: {chords}
-Key: {key}
-
-For each chord explain why it follows the PREVIOUS chord, not just what it is.
-The first chord should explain its role as the starting chord.
-
-Respond only in a valid JSON array, no text before or after:
-[
-  {{
-    "chord": "chord name",
-    "reason": "max 10 words, why it follows the previous chord",
-    "concept": "one music theory term"
-  }}
-
-Now Analyse
-]"""
-`
-
+// Defines the shape and attributes of sequence objects
 export class SequenceSegment {
-  constructor({
-    id,
-    tempo,
-    keySignature,
-    timeSignature,
-    rhythm,
-    name = "Sequence",
-    chordIDs = [],     // children (by ID)
-    metadata = {},    
-  }) {
-    this.id = id;
-    this.tempo = tempo;
-    this.keySignature = keySignature;
-    this.timeSignature = timeSignature;
-    this.rhythm = rhythm;
-    this.name = name;
-    this.chordIDs = chordIDs;
-    this.metadata = metadata;
-  }
+    constructor({
+        id,
+        /*
+            Each Sequence object holds their own
+            - tempo
+            - key
+            - time signature
+            rather than having them globally set
+        */
+        tempo,
+        keySignature,
+        timeSignature,
+        rhythm,
+        name = "Sequence",
+        chordIDs = [],
+        metadata = {},    
+    }) {
+        this.id = id;
+        this.tempo = tempo;
+        this.keySignature = keySignature;
+        this.timeSignature = timeSignature;
+        this.rhythm = rhythm;
+        this.name = name;
+        this.chordIDs = chordIDs;
+        this.metadata = metadata;
+    }
 
-  // --- Domain behaviour ---
+  // Domain Behaviour
 
   generateNewID(){
     this.id = "seq-" + Math.random().toString(36).slice(2);
+  }
+
+  addMetadata(subtitle, data){
+    if(subtitle === "explanation"){
+      this.metadata[subtitle] = data;
+    }
   }
 
   emptyChordIDs(){
@@ -83,7 +72,7 @@ export class SequenceSegment {
     }
   }
 
-  // --- Serialization ---
+  // Sequence Object -> State Object
 
   serialize() {
     return {
@@ -99,6 +88,7 @@ export class SequenceSegment {
     };
   }
 
+  // State Object -> Sequence Object
   static deserialize(data) {
     return new SequenceSegment(data);
   }
@@ -108,11 +98,13 @@ function generateID() {
   return "seq-" + Math.random().toString(36).slice(2);
 }
 
+// Creates an empty sequence object, with tempo, time signature, rhythm, and key signature attributes
 export function createEmptySequence({tempo, timeSignature, rhythm, keySignature}){
   const newSequence = new SequenceSegment({id: generateID(), tempo, timeSignature, rhythm, keySignature});
   return {id: newSequence.id, sequence: newSequence.serialize()};
 }
 
+// Duplicates a sequence and returns the empty copy to be populated by the state
 export function duplicateSequence(sequence){
   const newSequence = SequenceSegment.deserialize(sequence);
   newSequence.generateNewID();
@@ -120,18 +112,21 @@ export function duplicateSequence(sequence){
   return newSequence.serialize();
 }
 
+// Appends a given chord at the end of the given sequence
 export function addChordAtEnd(sequenceObj, chordID){
   const sequence = SequenceSegment.deserialize(sequenceObj);
   sequence.addChordAtEnd(chordID);
   return sequence.serialize();
 }
 
+// Appends a given chord at the end of the given sequence at Pos
 export function addChordAtPos(sequenceID, chordID, pos, state){
   const sequence = SequenceSegment.deserialize(state.sequences.byID[sequenceID]);
   sequence.addChordAtPos(chordID, pos);
   return sequence.serialize();
 }
 
+// Returns all chord objects belonging to the given sequence
 export function getChords(sequenceID, state){
   const sequence = SequenceSegment.deserialize(state.sequences.byID[sequenceID]);
   let chords = [];
@@ -141,60 +136,11 @@ export function getChords(sequenceID, state){
   return chords;
 }
 
-export function getPreviousSequenceBeat(state) {
-    const beat = state.editor.playheadPosition;
-    const songSpace = state.editor.songSpace;
+// Adds/Rewrites the given metadata of the given sequence object
+export function addMetadata(state, sequenceID, title, data){
+  const sequence = SequenceSegment.deserialize(state.sequences.byID[sequenceID]);
+  sequence.addMetadata(title, data);
+  return sequence.serialize();
 
-    if (!songSpace || !songSpace.objects) return 0;
-
-    // Extract sequence objects
-    const sequences = Object.values(songSpace.objects)
-        .filter(obj => obj.type === "sequence");
-
-    // Find the closest sequence BEFORE the playhead
-    const prev = sequences
-        .filter(seq => seq.startBeat < beat)
-        .sort((a, b) => b.startBeat - a.startBeat)[0];
-
-    return prev ? prev.startBeat : 0;
 }
 
-
-export function getNextSequenceBeat(state) {
-    const beat = state.editor.playheadPosition;
-    const songSpace = state.editor.songSpace;
-
-    if (!songSpace || !songSpace.objects) return beat;
-
-    // Extract sequence objects
-    const sequences = Object.values(songSpace.objects)
-        .filter(obj => obj.type === "sequence");
-
-    // Find the closest sequence AFTER the playhead
-    const next = sequences
-        .filter(seq => seq.startBeat > beat)
-        .sort((a, b) => a.startBeat - b.startBeat)[0];
-
-    return next ? next.startBeat : beat;
-}
-
-
-export async function getExplanation(sequenceID, state) {
-    const sequence = state.sequences.byID[sequenceID];
-
-    let progression =  "Chord Progression: ";
-    for (const c of sequence.chordIDs) {
-        progression += getChordAsString(state, c) + " ";
-    }
-    progression += "  Key: " + sequence.keySignature
-
-    console.log(progression)
-    const prompt = format + progression;
-
-    const result = await fetch("http://localhost:8000/explain?chords=" + encodeURIComponent(prompt));
-
-    const data = await result.json();
-
-    const newSequence = SequenceSegment.deserialize(sequence);
-    newSequence.metadata["explanation"] = data;
-}

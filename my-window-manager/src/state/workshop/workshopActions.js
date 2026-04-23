@@ -375,7 +375,7 @@ export const getRecommendedChordData = () => async (state, domain) => {
     const parentSequence = state.sequences.byID[state.editor.selectedSequenceID]
     let data = null;
     if(parentSequence.chordIDs.length === 0){
-        data = await domain.primary.getEmptySequenceSuggestions(state);
+        data = await domain.model.getEmptySequenceSuggestions(state);
     }else{
         const songSpace = state.workshop.songSpace;
         if(!parentSequence) return;
@@ -383,7 +383,7 @@ export const getRecommendedChordData = () => async (state, domain) => {
         const newChordPrev = Object.values(songSpace.objects).find((s)=> (s.startBeat + s.durationBeats) === state.workshop.newChordPos)
         const newChordPos = parentSequence.chordIDs.indexOf(newChordPrev.id)
         const prevChords = parentSequence.chordIDs.slice(0, newChordPos+1);
-        data = await domain.primary.getSequenceSuggestions(state, prevChords);
+        data = await domain.model.getSequenceSuggestions(state, prevChords);
     }
     const entries = Object.entries(data.result);
 
@@ -496,10 +496,10 @@ export const setChordHoveredResize = (id) => (state) => {
 
 
 //Workshop Player
-import { getAudioContext } from "../../audio/audioContext.js";
-import { startScheduler, resetSchedulerState, stopAllNotes } from "../../audio/scheduler.js";
-import { midiOutput } from "../../audio/midiWrapper.js";
-import { buildGlobalMidiEventList, getChordEventsFromWorkshop } from "../../data/music/chordExtraction.js"; // where your buildGlobalMidiEventList lives
+import { getAudioContext } from "../../data/audio/audioContext.js";
+import { startScheduler, resetSchedulerState, stopAllNotes } from "../../data/audio/scheduler.js";
+import { midiOutput } from "../../data/audio/midiWrapper.js";
+import { buildGlobalMidiEventList, getChordEventsFromWorkshop } from "../../data/audio/music/chordExtraction.js"; // where your buildGlobalMidiEventList lives
 
 export const wsSetPlaying = (isPlaying) => (state) => {
   state.player.workshopPlayer.isPlaying = isPlaying;

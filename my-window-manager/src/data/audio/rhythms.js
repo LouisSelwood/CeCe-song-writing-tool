@@ -1,14 +1,12 @@
+//Stores all rhythm patterns for the MIDI player
 export const RHYTHM_PATTERNS = {
     "Normal" : [0],
+
     "Straight 8ths": [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5],
 
     "Quarter Notes": [0, 1, 2, 3],
 
     "Offbeat 8ths": [0.5, 1.5, 2.5, 3.5],
-
-    "Arp Up (4 hits)": [0, 0.5, 1, 1.5],
-
-    "Arp Down (4 hits)": [0, 0.5, 1, 1.5], // play notes reversed
 
     "Trap Syncopation": [0, 0.75, 1.5, 2.25, 3],
 

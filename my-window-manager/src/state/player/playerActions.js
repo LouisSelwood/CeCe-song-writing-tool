@@ -1,8 +1,8 @@
-import { getAudioContext } from "../../audio/audioContext.js";
-import { startScheduler } from "../../audio/scheduler.js";
-import { midiOutput } from "../../audio/midiWrapper.js"; // MIDI Controller Wrapper
-import { resetSchedulerState, stopAllNotes } from "../../audio/scheduler.js";
-import { loadInstrument } from "../../audio/midiWrapper.js";
+import { getAudioContext } from "../../data/audio/audioContext.js";
+import { startScheduler } from "../../data/audio/scheduler.js";
+import { midiOutput } from "../../data/audio/midiWrapper.js"; // MIDI Controller Wrapper
+import { resetSchedulerState, stopAllNotes } from "../../data/audio/scheduler.js";
+import { loadInstrument } from "../../data/audio/midiWrapper.js";
 export const setPlaying = (isPlaying) => (state) => {
     state.player.isPlaying = isPlaying;
 }
@@ -42,7 +42,7 @@ export const play = (store) => (state, domain, actions) => {
 
     actions.setPlaying(true);
 
-    const globalEvents = domain.project.getGlobalMidiEventlist(state);
+    const globalEvents = domain.app.getGlobalMidiEventlist(state);
     const secondsAtBeat = state.editor.songSpace.secondsAtBeat;
 
     startScheduler(

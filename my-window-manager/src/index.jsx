@@ -10,7 +10,7 @@ import { selectors } from "./state/store/selectors.js";
 import { actions } from "./state/store/actions.js";
 import { domain } from "./domain/index.js";
 import song from '../../test/TestSongs/dont-look-back-in-anger.json';
-import { loadInstrument } from "./audio/midiWrapper.js";
+import { loadInstrument } from "./data/audio/midiWrapper.js";
 
 const store = createStore(initialState, actions, selectors, domain); //creates the global store
 

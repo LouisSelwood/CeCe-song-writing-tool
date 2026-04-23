@@ -341,8 +341,9 @@ export const generateExplanation = (sequenceID) => async (state, domain, actions
 
     if (!(prev === curr)) {
         console.log("UPDATING SEQUENCE EXPLANATION")
-        const updated = await domain.sequences.getExplanation(sequenceID, state);
-        state.sequences.byID[sequenceID] = updated;
+        const data = await domain.model.getExplanation(sequenceID, state, domain);
+        state.sequences.byID[sequenceID] = domain.sequences.addMetadata(state,sequenceID, "explanation", data)
+        
     }
 };
 

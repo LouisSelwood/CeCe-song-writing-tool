@@ -1,12 +1,14 @@
 from secondary.model_loader import get_secondary_model
 import time
+from secondary.prompts import prompts
 
 vicuna_model, DEVICE = get_secondary_model()
 
 def sequence_analysis(chord_list: str):
     start = time.time()
-    """Use the secondary model to explain the harmonic logic."""
-    prompt = chord_list
+    
+    prompt = prompts["explainSequence"]
+    prompt += chord_list
 
     response = vicuna_model(
         prompt,

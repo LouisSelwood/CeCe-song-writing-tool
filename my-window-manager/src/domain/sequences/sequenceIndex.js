@@ -3,5 +3,5 @@ import * as helpers from "./sequenceHelpers.js"
 
 export const sequencesDomain = {
   ...rules,
-  ...helpers
+  ...helpers,
 }

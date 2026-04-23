@@ -1,3 +1,4 @@
+// Handles window state
 export function transition(state, id, event) {
     const win = {...state.windows.byID[id]};
     switch (win.state) {
@@ -37,22 +38,27 @@ export function transition(state, id, event) {
     state.windows.byID[id] = win;
 }
 
+
 export function generateID() {
     return "win_" + Math.random().toString(36).slice(2);
 }
 
+//Applies window move logic
 export function moveWindow(state, id, delta) {
     const win = {...state.windows.byID[id]};
     win.x = state.windows.drag.startWinX + delta.x;
     win.y = Math.max(0,state.windows.drag.startWinY + delta.y);
-    state.windows.byID[id] = win;
+    return win;
 
 }
 
+//Applies window resize logic
 export function resizeWindow(state, id, delta) {
     const win = {...state.windows.byID[id]}
     const minusX = ['nw','w','sw']
     const minusY= ['nw','n','ne']
+
+    //Applies window horizontal drag
     if(minusX.includes(state.windows.drag.axis)){
         win.width = state.windows.drag.startWidth - delta.x;
         win.x = state.windows.drag.startWinX + delta.x;
@@ -60,15 +66,17 @@ export function resizeWindow(state, id, delta) {
         win.width = state.windows.drag.startWidth + delta.x;
     }
 
+    //Applies window vertical drag
     if(minusY.includes(state.windows.drag.axis)){
         win.height = state.windows.drag.startHeight - delta.y;
         win.y = state.windows.drag.startWinY + delta.y;
     }else{
         win.height = state.windows.drag.startHeight + delta.y;
     }
-    state.windows.byID[id] = win;
+    return win;
 }
 
+// Applies dock resize logic
 export function resizeDock(state, dock, delta) {
     const newDock = {...state.windows.docks[dock]};
     if(dock === "left"){
@@ -80,7 +88,7 @@ export function resizeDock(state, dock, delta) {
     else if(dock === "bottom"){
         newDock.size = Math.max(40,state.windows.drag.startSize - delta);
     }
-    state.windows.docks[dock] = newDock;
+    return newDock;
 }
 
 export function shouldUndock(distance) {
@@ -89,15 +97,17 @@ export function shouldUndock(distance) {
 
 export function focusWindow(state, id) {
     // Reset all to unfocused
-    for (const key in state.windows.byID) {
-        state.windows.byID[key].focused = false;
+    const ws = {...state.windows}
+    for (const key in ws.byID) {
+        ws.byID[key].focused = false;
     }
     // Focus target
-    state.windows.byID[id].focused = true;
+    ws.byID[id].focused = true;
     // Reorder
-    const idx = state.windows.order.indexOf(id);
-    if(idx !== -1) state.windows.order.splice(idx, 1);
-    state.windows.order.push(id);
+    const idx = ws.order.indexOf(id);
+    if(idx !== -1) ws.order.splice(idx, 1);
+    ws.order.push(id);
+    return ws;
 }
 
 export function validateWindowPatch(currentWindow, patch) {

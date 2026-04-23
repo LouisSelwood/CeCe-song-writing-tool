@@ -1,4 +1,4 @@
-import { buildSectionFromDSL, buildSequenceFromDSL, buildChordFromDSL } from "../../builders/songBuilders"
+import { buildSectionFromDSL, buildSequenceFromDSL, buildChordFromDSL } from "../../data/builders/songBuilders"
 
 export const initiateSong = ({songDSL}) => (state, domain) => {
     //initiates object holders

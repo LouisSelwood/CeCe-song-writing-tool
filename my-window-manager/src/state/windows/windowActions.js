@@ -1,15 +1,18 @@
 //calls the domain logic for move window
 export const moveWindow = (id, delta) => (state, domain) => {
-    domain.windows.moveWindow(state, id, delta);
+    const newWin = domain.windows.moveWindow(state, id, delta);
+    state.windows.byID[id] = newWin;
 }
 
 //calls the domain logic for resize window
 export const resizeWindow = (id, delta) => (state, domain) => {
-    domain.windows.resizeWindow(state, id, delta);
+    const newWin = domain.windows.resizeWindow(state, id, delta);
+    state.windows.byID[id] = newWin;
 }
 
 export const resizeDock = (dock, delta) => (state, domain) => {
-    domain.windows.resizeDock(state, dock, delta)
+    const newDock = domain.windows.resizeDock(state, dock, delta)
+    state.windows.docks[dock] = newDock;
 }
 
 //START DRAG
@@ -137,7 +140,8 @@ export const popinWindow = ({id}) => (state,domain) => {
 }
 
 export const focusWindow = (id) => (state, domain) => {
-    domain.windows.focusWindow(state, id);
+    const newWindows = domain.windows.focusWindow(state, id);
+    state.windows = newWindows;
 }
 
 export const openWindow = (type) => (state, domain) => {

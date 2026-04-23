@@ -3,7 +3,9 @@
  * Pure builders for Song objects
  * Return Song Objects to actions for them to be added to state
  * Each can be called from ProjectActions.js
- * Convert the domain specific song language into song objects
+ *      During development, in order to test  song components without having to add them in one by one
+ *      I developed a Domain Specific Language which could hold the contents of a song in a simple, readable way
+ *      These functinos below convert the DSL into individual song objects
  * 
  */
 
@@ -45,7 +47,7 @@ export function buildChordFromDSL(chordDSL, domain){
     return {id, chord};
 }
 
-//converts time signature from text format to object
+//Helper funciton
 function getTimeSig(timeSignature){
     const textTimeSignature = timeSignature.split("/")
     return {numerator: parseInt( textTimeSignature[0], 10), denominator: parseInt( textTimeSignature[1], 10)};

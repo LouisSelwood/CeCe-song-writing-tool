@@ -1,5 +1,5 @@
-import { GM_INSTRUMENTS } from "../../audio/gmInstruments";
-import { RHYTHM_PATTERNS } from "../../audio/rhythms";
+import { GM_INSTRUMENTS } from "../../data/audio/gmInstruments";
+import { RHYTHM_PATTERNS } from "../../data/audio/rhythms";
 
 
 export const getGMInstruments = () => GM_INSTRUMENTS;

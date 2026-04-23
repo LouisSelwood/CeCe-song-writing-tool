@@ -1,3 +1,5 @@
+//All available instruments for the MIDI playback and their reference codes
+
 export const GM_INSTRUMENTS = {
     "Piano": [
         { name: "Acoustic Grand Piano", ref: "acoustic_grand_piano" },
